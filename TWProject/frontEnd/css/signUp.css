@@ -1,0 +1,89 @@
+@charset "utf-8";
+/* CSS Document */
+
+.title{
+	text-align: center ;
+    color: #FFFFFF;;
+}
+
+.wrapper{
+   width: 90%;
+   max-width: 960px;
+   margin-top:100px;
+   margin-left:200px;
+   display: inline-block;
+    position: relative;
+}
+
+.container {
+	float: left;
+	text-align: left;
+    padding: 16px;
+    margin: auto;
+    color: #FFFFFF;
+    background: transparent;
+   
+	
+}
+
+
+.registrationButton{
+  float:left;
+  padding: 30px 40px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #476b6b;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin-top:40%;
+}
+
+.registrationButton:hover {background-color:#527a7a}
+
+.registrationButton:active {
+  background-color: #527a7a;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+form {
+    
+
+    margin-left: 35%;
+	margin-right:35%;
+	float:left;
+	overflow:hidden
+
+
+}
+
+input[type=text], input[type=password] {
+   
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+body {
+    background-image: url("../images/BACKGROUNDSIGNUP.png");
+    background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center;
+	font-family: "Georgia";
+
+}
+button:hover {
+    opacity: 0.8;
+    float : left;
+}
+
+input{
+	border-radius: 10px;
+	font-family: "Georgia";
+}

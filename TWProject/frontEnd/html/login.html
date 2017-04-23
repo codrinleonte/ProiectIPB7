@@ -1,0 +1,47 @@
+  
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/login.css">
+</head>
+<body>
+ 
+<div class = "wrapper">
+ <form method="post" action="/TW-SGBD/pageLoginProcess">
+  
+  
+  <div class="container">
+  
+  <div class="imgcontainer">
+    <img src="http://www.free-for-kids.com/welcome-directory-of-kids-quizzes.jpg" alt="Avatar" class="avatar">
+  </div>
+  
+  <div class = "datasPanel">
+    <p><input type="text" placeholder="Enter Username" name="uname" >	</p>
+    <p><input type="password" placeholder="Enter Password" name="psw" ></p>
+        
+    <p><button  type="submit" name ="login">Login</button>
+    <input type="checkbox" checked="checked"> Remember me</p>
+    
+  
+    <div>
+		<button  type="submit"  name ="signUp" >Sign Up</button>
+    </div>
+    </div>
+
+    
+    <div class ="userType">
+    I am a 
+ 		 <p><input type="radio" name="userType" value="child" required> Child</p>
+ 		 <p><input type="radio" name="userType" value="parent" required> Parent</p>
+    </div>
+ 
+  </div>
+
+ 
+ 
+</form>
+</div>
+</body>
+</html>

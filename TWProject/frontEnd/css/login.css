@@ -1,0 +1,112 @@
+form{
+	color:white;
+}
+
+.formular{
+	margin-left:45%;
+	margin-top:10%
+}
+
+
+input[type=text], input[type=password] {
+   
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background: url(../images/btn.gif);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: 0 0;
+    width: 70px;
+    height: 20px;
+    padding: 6px 0px 4px 0px;
+    font-size: 7pt;
+    border: none;
+    cursor: pointer;
+    color: #555!important;   
+    font-family: "Georgia";
+}
+
+
+
+.signUp{
+	margin-left : 80%;
+}
+body {
+    background-image: url("../images/BACKGROUND.png");
+    background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center;
+	font-family: "Georgia";
+}
+button:hover {
+    opacity: 0.8;
+
+}
+
+
+.imgcontainer {
+	float: left;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 55%;
+    border-radius: 20%;
+    margin-left:20%;
+}
+
+.wrapper{
+	text-align: left;
+    width: 100%;
+    height: 100%;
+    padding: 15% 0px;
+   
+}
+
+.datasPanel{
+float:left;
+}
+
+.userType{
+    margin-top : 25px;
+    float:right;
+}
+
+.container {
+	
+	text-align: left;
+    padding: 16px;
+    width: 550px;
+    height: 220px;
+    margin: 0 auto;
+    color: #FFFFFF;
+    background: #476b6b;
+    -moz-box-shadow: 0 0 10px 5px #000;
+    -webkit-box-shadow: 0 0 10px 5px #000;
+    box-shadow: 0 0 10px 5px #000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    
+}
+
+.container > p:last-child{
+	float: right;
+	margin-right: 5%;
+}
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+
+input{
+	border-radius: 10px;
+	font-family: "Georgia";
+}
+
