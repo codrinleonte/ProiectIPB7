@@ -71,8 +71,8 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 body {
-    background-image: url("../images/BACKGROUNDSIGNUP.png");
-    background-repeat:no-repeat;
+  background-image: url("../images/BACKGROUNDSIGNUP.png");
+  background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
 	font-family: "Georgia";
