@@ -1,4 +1,6 @@
 
+
+
 .parallax {
   
     background-image: url("../images/4FPllju-cartoon-network-backgrounds.jpg");
@@ -17,6 +19,7 @@
 
 }
 
+
 .top-nav a {
   float: right;
   display: block;
@@ -32,7 +35,7 @@
 
 .top-nav a:hover {
   
-  color: #00B3FE;
+  color:#6680CC;
 }
 
 .top-nav a:active {
@@ -45,10 +48,10 @@
    
     background-color:  #40464B;
    
-    
+    margin-top: 60%
     height: 50px;
     width:100%;
-    position:relative;
+    position:absolute;
     left: 0;
     bottom: 0; 
    
@@ -235,7 +238,10 @@ margin-left:500px;
 
 body{
     margin:0;
-    background-color:#2B8AC2;
+    background-image: url("../images/Mg7STPP.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
     font-family: "Georgia";
 }
 
@@ -518,25 +524,24 @@ input[type='radio']:checked:before {
 
 
 .answers input{
-    margin-top:0px;
+    margin-top:50px;
     margin-left:100px;
 }
 
 
 .question{
-     color:white;
-    font-family: "Georgia";
-    font-size: 20px;
-     z-index: 2;
-     position: absolute;
-     margin-top: 110px;
-     margin-left:220px;
-   
-    width: 200px;
-    height: 180px;
-    
-      word-wrap: break-word;
-      overflow: auto;
+  color:black;
+  font-family: "Georgia";
+  font-size: 20px;
+  z-index: 2;
+  position: absolute;
+  margin-top: 110px;
+  margin-left:220px;
+  width: 200px;
+  height: 180px;
+  word-wrap: break-word;
+  overflow: auto;
+  transition: innerHtml
 }
 
 .answersC{
@@ -547,25 +552,189 @@ input[type='radio']:checked:before {
   float:left;
 }
 
-.nextButton{
+.nextButton, .finishButton{
   float:left;
-
-  
-  padding: 20px 40px;
-  margin-left:170px;
+  padding: 20px 30px;
+  margin-left:80%;
+  margin-top:5%;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  outline: none;
+  color: #FFFFFF;
+  background-color: #1D4648;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 }
+
+
+.nextButton:hover, .finishButton:hover {background-color:#295E62}
+
+.nextButton:hover, .finishButton:active {
+  background-color: #1D4648;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
 
 .finishButton{
   display: none;
   float:left;
- 
   padding: 20px 40px;
+  margin-left:33%;
+  margin-top:5%;
+ 
 }
+
+
 .buttonsContainer{
   overflow: hidden;
-  margin-top: 150px;
-  margin-left:200px;
+
+  
   display:inline-block;
   white-space: nowrap;
-  width:300px;
+  height: 100px;
+  width:100%
+}
+
+
+.modalWindow {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.7); 
+
+}
+
+
+.modalWindow-content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    height:50%;
+    border-radius: 15px;
+}
+
+.modalTitle{
+  text-align: center;
+  width: 100%;
+  height: 10%;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.scoreImage{
+    content: url(../images/mickey-mouse-png-33.png);
+    width: 34%;
+    margin-right: 10%;
+    position: relative;
+    float: right;
+    height: auto;
+}
+
+.homeButton, .scoresButton{
+  float:left;
+  padding: 20px 30px;
+  margin-top: 10%;
+  margin-left:5%;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  outline: none;
+  color: #FFFFFF;
+  background-color: #1D4648;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+
+.homeButton:hover, .scoresButton:hover {background-color:#295E62}
+
+.homeButton:hover, .scoresButton:active {
+  background-color: #1D4648;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.scoresButton{
+ 
+}
+
+.fbShareButton{
+float: none;
+margin-top: 40%;
+margin-left: 10%;
+
+background-image: url("../images/Share-on-Facebook.png");
+background-repeat:no-repeat;
+background-position:center;
+border-radius: 10px;
+border: none;
+outline:none;
+width: 395px;
+height: 85px;
+cursor: pointer;
+}
+
+.tweetShareButton{
+margin-top: 5%;
+margin-left:40%;
+background-image: url("../images/TwitterShareButton.png");
+background-repeat:no-repeat;
+background-size:cover;
+background-position:center;
+border-radius: 10px;
+width: 300px;
+height: 70px;
+border: none;
+outline:none;
+}
+
+.modalButtons{
+  margin-top: 3%;
+  display: inline-block;
+  float:left;
+  width: 50%;
+
+}
+
+.modalButtons img{
+  float:left;
+  height:40px;
+  width:180px;
+  margin-left: 50px;
+}
+
+
+.fb{
+margin-top: 80px;
+}
+
+.tweet{
+margin-top: 20px;
 }
