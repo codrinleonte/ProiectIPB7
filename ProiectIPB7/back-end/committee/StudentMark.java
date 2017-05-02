@@ -12,7 +12,9 @@ public class StudentMark {
     private Student student;
     private Committee committee;
 
-    // TODO Add any other necessary data members(might be complete, need to consult
+    // TODO Add any other necessary data members(might be complete, need to consult)
+
+
 
 
 
@@ -37,6 +39,10 @@ public class StudentMark {
         this.committee = committee;
     }
 
+    // TODO Add any other necessary constructors(might be complete, need to consult)
+
+
+
 
 
     public double finalMark() {
@@ -56,6 +62,8 @@ public class StudentMark {
 
 
 
+
+
     public Vector<Integer> getProjectMarks() {
         return projectMarks;
     }
@@ -69,4 +77,6 @@ public class StudentMark {
     public void setOralMarks(Vector<Integer> oralMarks) {
         this.oralMarks = oralMarks;
     }
+
+    // TODO Add any other necessary getters/setters(might be complete, need to consult)
 }

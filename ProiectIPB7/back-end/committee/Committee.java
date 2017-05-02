@@ -14,6 +14,8 @@ public class Committee {
 
 
 
+
+
     public Committee() {
         this.secretary = new Secretary();
         this.teachers  = new Vector<>();
@@ -23,11 +25,13 @@ public class Committee {
         this.teachers  = teachers;
     }
 
+    // TODO Add any other necessary constructors(might be complete, need to consult)
+
+
 
 
 
     // TODO Add any methods needed
-
 
 
 
@@ -46,4 +50,6 @@ public class Committee {
     public void setTeachers(Vector<Teacher> teachers) {
         this.teachers = teachers;
     }
+
+    // TODO Add any other necessary setters/getters(might be complete, need to consult)
 }
