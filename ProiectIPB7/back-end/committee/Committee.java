@@ -10,7 +10,7 @@ public class Committee {
     private Secretary secretary;
     private Vector<Teacher> teachers;
 
-    // TODO Add any other necessary data members(might be complete)
+    // TODO Add any other necessary data members(might be complete, need to consult)
 
 
 
@@ -18,11 +18,11 @@ public class Committee {
         this.secretary = new Secretary();
         this.teachers  = new Vector<>();
     }
-
     public Committee(Secretary secretary, Vector<Teacher> teachers) {
         this.secretary = secretary;
         this.teachers  = teachers;
     }
+
 
 
 
@@ -36,7 +36,6 @@ public class Committee {
     public Secretary getSecretary() {
         return secretary;
     }
-
     public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
     }
@@ -44,7 +43,6 @@ public class Committee {
     public Vector<Teacher> getTeachers() {
         return teachers;
     }
-
     public void setTeachers(Vector<Teacher> teachers) {
         this.teachers = teachers;
     }
