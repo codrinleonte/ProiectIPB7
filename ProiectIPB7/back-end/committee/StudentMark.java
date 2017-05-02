@@ -78,5 +78,19 @@ public class StudentMark {
         this.oralMarks = oralMarks;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Committee getCommittee() {
+        return committee;
+    }
+    public void setCommittee(Committee committee) {
+        this.committee = committee;
+    }
+
     // TODO Add any other necessary getters/setters(might be complete, need to consult)
 }
