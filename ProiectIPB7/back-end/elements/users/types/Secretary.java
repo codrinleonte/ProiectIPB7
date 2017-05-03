@@ -18,7 +18,7 @@ public class Secretary extends Teacher {
 
 
 
-    // TODO add the methods for stuff that should be done by admins only
+    // TODO add the methods for stuff that should be done by secretaries only
 
 
 
