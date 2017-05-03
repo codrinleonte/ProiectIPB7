@@ -1,4 +1,4 @@
-package elements.users.types;
+package model.users.types;
 
 import java.util.Vector;
 

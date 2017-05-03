@@ -1,4 +1,4 @@
-package elements.users.types;
+package model.users.types;
 
 public class Secretary extends Teacher {
 

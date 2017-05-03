@@ -1,8 +1,8 @@
-package committee;
+package model.committee;
 
-import elements.scheduling.Timetable;
-import elements.users.types.Secretary;
-import elements.users.types.Teacher;
+import model.scheduling.Timetable;
+import model.users.types.Secretary;
+import model.users.types.Teacher;
 
 import java.util.Vector;
 

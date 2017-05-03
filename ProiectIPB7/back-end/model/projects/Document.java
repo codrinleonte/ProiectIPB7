@@ -1,4 +1,4 @@
-package elements.projects;
+package model.projects;
 
 public class Document {
 

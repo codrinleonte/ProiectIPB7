@@ -1,6 +1,6 @@
-package committee;
+package model.committee;
 
-import elements.users.types.Student;
+import model.users.types.Student;
 
 import java.util.Vector;
 

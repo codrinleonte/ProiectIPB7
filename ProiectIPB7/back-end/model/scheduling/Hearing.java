@@ -1,8 +1,7 @@
-package elements.scheduling;
+package model.scheduling;
 
-import elements.users.types.Student;
+import model.users.types.Student;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Hearing {

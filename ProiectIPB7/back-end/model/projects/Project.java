@@ -1,7 +1,7 @@
-package elements.projects;
+package model.projects;
 
-import elements.users.types.Student;
-import elements.users.types.Teacher;
+import model.users.types.Student;
+import model.users.types.Teacher;
 
 public class Project {
 

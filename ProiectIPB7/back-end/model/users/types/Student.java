@@ -1,7 +1,7 @@
-package elements.users.types;
+package model.users.types;
 
-import elements.projects.Project;
-import elements.users.User;
+import model.projects.Project;
+import model.users.User;
 
 public class Student extends User {
 
