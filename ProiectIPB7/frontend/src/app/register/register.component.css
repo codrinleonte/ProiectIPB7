@@ -29,6 +29,6 @@
     user-select: none;
 }
 
-.auth_redirect_info:active{
+.auth_redirect_info:focus{
     outline: none;
 }

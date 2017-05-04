@@ -1,0 +1,17 @@
+.fii_logo{
+    height: 50px;
+}
+
+#fii_title{
+    margin-left: 10px;
+}
+
+.fii_title_container{
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+}
+
+.fii_title_container:focus{
+    outline: none;
+}
