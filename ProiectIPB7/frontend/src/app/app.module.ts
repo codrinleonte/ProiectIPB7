@@ -7,7 +7,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {routes} from "./app.router";
+import {routes} from './app.router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import {routes} from "./app.router";
       BrowserModule,
       FormsModule,
       HttpModule,
-      routes
+      BrowserAnimationsModule,
+      routes,
+      MaterialModule.forRoot()
+
   ],
   providers: [],
   bootstrap: [AppComponent]

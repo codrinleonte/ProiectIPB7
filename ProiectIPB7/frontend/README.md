@@ -3,7 +3,11 @@
 # Dependente necesare pentru rulare
 
 Pentru a rula partea de frontend este necesar ca Angular 4.0 sa fie instalat pe sistem. Dupa ce acesta a fost instalat dependentele se pot obtine 
-prin executarea comenzii "npm install" in directorul /frontend, din Command Prompt.
+prin executarea comenzii "npm install" in directorul /frontend, din Command Prompt.<br>
+Alte dependente:
+- Angular Material - "npm install @angular/material"
+- Angular Animations - "npm install @angular/animations"
+- HammerJS - "npm install hammerjs"
 
 # Rularea proiectului
 
