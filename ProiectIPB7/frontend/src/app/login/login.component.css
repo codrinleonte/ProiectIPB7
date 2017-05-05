@@ -9,10 +9,11 @@
 .login_input{
     margin-left: 20px;
     width: 460px;
+    margin-bottom: 0;
 }
 
 .input_container{
-    margin-top: 35px;
+    margin-top: 25px;
 }
 
 .login_btn{
@@ -22,12 +23,18 @@
 
 .auth_redirect_info{
     font-size: 12px;
-    text-align: center;
     cursor: pointer;
     color: gray;
     user-select: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 .auth_redirect_info:focus{
     outline: none;
+}
+
+.info_text{
+    margin-left: 20px;
 }

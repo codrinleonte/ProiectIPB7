@@ -1,8 +1,8 @@
 .register_card{
     width: 500px;
-    height: 300px;
+    height: 460px;
     margin-left: calc(50% - 250px);
-    margin-top: calc(50vh - 150px);
+    margin-top: calc(50vh - 230px);
     padding: 0;
 }
 
@@ -14,7 +14,6 @@
 .register_btn{
     width: 200px;
     margin-left: 150px;
-    margin-top: 25px;
 }
 
 .input_container{
@@ -23,12 +22,18 @@
 
 .auth_redirect_info{
     font-size: 12px;
-    text-align: center;
     cursor: pointer;
     color: gray;
     user-select: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 .auth_redirect_info:focus{
     outline: none;
+}
+
+.info_text{
+    margin-left: 20px;
 }

@@ -4,6 +4,7 @@
 
 #fii_title{
     margin-left: 10px;
+    text-shadow: -1px 0 #3D3D3D,0 1px #3D3D3D,1px 0 #3D3D3D,0 -1px #3D3D3D;
 }
 
 .fii_title_container{
