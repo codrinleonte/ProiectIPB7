@@ -3,12 +3,15 @@ package model.users.types;
 import model.marks.StudentMark;
 import model.projects.Project;
 import model.users.User;
+import model.users.rights.AccessRights;
 
 public class Student extends User {
 
     private Project project;
     private Teacher coordinator;
     private StudentMark mark;
+
+    private AccessRights rights;
 
     // TODO Add any other necessary data members(might be complete, need to consult)
 
@@ -36,6 +39,7 @@ public class Student extends User {
 
 
     // TODO Implement Student-specific methods like uploading a document
+    // TODO use the AccessRights. In here the methods should look like addLinkToProject(String link) { rights.addLinkToProject(link); }
 
 
 
@@ -60,6 +64,13 @@ public class Student extends User {
     }
     public void setMark(StudentMark mark) {
         this.mark = mark;
+    }
+
+    public AccessRights getRights() {
+        return rights;
+    }
+    public void setRights(AccessRights rights) {
+        this.rights = rights;
     }
 
     // TODO Add any other necessary getters/setters(might be complete, need to consult)
