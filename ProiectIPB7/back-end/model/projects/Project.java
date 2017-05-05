@@ -3,25 +3,23 @@ package model.projects;
 import model.users.types.Student;
 import model.users.types.Teacher;
 
+import java.util.Vector;
+
 public class Project {
 
     private String title;
     private Student student;
-    private Teacher coordinator;
+    private Vector<String> documentLinks;
 
     // TODO Add any other necessary data members
 
 
-    public Project() {
-        this.student     = new Student();
-        this.coordinator = new Teacher();
-    }
-    public Project(String title, Student student, Teacher coordinator) {
+    public Project() {}
+    public Project(String title, Student student, Vector<String> documentLinks) {
         this.title = title;
         this.student = student;
-        this.coordinator = coordinator;
+        this.documentLinks = documentLinks;
     }
-
     // TODO Add any other necessary constructors
 
 
@@ -48,12 +46,11 @@ public class Project {
         this.student = student;
     }
 
-    public Teacher getCoordinator() {
-        return coordinator;
+    public Vector<String> getDocumentLinks() {
+        return documentLinks;
     }
-    public void setCoordinator(Teacher coordinator) {
-        this.coordinator = coordinator;
+    public void setDocumentLinks(Vector<String> documentLinks) {
+        this.documentLinks = documentLinks;
     }
-
     // TODO Add any other necessary getters/setters
 }
