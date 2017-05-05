@@ -1,0 +1,24 @@
+
+.profile_card{
+    margin-top: 50px;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 0;
+}
+
+.profile_desc{
+    font-weight: bold;
+    margin: 5px;
+    margin-left: 50px;
+}
+
+.profile_info_container{
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+.profile_info{
+    position: absolute;
+    left: calc(50% - 100px);
+    margin: 5px;
+}

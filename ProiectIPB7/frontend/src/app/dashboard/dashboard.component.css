@@ -16,3 +16,9 @@
 .fii_title_container:focus{
     outline: none;
 }
+
+.user_btn{
+    position: absolute;
+    right: 20px;
+    color: black;
+}

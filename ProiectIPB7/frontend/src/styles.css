@@ -2,6 +2,7 @@ body{
     margin: 0;
     padding: 0;
     background-color: #eeeeee;
+    min-width: 1024px;
 }
 
 .card_header{
@@ -24,4 +25,8 @@ h3{
 p{
     font-family: sans-serif;
     color: #3A3A3A;
+}
+
+.display_flex{
+    display: flex;
 }

@@ -11,13 +11,19 @@ import {routes} from './app.router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import { ProfileComponent } from './dashboard/profile/profile.component';
+import { HomeComponent } from './dashboard/home/home.component';
+import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent,
+    HomeComponent,
+    PanelButtonComponent
   ],
   imports: [
       BrowserModule,
