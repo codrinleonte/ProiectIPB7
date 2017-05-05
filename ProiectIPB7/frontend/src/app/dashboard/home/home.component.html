@@ -1,5 +1,32 @@
 <md-card class="panel">
-    <app-panel-button icon="assets/submit.svg" desc="Inscriere examen licenta"></app-panel-button>
-    <app-panel-button icon="assets/mygrade.svg" desc="Vizualizare nota obtinuta"></app-panel-button>
-    <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"></app-panel-button>
+    <div *ngIf="userClass==1">
+        <app-panel-button icon="assets/submit.svg" desc="Inscriere examen licenta"></app-panel-button>
+        <app-panel-button icon="assets/mygrade.svg" desc="Vizualizare nota obtinuta"></app-panel-button>
+        <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"></app-panel-button>
+    </div>
+    <div *ngIf="userClass==2">
+        <app-panel-button icon="assets/comission.svg" desc="Selectare comisie"></app-panel-button>
+        <app-panel-button icon="assets/evaluation.svg" desc="Evaluare"></app-panel-button>
+        <app-panel-button icon="assets/grades.svg" desc="Vizualizare note studenti"></app-panel-button>
+        <app-panel-button icon="assets/mygrade.svg" desc="Management studenti"></app-panel-button>
+    </div>
+    <div *ngIf="userClass==3">
+        <app-panel-button icon="assets/generate.svg" desc="Generare tabele note"></app-panel-button>
+        <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"></app-panel-button>
+        <app-panel-button icon="assets/manage.svg" desc="Gestionare profesori/comisii"></app-panel-button>
+    </div>
+    <div *ngIf="userClass==4">
+        <app-panel-button icon="assets/generate.svg" desc="Generare tabela note"></app-panel-button>
+        <app-panel-button icon="assets/generate.svg" desc="Generare repartizare pe sali"></app-panel-button>
+    </div>
+</md-card>
+
+<md-card class="debug_card">
+    <md-toolbar class="card_header"><h4>DEBUG</h4></md-toolbar>
+    <md-card-content class="debug_container">
+        <button md-raised-button class="debug_btn" (click)="onStudentCPClick()">Stil CP: Student</button><br>
+        <button md-raised-button class="debug_btn" (click)="onProfesorCPClick()">Stil CP: Profesor</button><br>
+        <button md-raised-button class="debug_btn" (click)="onSecretarCPClick()">Stil CP: Secretar</button><br>
+        <button md-raised-button class="debug_btn" (click)="onAdminCPClick()">Stil CP: Admin</button><br>
+    </md-card-content>
 </md-card>

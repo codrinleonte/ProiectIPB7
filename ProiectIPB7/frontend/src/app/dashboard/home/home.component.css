@@ -5,3 +5,18 @@
     margin-right: 150px;
     margin-bottom: 50px;
 }
+
+.debug_card{
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 0;
+}
+
+.debug_container{
+    display: flex;
+    padding: 15px;
+}
+
+.debug_btn{
+    margin-right: 5px;
+}
