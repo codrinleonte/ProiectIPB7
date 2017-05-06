@@ -4,7 +4,8 @@
                             routerLink="/submit"></app-panel-button>
         <app-panel-button icon="assets/mygrade.svg" desc="Vizualizare nota obtinuta"
                             (click)="openMyGradeDialog()"></app-panel-button>
-        <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"></app-panel-button>
+        <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"
+                            routerLink="/grades"></app-panel-button>
     </div>
     <div *ngIf="userClass==2">
         <app-panel-button icon="assets/comission.svg" desc="Selectare comisie"></app-panel-button>

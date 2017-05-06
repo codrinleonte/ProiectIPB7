@@ -16,6 +16,7 @@ import { HomeComponent } from './dashboard/home/home.component';
 import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button.component';
 import { SubmitComponent } from './dashboard/submit/submit.component';
 import { GradeDialogComponent } from './dashboard/grade-dialog/grade-dialog.component';
+import { GradesComponent } from './dashboard/grades/grades.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GradeDialogComponent } from './dashboard/grade-dialog/grade-dialog.comp
     HomeComponent,
     PanelButtonComponent,
     SubmitComponent,
-    GradeDialogComponent
+    GradeDialogComponent,
+    GradesComponent
   ],
     entryComponents: [GradeDialogComponent],
     imports: [
