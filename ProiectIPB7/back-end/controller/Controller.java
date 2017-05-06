@@ -1,6 +1,6 @@
 package controller;
 
-import elements.scheduling.Timetable;
+import model.scheduling.Timetable;
 
 public class Controller {
 

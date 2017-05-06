@@ -1,15 +1,17 @@
-package committee;
+package model.committee;
 
-import elements.scheduling.Timetable;
-import elements.users.types.Secretary;
-import elements.users.types.Teacher;
+import model.scheduling.Timetable;
+import model.users.types.Secretary;
+import model.users.types.Teacher;
 
 import java.util.Vector;
 
 public class Committee {
 
     private Secretary secretary;
-    private Vector<Teacher> teachers;
+    private Teacher president;
+    private Vector<Teacher> teachers;     // This is the main generator for instances
+    private Vector<Teacher> coordinators; // Given the set of students who will be evaluated by this committee, this is the set of teachers that coordinate those students
     private Timetable timetable;
 
     // TODO Add any other necessary data members(might be complete, need to consult)
@@ -19,14 +21,13 @@ public class Committee {
 
 
     public Committee() {
-        this.secretary = new Secretary();
-        this.teachers  = new Vector<>();
-        this.timetable = new Timetable();
     }
-    public Committee(Secretary secretary, Vector<Teacher> teachers, Timetable timetable) {
+    public Committee(Secretary secretary, Teacher president, Vector<Teacher> teachers) {
         this.secretary = secretary;
+        this.president = president;
         this.teachers  = teachers;
-        this.timetable = timetable;
+        this.coordinators = new Vector<>();
+        this.timetable    = new Timetable();
     }
 
     // TODO Add any other necessary constructors(might be complete, need to consult)

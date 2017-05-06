@@ -1,4 +1,6 @@
-package elements.scheduling;
+package model.scheduling;
+
+import model.scheduling.Hearing;
 
 import java.util.Vector;
 
