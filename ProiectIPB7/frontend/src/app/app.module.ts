@@ -17,6 +17,8 @@ import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button
 import { SubmitComponent } from './dashboard/submit/submit.component';
 import { GradeDialogComponent } from './dashboard/grade-dialog/grade-dialog.component';
 import { GradesComponent } from './dashboard/grades/grades.component';
+import { ComissionComponent } from './dashboard/comission/comission.component';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { GradesComponent } from './dashboard/grades/grades.component';
     PanelButtonComponent,
     SubmitComponent,
     GradeDialogComponent,
-    GradesComponent
+    GradesComponent,
+    ComissionComponent
   ],
     entryComponents: [GradeDialogComponent],
     imports: [
@@ -38,7 +41,8 @@ import { GradesComponent } from './dashboard/grades/grades.component';
         HttpModule,
         BrowserAnimationsModule,
         routes,
-        MaterialModule.forRoot()
+        MaterialModule.forRoot(),
+        DragulaModule
     ],
     providers: [],
     bootstrap: [AppComponent]

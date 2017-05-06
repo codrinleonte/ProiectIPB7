@@ -1,0 +1,57 @@
+.com_card{
+    margin: 50px;
+    padding: 0;
+    user-select: none;
+}
+
+.commission{
+    display: block;
+    width: 500px;
+    height: 240px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    overflow-y: auto;
+    box-shadow: 1px 1px 5px gray;
+}
+
+.prof_container{
+    display: inline-table;
+    width: 500px;
+    height: 250px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    text-align: center;
+    overflow-y: auto;
+    box-shadow: 1px 1px 5px gray;
+    position: fixed;
+    right: 75px;
+}
+
+.drag_option{
+    border: 1px solid lightgray;
+    margin: 5px;
+    background-color: whitesmoke;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    user-select: none;
+}
+
+.drag_option:hover{
+    background-color: ghostwhite;
+}
+
+.drag_option:active{
+    background-color: lightblue;
+}
+
+.commission_container{
+    display: inline-table;
+}
+
+.content{
+    padding: 25px;
+}

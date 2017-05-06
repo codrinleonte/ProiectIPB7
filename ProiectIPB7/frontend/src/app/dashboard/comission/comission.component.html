@@ -1,0 +1,29 @@
+<md-card class="com_card">
+    <md-toolbar class="card_header"><h4>Gestionare comisii</h4></md-toolbar>
+    <md-card-content class="content">
+        <div class="commission_container">
+            <div class="commission" [dragula]='"first-bag"'>
+                Comisia 1 - Data examinare: 25-05-2017
+                <div class="drag_option">Profesor 1</div>
+                <div class="drag_option">Profesor 2</div>
+                <div class="drag_option">Profesor 3</div>
+            </div>
+            <div class="commission" [dragula]='"first-bag"'>
+                Comisia 2 - Data examinare: 27-05-2017
+                <div class="drag_option">Profesor 7</div>
+                <div class="drag_option">Profesor 8</div>
+                <div class="drag_option">Profesor 9</div>
+            </div>
+            <div class="commission" [dragula]='"first-bag"'>
+                Comisia 3 - Data examinare: 29-05-2017
+                <div class="drag_option">Profesor 10</div>
+            </div>
+        </div>
+        <div class="prof_container" [dragula]='"first-bag"'>
+            Profesori neasignati - Data examinare: 28-05-2017
+            <div class="drag_option">Profesor 4</div>
+            <div class="drag_option">Profesor 5</div>
+            <div class="drag_option">Profesor 6</div>
+        </div>
+    </md-card-content>
+</md-card>
