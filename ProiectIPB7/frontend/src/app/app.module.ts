@@ -19,6 +19,7 @@ import { GradeDialogComponent } from './dashboard/grade-dialog/grade-dialog.comp
 import { GradesComponent } from './dashboard/grades/grades.component';
 import { ComissionComponent } from './dashboard/comission/comission.component';
 import { DragulaModule } from 'ng2-dragula';
+import { EvaluationComponent } from './dashboard/evaluation/evaluation.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DragulaModule } from 'ng2-dragula';
     SubmitComponent,
     GradeDialogComponent,
     GradesComponent,
-    ComissionComponent
+    ComissionComponent,
+    EvaluationComponent
   ],
     entryComponents: [GradeDialogComponent],
     imports: [

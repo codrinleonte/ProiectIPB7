@@ -8,6 +8,7 @@ import {HomeComponent} from "./dashboard/home/home.component";
 import {SubmitComponent} from "./dashboard/submit/submit.component";
 import {GradesComponent} from "./dashboard/grades/grades.component";
 import {ComissionComponent} from "./dashboard/comission/comission.component";
+import {EvaluationComponent} from "./dashboard/evaluation/evaluation.component";
 
 export const router: Routes = [
     { path: '', component: DashboardComponent, children: [
@@ -15,7 +16,8 @@ export const router: Routes = [
         { path: 'profile', component: ProfileComponent },
         { path: 'submit', component: SubmitComponent },
         { path: 'grades', component: GradesComponent },
-        { path: 'commission', component: ComissionComponent }
+        { path: 'commission', component: ComissionComponent },
+        { path: 'evaluation', component: EvaluationComponent }
     ] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent }
