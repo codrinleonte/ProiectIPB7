@@ -20,3 +20,7 @@
 .debug_btn{
     margin-right: 5px;
 }
+
+app-panel-button{
+    outline: none;
+}

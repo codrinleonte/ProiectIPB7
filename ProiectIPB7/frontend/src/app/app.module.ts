@@ -14,6 +14,7 @@ import 'hammerjs';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { HomeComponent } from './dashboard/home/home.component';
 import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button.component';
+import { SubmitComponent } from './dashboard/submit/submit.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button
     DashboardComponent,
     ProfileComponent,
     HomeComponent,
-    PanelButtonComponent
+    PanelButtonComponent,
+    SubmitComponent
   ],
   imports: [
       BrowserModule,
@@ -32,7 +34,6 @@ import { PanelButtonComponent } from './dashboard/home/panel-button/panel-button
       BrowserAnimationsModule,
       routes,
       MaterialModule.forRoot()
-
   ],
   providers: [],
   bootstrap: [AppComponent]

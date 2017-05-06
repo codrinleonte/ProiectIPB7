@@ -5,11 +5,13 @@ import {RegisterComponent} from "./register/register.component";
 import {ModuleWithProviders} from "@angular/core";
 import {ProfileComponent} from "./dashboard/profile/profile.component";
 import {HomeComponent} from "./dashboard/home/home.component";
+import {SubmitComponent} from "./dashboard/submit/submit.component";
 
 export const router: Routes = [
     { path: '', component: DashboardComponent, children: [
         { path: '', component: HomeComponent },
-        { path: 'profile', component: ProfileComponent }
+        { path: 'profile', component: ProfileComponent },
+        { path: 'submit', component: SubmitComponent }
     ] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent }
