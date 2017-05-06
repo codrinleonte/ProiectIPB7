@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { GradeDialogComponent } from "../grade-dialog/grade-dialog.component";
+import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +10,8 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
     userClass = 1;
+
+    constructor(public dialog: MdDialog) {}
 
     onStudentCPClick(){
         this.userClass = 1;
@@ -23,5 +27,9 @@ export class HomeComponent {
 
     onAdminCPClick(){
         this.userClass = 4;
+    }
+
+    openMyGradeDialog() {
+        this.dialog.open(GradeDialogComponent, { width: '525px', height: '210px'});
     }
 }
