@@ -56,6 +56,7 @@ public class StudentMark {
         // Average the 2 above values. Truncate to 2 decimals
 
         // something new
+        //test something new
 
         return Math.floor((Math.floor(project/projectMarks.size() * 100) / 100 + Math.floor(oral/oralMarks.size() * 100) / 100) / 2.0 * 100) / 100.0;
     }
