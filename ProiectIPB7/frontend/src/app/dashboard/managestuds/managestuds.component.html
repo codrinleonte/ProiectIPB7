@@ -1,0 +1,15 @@
+<md-card class="manage_studs_card">
+    <md-toolbar class="card_header"><h4>Management studenti indrumati</h4></md-toolbar>
+    <md-card-content class="content">
+        <div class="add_student">
+            <md-input-container id="stud_address_input">
+                <input type="text" mdInput placeholder="Adresa email student">
+            </md-input-container>
+            <button md-raised-button class="register_btn">Adauga student</button>
+        </div>
+        <div class="student_entry" *ngFor="let student of students">
+            <p class="student_entry_name" mdTooltip="Note: [8, 7, 7, 8] Nota finala: 8" [mdTooltipPosition]="'after'">{{student.name}}</p>
+            <p class="delete_btn">X</p>
+        </div>
+    </md-card-content>
+</md-card>
