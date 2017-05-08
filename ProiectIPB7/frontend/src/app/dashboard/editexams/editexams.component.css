@@ -1,0 +1,33 @@
+
+.edit_exams_card{
+    margin: 50px;
+    padding: 0;
+}
+
+.content{
+    padding: 20px;
+}
+
+.com_name{
+    font-weight: bold;
+}
+
+.entry{
+    display: flex;
+}
+
+.entry_date_container{
+    display: flex;
+    position: absolute;
+    right: 50px;
+}
+
+.date_input{
+    margin-left: 25px;
+    width: 300px;
+}
+
+.exam_save_btn{
+    width: 100%;
+    margin-top: 25px;
+}

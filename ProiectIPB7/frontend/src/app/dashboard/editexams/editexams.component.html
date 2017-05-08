@@ -1,0 +1,15 @@
+<md-card class="edit_exams_card">
+    <md-toolbar class="card_header"><h4>Editare data examinare</h4></md-toolbar>
+    <md-card-content class="content">
+        <div class="entry" *ngFor="let com of commissions">
+            <p class="com_name">{{com.name}}</p>
+            <div class="entry_date_container">
+                <p>Data examinare:</p>
+                <md-input-container class="date_input">
+                    <input type="date" mdInput placeholder="Data">
+                </md-input-container>
+            </div>
+        </div>
+        <button md-raised-button class="exam_save_btn">Salveaza</button>
+    </md-card-content>
+</md-card>
