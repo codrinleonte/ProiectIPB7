@@ -12,9 +12,7 @@ public class StudentMark {
     private Committee committee;
 
     // TODO Add any other necessary data members(might be complete, need to consult)
-
-
-
+    // TODO Waiting more informations from db guys
 
 
     public StudentMark() {
@@ -22,13 +20,18 @@ public class StudentMark {
         this.projectMarks = new Vector<>();
         this.committee    = new Committee();
     }
+
     public StudentMark(Vector<Integer> projectMarks, Vector<Integer> oralMarks) {
         this.projectMarks = projectMarks;
         this.oralMarks = oralMarks;
     }
+
+
     public StudentMark(Committee committee) {
         this.committee = committee;
     }
+
+
     public StudentMark(Vector<Integer> projectMarks, Vector<Integer> oralMarks, Committee committee) {
         this.projectMarks = projectMarks;
         this.oralMarks = oralMarks;
@@ -36,8 +39,6 @@ public class StudentMark {
     }
 
     // TODO Add any other necessary constructors(might be complete, need to consult)
-
-
 
 
 
@@ -55,17 +56,13 @@ public class StudentMark {
         // Average oral    marks. Truncate to 2 decimals
         // Average the 2 above values. Truncate to 2 decimals
 
-        // something new
-        //test something new
+
 
         return Math.floor((Math.floor(project/projectMarks.size() * 100) / 100 + Math.floor(oral/oralMarks.size() * 100) / 100) / 2.0 * 100) / 100.0;
     }
 
     // TODO Add any other needed methods
 
-    public void test () {
-        System.out.println("test");
-    }
 
 
 
@@ -82,6 +79,7 @@ public class StudentMark {
     public void setOralMarks(Vector<Integer> oralMarks) {
         this.oralMarks = oralMarks;
     }
+
 
     public Committee getCommittee() {
         return committee;
