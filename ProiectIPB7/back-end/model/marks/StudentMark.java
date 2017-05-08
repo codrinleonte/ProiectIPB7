@@ -1,7 +1,6 @@
 package model.marks;
 
 import model.committee.Committee;
-import model.users.types.Student;
 
 import java.util.Vector;
 
@@ -55,6 +54,8 @@ public class StudentMark {
         // Average project marks. Truncate to 2 decimals
         // Average oral    marks. Truncate to 2 decimals
         // Average the 2 above values. Truncate to 2 decimals
+
+        // something new
 
         return Math.floor((Math.floor(project/projectMarks.size() * 100) / 100 + Math.floor(oral/oralMarks.size() * 100) / 100) / 2.0 * 100) / 100.0;
     }
