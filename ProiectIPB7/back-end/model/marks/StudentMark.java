@@ -63,7 +63,9 @@ public class StudentMark {
 
     // TODO Add any other needed methods
 
-
+    public void test () {
+        System.out.println("test");
+    }
 
 
 
