@@ -1,0 +1,55 @@
+
+.manage_studs_card{
+    margin: 50px;
+    padding: 0;
+}
+
+.content{
+    padding: 20px;
+}
+
+#stud_address_input{
+    width: 60%;
+    margin-right: 50px;
+    margin-left: 10%;
+}
+
+.add_student{
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.student_entry{
+    border: 1px solid lightgray;
+    padding: 15px;
+    margin-top: 5px;
+    display: flex;
+}
+
+.student_entry_name{
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0;
+}
+
+.delete_btn{
+    font-family: sans-serif;
+    font-weight: bold;
+    position: absolute;
+    margin: 0;
+    right: 50px;
+    user-select: none;
+    cursor: pointer;
+    color: lightgray;
+    font-size: 26px;
+    margin-top: -6px;
+}
+
+.delete_btn:hover{
+    color: indianred;
+}
+
+.delete_btn:active{
+    color: firebrick;
+}
