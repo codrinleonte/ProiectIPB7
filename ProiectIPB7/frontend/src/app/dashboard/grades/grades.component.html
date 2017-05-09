@@ -1,0 +1,21 @@
+<md-card class="grades_card">
+    <md-toolbar class="card_header"><h4>Note studenti</h4></md-toolbar>
+    <md-card-content class="content">
+        <table>
+            <thead>
+                <tr>
+                    <td>Nume</td>
+                    <td>Prenume</td>
+                    <td>Nota finala</td>
+                </tr>
+            </thead>
+            <tr *ngFor="let grade of grades">
+                <td class="info">{{grade.nume}}</td>
+                <td class="info">{{grade.prenume}}</td>
+                <td class="grade">{{grade.grade}}</td>
+            </tr>
+        </table>
+        <button md-raised-button>Inapoi</button>
+        <button md-raised-button id="btn_forward">Inainte</button>
+    </md-card-content>
+</md-card>

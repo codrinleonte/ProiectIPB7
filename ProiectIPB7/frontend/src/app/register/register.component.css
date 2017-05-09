@@ -1,0 +1,39 @@
+.register_card{
+    width: 500px;
+    height: 460px;
+    margin-left: calc(50% - 250px);
+    margin-top: calc(50vh - 230px);
+    padding: 0;
+}
+
+.register_input{
+    margin-left: 20px;
+    width: 460px;
+}
+
+.register_btn{
+    width: 200px;
+    margin-left: 150px;
+}
+
+.input_container{
+    margin-top: 60px;
+}
+
+.auth_redirect_info{
+    font-size: 12px;
+    cursor: pointer;
+    color: gray;
+    user-select: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.auth_redirect_info:focus{
+    outline: none;
+}
+
+.info_text{
+    margin-left: 20px;
+}
