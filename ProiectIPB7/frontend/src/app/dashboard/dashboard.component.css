@@ -18,7 +18,10 @@
 }
 
 .user_btn{
+    color: black;
+}
+
+.bar_btns_container{
     position: absolute;
     right: 20px;
-    color: black;
 }
