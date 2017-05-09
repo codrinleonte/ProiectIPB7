@@ -1,0 +1,9 @@
+DROP   TABLESPACE bdlicente;
+CREATE TABLESPACE bdlicente DATAFILE 'tbs_bdlicente.dat' SIZE 500M REUSE AUTOEXTEND ON NEXT 50M MAXSIZE 2000M;
+
+DROP   USER licente cascade;
+CREATE USER licente IDENTIFIED BY ADMIN;
+ALTER  USER licente DEFAULT TABLESPACE bdlicente quota UNLIMITED on bdlicente;
+
+GRANT CONNECT        TO licente;
+GRANT ALL PRIVILEGES TO licente;
