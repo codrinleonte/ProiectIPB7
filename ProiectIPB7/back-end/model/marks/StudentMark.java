@@ -11,9 +11,6 @@ public class StudentMark {
 
     private Committee committee;
 
-    // TODO Add any other necessary data members(might be complete, need to consult)
-    // TODO Waiting more informations from db guys
-
 
     public StudentMark() {
         this.oralMarks    = new Vector<>();
@@ -38,7 +35,6 @@ public class StudentMark {
         this.committee = committee;
     }
 
-    // TODO Add any other necessary constructors(might be complete, need to consult)
 
 
 
@@ -60,8 +56,6 @@ public class StudentMark {
 
         return Math.floor((Math.floor(project/projectMarks.size() * 100) / 100 + Math.floor(oral/oralMarks.size() * 100) / 100) / 2.0 * 100) / 100.0;
     }
-
-    // TODO Add any other needed methods
 
 
 
@@ -87,6 +81,5 @@ public class StudentMark {
     public void setCommittee(Committee committee) {
         this.committee = committee;
     }
-
-    // TODO Add any other necessary getters/setters(might be complete, need to consult)
+    
 }
