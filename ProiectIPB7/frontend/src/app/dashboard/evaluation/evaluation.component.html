@@ -1,0 +1,16 @@
+<md-card class="evaluation_card">
+    <md-toolbar class="card_header"><h4>Evaluare</h4></md-toolbar>
+    <md-card-content class="content">
+        <p class="info_text">Comisie curenta: Comisia 1</p>
+        <p  class="info_text">Data: 25-05-2017</p>
+        <div class="evaluation_container">
+            <div class="evaluation_entry" *ngFor="let student of students">
+                <p class="name">{{student.name}}</p>
+                <md-input-container class="entry_input">
+                    <input type="text" mdInput placeholder="Nota">
+                </md-input-container>
+            </div>
+        </div>
+        <button md-raised-button class="save_btn">Salveaza</button>
+    </md-card-content>
+</md-card>

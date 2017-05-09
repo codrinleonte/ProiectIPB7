@@ -1,0 +1,40 @@
+
+.submit_card{
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 0;
+}
+
+.form_info{
+    margin-left: 50px;
+    margin-right: 50px;
+    font-weight: 700;
+}
+
+.content{
+    padding: 25px;
+}
+
+.submit_input{
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 50%;
+}
+
+.submit_textarea{
+    width: 50%;
+    margin-left: 50px;
+    margin-top: 20px;
+    font-family: sans-serif;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 5px;
+}
+
+.submit_btn{
+    width: 50%;
+    margin-left: 50px;
+    margin-top: 20px;
+}

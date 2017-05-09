@@ -1,0 +1,35 @@
+.grades_card{
+    padding: 0;
+    margin: 50px;
+}
+
+table{
+    width: 100%;
+    border: 1px solid lightgray;
+    margin-bottom: 5px;
+}
+
+td{
+    border: 1px solid lightgray;
+}
+
+.grade{
+    text-align: center;
+}
+
+.info{
+    padding: 5px;
+}
+
+thead{
+    font-weight: bold;
+    text-align: center;
+}
+
+.content{
+    padding: 10px;
+}
+
+#btn_forward{
+    float: right;
+}

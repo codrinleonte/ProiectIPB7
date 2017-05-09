@@ -14,7 +14,9 @@ public class Committee {
     private Vector<Teacher> coordinators; // Given the set of students who will be evaluated by this committee, this is the set of teachers that coordinate those students
     private Timetable timetable;
 
-    // TODO Add any other necessary data members(might be complete, need to consult -> database ?
+    // TODO Add any other necessary data members(might be complete, need to consult)
+
+
 
 
 
@@ -28,7 +30,7 @@ public class Committee {
         this.timetable    = new Timetable();
     }
 
-    // TODO Add any other necessary constructors(might be complete, need to consult -> database ?
+    // TODO Add any other necessary constructors(might be complete, need to consult)
 
 
 
@@ -38,8 +40,6 @@ public class Committee {
 
 
 
-    public Teacher getPresident() {return president;}
-    public void setPresident() { this.president = president;}
 
 
     public Secretary getSecretary() {
@@ -48,10 +48,6 @@ public class Committee {
     public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
     }
-
-
-    public Vector<Teacher>  getCoordinators() { return coordinators; }
-    public void setCoordinators (Vector<Teacher> coordinators){ this.coordinators = coordinators; }
 
     public Vector<Teacher> getTeachers() {
         return teachers;
@@ -67,5 +63,5 @@ public class Committee {
         this.timetable = timetable;
     }
 
-
+    // TODO Add any other necessary setters/getters(might be complete, need to consult)
 }
