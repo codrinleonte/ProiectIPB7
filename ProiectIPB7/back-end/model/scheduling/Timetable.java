@@ -2,15 +2,13 @@ package model.scheduling;
 
 import model.scheduling.Hearing;
 
+import java.util.Date;
 import java.util.Vector;
 
 public class Timetable {
+    public static final long MIN = 60L * 1000L;
 
     private Vector<Hearing> hearings;
-
-    // TODO Add any other necessary data members(might be complete, need to consult)
-
-
 
 
 
@@ -21,14 +19,19 @@ public class Timetable {
         this.hearings = hearings;
     }
 
-    // TODO Add any other necessary constructors(might be complete, need to consult)
+    public Vector<Hearing> setTimeToStart(Vector<Student> students, Date startDate) {
 
+        hearings.elementAt(0).setStudent(students.elementAt(0));
+        hearings.elementAt(0).setTime(startDate);
 
-
-
-
-    // TODO Add any other necessary methods(might be complete, need to consult)
-
+        for (int index = 1, size = students.size(); index < size; index++) {
+            Date newDate = new Date(startDate.getTime() + 2L * MIN);//add 20 min to date
+            hearings.elementAt(index).setStudent(students.elementAt(index));
+            hearings.elementAt(index).setTime(newDate);
+            startDate = newDate;
+        }
+        return this.hearings;
+    }
 
 
 

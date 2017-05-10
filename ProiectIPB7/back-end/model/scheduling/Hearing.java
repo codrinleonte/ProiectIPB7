@@ -9,11 +9,6 @@ public class Hearing {
     private Date time;
     private Student student;
 
-    // TODO Add any other necessary data members(might be complete, need to consult)
-
-
-
-
 
     public Hearing() {
         this.time = new Date();
@@ -23,16 +18,6 @@ public class Hearing {
         this.time = time;
         this.student = student;
     }
-
-    // TODO Add any other necessary constructors(might be complete, need to consult)
-
-
-
-
-
-    // TODO Add any other necessary methods(might be complete, need to consult)
-
-
 
 
 
