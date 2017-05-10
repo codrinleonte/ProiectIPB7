@@ -21,3 +21,5 @@ INSERT INTO LICENTE VALUES(2,1,2,1);
 
 INSERT INTO DETALII_LICENTE VALUES(1,'Licenta lui Jimmy','https://www.google.ro/search?q=jimmy',1,5,5,5,5,5,5,5,5,5,5,5,TO_DATE( '01-01-2018','dd-mm-yyyy'),'12:00-12:20');
 INSERT INTO DETALII_LICENTE VALUES(2,'Licenta lui Grigory','https://www.google.ro/search?q=grigory',1,5,5,5,5,5,5,5,5,5,5,5,TO_DATE( '01-01-2018','dd-mm-yyyy'),'12:30-12:50');
+
+INSERT INTO VERIFICARE VALUES('00000000000000000000',3);

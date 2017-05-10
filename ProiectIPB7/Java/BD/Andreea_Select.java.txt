@@ -1,0 +1,16 @@
+public void getProfesori() 
+	{
+		try
+ 		   {
+			Connection con = this.connect(); //conectarea la BD
+			Statement stmt=con.createStatement();
+			ResultSet result=stmt.executeQuery("select nume, prenume, grad_didactic from profesori"); 
+			while(result.next())  
+				this.results = results+result.getString(1)+"\n"+result.getString(2)+"\n"+result.getString(3)+"\n";
+			con.close();
+		    }
+		catch (ClassNotFoundException| SQLException e)
+		{
+			this.results = "Eroare!";
+		}
+	}
