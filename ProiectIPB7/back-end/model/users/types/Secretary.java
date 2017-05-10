@@ -1,40 +1,45 @@
 package model.users.types;
 
+import java.util.Vector;
+
+import model.committee.Committee;
+import model.marks.StudentMark;
+import model.users.User;
 import model.users.rights.AccessRights;
 
-public class Secretary extends Teacher {
 
-    private AccessRights rights;
+public class Secretary extends User {
 
+	
+	
     // TODO Add any other necessary data members
+    
+    
+    
 
-
-
-
+	
 
     public Secretary() {
         super();
     }
 
-    // TODO Add any other necessary constructors after the user base type has been modeled
+   
+    public Secretary(String username, String name, String email,  AccessRights secretaryRights) {
+		super();
+		this.username = username;
+		this.name = name;
+		this.email = email;
+		this.rights=secretaryRights;
+		
+	}
 
-
-
-
-
+    
+    
+    
     // TODO add the methods for stuff that should be done by secretaries only
     // TODO use the AccessRights. In here the methods should look like  editMarkOf(String teacher, String student) { rights.editMarkOf(teacher, student); }
 
 
-
-
-
-    public AccessRights getRights() {
-        return rights;
-    }
-    public void setRights(AccessRights rights) {
-        this.rights = rights;
-    }
 
     // TODO Add any other necessary data getters/setters
 }
