@@ -1,9 +1,11 @@
-package model.users.types;
 
-import model.marks.StudentMark;
-import model.projects.Project;
-import model.users.User;
-import model.users.rights.AccessRights;
+package types;
+
+import Project.Project;
+import StudentMark.StudentMark;
+import User.User;
+import rights.AccessRights;
+import rights.StudentRights;
 
 public class Student extends User {
 
@@ -11,7 +13,7 @@ public class Student extends User {
     private Teacher coordinator;
     private StudentMark mark;
 
-    private AccessRights rights;
+    private StudentRights rights;
 
     // TODO Add any other necessary data members(might be complete, need to consult)
 
@@ -24,12 +26,14 @@ public class Student extends User {
         this.project = new Project();
         this.coordinator = new Teacher();
         this.mark = new StudentMark();
+        this.rights = new StudentRights();
     }
     public Student(Project project, Teacher coordinator) {
         super();
         this.project = project;
         this.coordinator = coordinator;
         this.mark = new StudentMark();
+        this.rights = new StudentRights();
     }
 
     // TODO Add any other necessary constructors(might be complete, need to consult)
@@ -66,10 +70,10 @@ public class Student extends User {
         this.mark = mark;
     }
 
-    public AccessRights getRights() {
+    public StudentRights getRights() {
         return rights;
     }
-    public void setRights(AccessRights rights) {
+    public void setRights(StudentRights rights) {
         this.rights = rights;
     }
 
