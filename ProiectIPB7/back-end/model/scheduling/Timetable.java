@@ -1,6 +1,6 @@
 package model.scheduling;
 
-import model.scheduling.Hearing;
+import model.users.types.Student;
 
 import java.util.Date;
 import java.util.Vector;

@@ -1,7 +1,6 @@
 package model.projects;
 
 import model.users.types.Student;
-import model.users.types.Teacher;
 
 import java.util.Vector;
 
@@ -54,13 +53,13 @@ public class Project {
     }
     // TODO Add any other necessary getters/setters
 
-    public String addLink(String link){
-        this.link = link;
+    public void addLink(String link){
+        this.documentLinks.add(link);
     }
 
     public void DeleteLink(String link){
         if(this.documentLinks.indexOf(link) >= 0)
-            this.documentLinks.delete(this.documentLinks.indexOf(link));
+            this.documentLinks.remove(this.documentLinks.indexOf(link));
     }
 
 }

@@ -1,13 +1,14 @@
-package types;
+package model.users.types;
 
+
+import model.users.User;
+import model.users.rights.users.TeacherRights;
 
 import java.util.Vector;
 
-import User.User;
-import rights.AccessRights;
-import rights.TeacherRights;
 
-public class Teacher extends User{
+
+public class Teacher extends User {
 
     private Vector<Student> coordinatedStudents;
 

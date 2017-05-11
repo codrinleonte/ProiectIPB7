@@ -42,7 +42,7 @@ public abstract class User {
 	 public AccessRights getRights() {
 	        return rights;
 	    }
-	    public void setRights(AccessRights rights) {
+	public void setRights(AccessRights rights) {
 	        this.rights = rights;
 	    }
 

@@ -1,11 +1,10 @@
+package model.users.types;
 
-package types;
-
-import Project.Project;
-import StudentMark.StudentMark;
-import User.User;
-import rights.AccessRights;
-import rights.StudentRights;
+import model.marks.StudentMark;
+import model.projects.Project;
+import model.users.User;
+import model.users.rights.AccessRights;
+import model.users.rights.users.StudentRights;
 
 public class Student extends User {
 
@@ -70,7 +69,7 @@ public class Student extends User {
         this.mark = mark;
     }
 
-    public StudentRights getRights() {
+    public AccessRights getRights() {
         return rights;
     }
     public void setRights(StudentRights rights) {
