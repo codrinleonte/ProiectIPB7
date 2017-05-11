@@ -12,8 +12,6 @@ public class Student extends User {
     private Teacher coordinator;
     private StudentMark mark;
 
-    private StudentRights rights;
-
     // TODO Add any other necessary data members(might be complete, need to consult)
 
 
@@ -69,12 +67,6 @@ public class Student extends User {
         this.mark = mark;
     }
 
-    public AccessRights getRights() {
-        return rights;
-    }
-    public void setRights(StudentRights rights) {
-        this.rights = rights;
-    }
 
     // TODO Add any other necessary getters/setters(might be complete, need to consult)
 }

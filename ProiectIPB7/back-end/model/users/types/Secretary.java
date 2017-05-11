@@ -24,10 +24,11 @@ public class Secretary extends User {
     }
 
    
-    public Secretary(String username, String name, String email,  AccessRights secretaryRights) {
+    public Secretary(String username, String firstName, String lastName, String email,  AccessRights secretaryRights) {
 		super();
 		this.username = username;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.rights=secretaryRights;
 		

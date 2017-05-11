@@ -4,9 +4,12 @@ import model.users.rights.AccessRights;
 
 public abstract class User {
 
+    protected int id;
     protected String username;
-    protected String name;
+	protected String firstName;
+    protected String lastName;
     protected String email;
+
     protected AccessRights rights;
     // TODO add the rest of the info for a user as data members, find something for permissions
 
@@ -18,28 +21,36 @@ public abstract class User {
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	public String getName() {
-		return name;
+		return firstName + " " + lastName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	 public AccessRights getRights() {
+	public AccessRights getRights() {
 	        return rights;
 	    }
 	public void setRights(AccessRights rights) {
@@ -48,7 +59,7 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", name=" + name + ", email=" + email + "," + rights+"]";
+		return "User [username=" + username + ", name=" + getName() + ", email=" + email + "," + rights+"]";
 	}
 
     // TODO Add any other necessary constructors after the user base type has been modeled

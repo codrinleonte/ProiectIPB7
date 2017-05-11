@@ -6,6 +6,7 @@ import java.util.Vector;
 
 public class Project {
 
+    private int id;
     private String title;
     private Student student;
     private Vector<String> documentLinks;
