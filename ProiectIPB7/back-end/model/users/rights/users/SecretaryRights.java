@@ -24,6 +24,9 @@ import model.users.types.Secretary;
 import model.users.types.Student;
 import model.users.types.Teacher;
 
+import static javax.swing.text.StyleConstants.FontFamily;
+import static sun.plugin.javascript.navig.JSType.Document;
+
 public class SecretaryRights extends AccessRights {
 
 	

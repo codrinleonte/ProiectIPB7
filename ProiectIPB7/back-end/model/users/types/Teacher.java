@@ -1,18 +1,18 @@
-package types;
+package model.users.types;
 
+
+import model.users.User;
+import model.users.rights.AccessRights;
+import model.users.rights.users.TeacherRights;
 
 import java.util.Vector;
 
-import User.User;
-import rights.AccessRights;
-import rights.TeacherRights;
 
-public class Teacher extends User{
+
+public class Teacher extends User {
 
     private Vector<Student> coordinatedStudents;
 
-   // private AccessRights rights;
-    private TeacherRights rights;
 
     // TODO Add any other necessary data members
 
@@ -55,13 +55,6 @@ public class Teacher extends User{
     }
     public void setCoordinatedStudents(Vector<Student> coordinatedStudents) {
         this.coordinatedStudents = coordinatedStudents;
-    }
-
-    public TeacherRights getRights() {
-        return rights;
-    }
-    public void setRights(TeacherRights rights) {
-        this.rights = rights;
     }
 
     // TODO Add any other necessary data getters/setters

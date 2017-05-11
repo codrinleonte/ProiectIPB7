@@ -1,13 +1,14 @@
-package rights;
+package model.users.rights.users;
+
+import model.committee.Committee;
+import model.users.rights.AccessRights;
+import model.users.types.Student;
+import model.users.types.Teacher;
 
 import java.util.Iterator;
 import java.util.Vector;
 
-import Committee.Committee;
-import types.Student;
-import types.Teacher;
-
-public class TeacherRights {
+public class TeacherRights extends AccessRights {
 
     // TODO Implements all the actions a Secretary might take in this class( editMarkOfStudent(String student, int mark) etc. )
     public Student student;
@@ -68,7 +69,7 @@ public class TeacherRights {
     
     
     
-    public int chooseCommittee(Vector<Committee>Com,Committee c, Teacher t){
+    public int chooseCommittee(Vector<Committee>Com, Committee c, Teacher t){
     	int numberStudents = 0;
 
 	    	

@@ -1,19 +1,16 @@
+package model.users.types;
 
-package types;
-
-import Project.Project;
-import StudentMark.StudentMark;
-import User.User;
-import rights.AccessRights;
-import rights.StudentRights;
+import model.marks.StudentMark;
+import model.projects.Project;
+import model.users.User;
+import model.users.rights.AccessRights;
+import model.users.rights.users.StudentRights;
 
 public class Student extends User {
 
     private Project project;
     private Teacher coordinator;
     private StudentMark mark;
-
-    private StudentRights rights;
 
     // TODO Add any other necessary data members(might be complete, need to consult)
 
@@ -70,12 +67,6 @@ public class Student extends User {
         this.mark = mark;
     }
 
-    public StudentRights getRights() {
-        return rights;
-    }
-    public void setRights(StudentRights rights) {
-        this.rights = rights;
-    }
 
     // TODO Add any other necessary getters/setters(might be complete, need to consult)
 }

@@ -1,10 +1,9 @@
 package model.users.types;
 
+import model.users.User;
 import model.users.rights.AccessRights;
 
-public class Admin {
-
-    private AccessRights rights;
+public class Admin extends User{
 
     // TODO Add any other necessary data members
 

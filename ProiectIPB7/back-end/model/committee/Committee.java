@@ -8,6 +8,7 @@ import java.util.Vector;
 
 public class Committee {
 
+    private int id;
     private Secretary secretary;
     private Teacher president;
     private Vector<Teacher> teachers;     // This is the main generator for instances
