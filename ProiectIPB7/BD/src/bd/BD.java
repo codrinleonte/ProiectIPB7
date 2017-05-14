@@ -8,11 +8,17 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.Random;
 
+
 public class BD {
 	
 	private boolean    connected = false;
 	private Connection conexiune;
 	private String     domeniu="";
+	
+	private int sendEmail( String adresa , String mesaj )
+	{
+		return 0;
+	}
 	
 	public BD() 
 	{
@@ -39,6 +45,13 @@ public class BD {
 		this.domeniu=domeniu;
 	}
 	
+	public AccessBD getAccess(){
+		
+		AccessBD rezultat = new AccessBD();
+		return rezultat;
+		
+	}
+
 	public int login ( String username, String hashparola )
 	{
 		String apel = "{ ? = call login( ?, ? ) }";
@@ -131,6 +144,8 @@ public class BD {
 			statement.execute();
 			rezultat = statement.getInt(1);
 			
+			sendEmail( email, "Click pentru activare: "+ domeniu + "\\activate\\" + hashcod );
+			
 			return rezultat;
 		} 
 		catch ( Exception e ) {
@@ -139,9 +154,23 @@ public class BD {
 		}
 	}
 	
-	public int inregistrare_prof ( String email , String hashparola )
+	public int inregistrare_prof ( String username , String hashparola )
 	{
-		return 0;
+		String apel = " { ? = call inregistrare_prof( ? , ? ) }";
+		int rezultat;
+		try{
+			CallableStatement statement = conexiune.prepareCall(apel);
+			statement.registerOutParameter(1, Types.INTEGER);
+			statement.setString(2, username );
+			statement.setString(3, hashparola);
+			statement.execute();
+			rezultat=statement.getInt(1);
+			return rezultat;
+		}
+		catch ( Exception e ){
+			System.out.println("Exceptie inregistrare_prof: "+e.getMessage());
+			return -7;
+		}
 	}
 	
 }

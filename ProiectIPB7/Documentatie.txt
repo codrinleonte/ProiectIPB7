@@ -15,20 +15,25 @@ Clasa BD contine urmatoarele metode:
 	-> setDomeniu() seteaza domeniul pentru crearea linkului de activare. Exemplu <domeniu>/activate/<cod_activare> 
 
 	-> login( String username, String hashparola ) returneaza 0  daca logarea a reusit: contul este existent si activat, parola este corecta;
-						       returneaza -1 daca contul nu este existent;
-						       returneaza -2 daca contul este existent iar parola este gresita;
-						       returneaza -3 daca contul este existent, parola este corecta iar contul nu este activat;
-						       returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+					returneaza -1 daca contul nu este existent;
+					returneaza -2 daca contul este existent iar parola este gresita;
+					returneaza -3 daca contul este existent, parola este corecta iar contul nu este activat;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
 
 	-> verificare( String hashcod )  returneaza -1 daca nu este nici un cont cu acest cod de activare asociat;
-					 returneaza  0 daca contul a fost activat cu succes;
-					 returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+					returneaza  0 daca contul a fost activat cu succes;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
 
-        -> inregistrare_stud ( String email, String parola ) 
-							     returneaza -1 daca emailul nu este corect sau nu apartine domeniului info.uaic.ro;
-							     returneaza -2 daca emailul este deja folosit pentru inregistrarea unui cont;
-							     returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
-		-> inregistrare_prof ( String username, String parola ) // username-ul sa fie de forma prenume.nume deoarece se face legatura cu un profesor din lista
-								 returneaza -1 daca profesorul nu este in lista de profesori;
-								 returneaza -2 daca profesorul are deja un cont existent;
-								 returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+    -> inregistrare_stud ( String email, String parola ) 
+					returneaza -1 daca emailul nu este corect sau nu apartine domeniului info.uaic.ro;
+					returneaza -2 daca emailul este deja folosit pentru inregistrarea unui cont;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+    -> inregistrare_prof ( String username, String parola ) // username-ul sa fie de forma prenume.nume deoarece se face legatura cu un profesor din lista
+					returneaza -1 daca profesorul nu este in lista de profesori;
+					returneaza -2 daca exista deja un cont cu acest username;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+	
+	-> getAccessBD() returneaza un obiect de tip Access care va fi extins in obiecte AccessBDStud, AccessBDProf, AccessBDAdmin ... fiecare cu metode specifice
+						AccessBD contine un membru pentru identificarea contului conectat, un membru pentru tipul utilizatorului, si un membru ce face referinta 
+							la datele celui conectat;
+		-> get AccessBDStud

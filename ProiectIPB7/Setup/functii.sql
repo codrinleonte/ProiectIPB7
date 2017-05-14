@@ -42,8 +42,10 @@ CREATE OR REPLACE FUNCTION inregistrare_stud( user VARCHAR2 , hashparola VARCHAR
   nume VARCHAR2(50);
 BEGIN
   SELECT COUNT(ID) INTO aparitii FROM CONTURI WHERE CONTURI.username = user;
-  SELECT SUBSTR( user, 1, INSTR( user , '.' ) -1)  into prenume from dual;
+  
   SELECT SUBSTR( user, INSTR(user,'.')+1,50) into nume from dual;
+  SELECT REPLACE( user , '.'||nume , '' ) into prenume from dual;
+  
   IF aparitii > 0 THEN return -2;
   ELSE 
     SELECT MAX(ID) into sesiune_curenta FROM SESIUNI;
@@ -56,8 +58,24 @@ BEGIN
   return 0;
 END;
 
-CREATE OR REPLACE FUNCTION inregistrare_profe( user VARCHAR2 , hashparola VARCHAR2 ) return INTEGER AS
-  aparitii INTEGER := 0;
+CREATE OR REPLACE FUNCTION inregistrare_prof( user VARCHAR2 , hashparola VARCHAR2 ) return INTEGER AS
+  aparitii_conturi INTEGER := 0;
+  aparitii_profesori INTEGER :=0;
+  prenumeV VARCHAR(50);
+  numeV VARCHAR(50);
 BEGIN
+  
+  SELECT COUNT (ID) into aparitii_conturi FROM CONTURI WHERE CONTURI.username = user;
+  IF aparitii_conturi > 0 THEN return -2; END IF;
 
+  SELECT SUBSTR( user, INSTR(user,'.')+1,50) into numeV from dual;
+  SELECT REPLACE ( user, '.'||numeV, '') into prenumeV from dual;
+ 
+  SELECT COUNT (ID) into aparitii_profesori FROM PROFESORI WHERE PROFESORI.prenume = UPPER(prenumeV) and PROFESORI.nume = UPPER(numeV);
+  IF aparitii_profesori <1 THEN return -1; END IF;
+  
+  INSERT INTO CONTURI( ID , USERNAME , PAROLA , EMAIL, TIP_UTILIZATOR, STATUS, COD_ACTIVARE ) 
+    VALUES( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Profesor', 1 ,'0');
+  
+  return 0;
 END;
