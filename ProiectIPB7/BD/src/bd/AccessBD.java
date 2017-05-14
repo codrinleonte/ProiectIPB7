@@ -2,15 +2,11 @@ package bd;
 
 public class AccessBD{
 
-	private int idCont;
-	private String tip;
+	protected String   tip;
+	protected Persoana persoana;
 	
 	public AccessBD(){
 		
-	}
-	
-	public void setIdCont( int idCont ){
-		this.idCont = idCont;
 	}
 	
 	public void setTip( String tip ){

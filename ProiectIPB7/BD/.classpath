@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Otto/ProiectIPB7/ProiectIPB7/BD/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Otto/ProiectIPB7/ProiectIPB7/BD/javamail-1.4.7/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
