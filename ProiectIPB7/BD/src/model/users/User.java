@@ -3,6 +3,7 @@ package model.users;
 public abstract class User {
 
     protected int id;
+    protected int idCont;
     protected String username;
 	protected String firstName;
     protected String lastName;
@@ -10,6 +11,15 @@ public abstract class User {
     protected String tip;
     
     public User() {}
+    
+    
+    public void setIdCont( int id){
+    	this.idCont=id;
+    }
+    
+    public int getIdCont(){
+    	return idCont;
+    }
     
 	public String getUsername() {
 		return username;

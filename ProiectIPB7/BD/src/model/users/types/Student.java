@@ -20,5 +20,12 @@ public class Student extends User {
 		return numarMatricol;
 	}
 	
+	public void setSesiune ( Session sesiune ){
+		this.sesiune=sesiune;
+	}
+	
+	public Session getSesiune(){
+		return sesiune;
+	}
 	
 }

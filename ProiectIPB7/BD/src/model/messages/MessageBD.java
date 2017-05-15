@@ -1,12 +1,12 @@
 package model.messages;
 
-public class Message {
+public class MessageBD {
 	
 	private int id;
 	private String fromUsername;
 	private String toUsername;
 	
-	Message(){}
+	public MessageBD(){}
 
 	public void setId( int id ){
 		this.id = id;

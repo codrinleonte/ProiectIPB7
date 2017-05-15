@@ -8,8 +8,8 @@ public class Teacher extends User {
 	private Vector<Student> coordinatedStudents;
 	private Committee committee;
 
-	public Teacher(){
-		this.tip = "Teacher";
+	public Teacher( String tip ){
+		this.tip = tip;
 	}
 	
 	public void setCoordinatedStudents( Vector<Student> coordinatedStudents){

@@ -6,6 +6,7 @@ public class Admin extends User {
 	public Admin()
 	{
 		this.id        = 0;
+		this.username  = "admin.admin";
 		this.tip       = "Admin";
 		this.firstName = "Admin";
 		this.lastName  = "Admin";

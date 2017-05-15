@@ -2,13 +2,12 @@ package model.committee;
 
 import java.sql.Timestamp;
 import java.util.Vector;
-import model.users.types.Secretary;
 import model.users.types.Teacher;
 
 public class Committee {
 
 	private int id;
-	private Secretary       secretary;
+	private Teacher         secretary;
 	private Vector<Teacher> teachers;
 	private Timestamp       start;
 	private Timestamp       end;
@@ -23,11 +22,11 @@ public class Committee {
 		this.id = id;
 	}
 	
-	public Secretary getSecretary() {
+	public Teacher getSecretary() {
 		return secretary;
 	}
 	
-	public void setSecretary(Secretary secretary) {
+	public void setSecretary(Teacher secretary) {
 		this.secretary = secretary;
 	}
 	

@@ -75,7 +75,7 @@ public class BD {
 			}
 			else if ( rezultat == 2 )
 			{
-				Teacher utilizator = new Teacher();
+				Teacher utilizator = new Teacher("Teacher");
 				utilizator.setUsername(username);
 				utilizator.setEmail(username+"info.uaic.ro");
 				utilizator.setFirstName(username.split("\\.")[0]);
@@ -92,7 +92,7 @@ public class BD {
 			}
 			else
 			{
-				Secretary utilizator = new Secretary();
+				Teacher utilizator = new Teacher("Secretary");
 				utilizator.setUsername(username);
 				utilizator.setEmail(username+"info.uaic.ro");
 				utilizator.setFirstName(username.split("\\.")[0]);
@@ -106,6 +106,7 @@ public class BD {
 				
 				this.access = new AccessSecrBD( conexiune , utilizator);
 			}
+		
 			
 		}
 		catch( Exception e )
