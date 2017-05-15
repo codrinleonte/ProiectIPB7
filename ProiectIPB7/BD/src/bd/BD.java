@@ -3,6 +3,7 @@ package bd;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
@@ -15,6 +16,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import model.users.User;
+import model.users.types.*;
 
 
 public class BD {
@@ -23,6 +26,81 @@ public class BD {
 	private Connection conexiune;
 	@SuppressWarnings("unused")
 	private String     domeniu="";
+	private AccessBD   access;
+	private boolean    loged  = false;
+		
+	private void createAccess( String username ){
+		
+		String apel = " { ? = call get_type( ? ) }";
+		int rezultat;
+		
+		try {
+			CallableStatement statement = conexiune.prepareCall(apel);
+			statement.registerOutParameter(1, Types.INTEGER);
+			statement.setString(2, username);
+			statement.execute();
+			rezultat=statement.getInt(1);
+			
+			if( rezultat==0 )
+			{
+				Admin utilizator = new Admin();
+				this.access = new AccessAdminBD( conexiune , utilizator );
+			}
+			else if ( rezultat ==1 )
+			{
+				
+				Student utilizator = new Student();
+				
+				utilizator.setUsername(username);
+				utilizator.setEmail(username+"@info.uaic.ro");
+				utilizator.setFirstName(username.split("\\.")[0]);
+				utilizator.setLastName(username.split("\\.")[1]);
+				
+				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT NR_MATRICOL FROM STUDENTI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = ? ");
+				preparedStatement.setString(1, username);
+				ResultSet result = preparedStatement.executeQuery();
+				result.next();	
+				utilizator.setNumarMatricol(result.getString(1));
+				
+				preparedStatement = conexiune.prepareStatement("SELECT S.ID FROM STUDENTI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = ? ");
+				preparedStatement.setString(1, username);
+				result=preparedStatement.executeQuery();
+
+	
+				this.access = new AccessStudBD( conexiune , utilizator );
+				
+				
+			}
+			else if ( rezultat == 2 )
+			{
+				Teacher utilizator = new Teacher();
+				utilizator.setUsername(username);
+				utilizator.setEmail(username+"info.uaic.ro");
+				utilizator.setFirstName(username.split("\\.")[0]);
+				utilizator.setLastName(username.split("\\.")[1]);
+				
+				this.access = new AccessProfBD( conexiune , utilizator);
+			}
+			else
+			{
+				Secretary utilizator = new Secretary();
+				utilizator.setUsername(username);
+				utilizator.setEmail(username+"info.uaic.ro");
+				utilizator.setFirstName(username.split("\\.")[0]);
+				utilizator.setLastName(username.split("\\.")[1]);
+				
+				this.access = new AccessSecrBD( conexiune , utilizator);
+			}
+			
+			System.out.println("type user:"+rezultat);
+			
+		}
+		catch( Exception e )
+		{
+			System.out.println("Exceptie la createAccess: "+e.getMessage());
+		}
+		
+	}
 	
 	@SuppressWarnings("unused")
 	private int sendEmail( String adresa , String mesaj ) 
@@ -69,6 +147,10 @@ public class BD {
 		}	
 	}
 	
+	public boolean isLoged(){
+		return loged;
+	}
+	
 	public boolean isConnected(){
 		return connected;
 	}
@@ -78,10 +160,10 @@ public class BD {
 	}
 	
 	public AccessBD getAccess(){
-		
-		AccessBD rezultat = new AccessBD();
-		return rezultat;
-		
+		if (loged == false || connected ==false)
+			return null;
+		else
+		return access;
 	}
 
 	public int login ( String username, String hashparola )
@@ -97,8 +179,15 @@ public class BD {
 			 statement.execute();
 			 rezultat=statement.getInt(1);
 			 
-			 return rezultat;
+			 if( rezultat == 0 )
+			 {	 
+				 createAccess( username );
+				 loged = true; 
+			 }
+			 else
+				 loged = false;
 			 
+			 return rezultat;
 		}
 		catch(Exception e){
 			System.out.println("Exceptie la login: "+e.getMessage());

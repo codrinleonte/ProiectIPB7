@@ -1,10 +1,17 @@
 package bd;
 
-public class AccessStudBD extends AccessBD {
+import java.sql.Connection;
+import model.users.User;
+
+public class AccessStudBD extends  AccessBD{
 	
-	AccessStudBD()
+	AccessStudBD( Connection conexiune, User user )
 	{
-		this.tip = "Student";
+		this.conexiune = conexiune;
+		this.tip  = "Access_Student";
+		this.user = user;
 	}
+	
+	
 
 }

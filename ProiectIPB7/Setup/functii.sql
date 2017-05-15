@@ -1,3 +1,25 @@
+CREATE OR REPLACE FUNCTION get_type ( usernameV VARCHAR2 ) return INTEGER AS
+  aparitii INTEGER := 0;
+  tip VARCHAR2(30);
+  functie VARCHAR2(30);
+BEGIN
+
+  SELECT TIP_UTILIZATOR INTO tip FROM CONTURI WHERE CONTURI.USERNAME = usernameV;
+  
+  IF tip = 'Admin'  THEN return 0;
+  ELSIF tip = 'Student' THEN return 1;
+  ELSE
+    BEGIN
+    SELECT functie_comisie into functie FROM PROFESORI p join CONTURI c on p.id_cont = c.id where c.username=usernameV;
+    EXCEPTION WHEN OTHERS THEN
+      return 2;
+    END;
+    IF functie = 'Secretar' THEN return 3;
+    ELSE return 2;
+    END IF;
+  END IF;
+END;
+
 CREATE OR REPLACE FUNCTION login(  name VARCHAR2 , hashparola VARCHAR2 ) return INTEGER AS
 
   aparitii_username Integer :=0;
