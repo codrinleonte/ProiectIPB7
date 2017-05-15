@@ -16,7 +16,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import model.users.User;
 import model.users.types.*;
 
 
@@ -62,9 +61,12 @@ public class BD {
 				result.next();	
 				utilizator.setNumarMatricol(result.getString(1));
 				
-				preparedStatement = conexiune.prepareStatement("SELECT S.ID FROM STUDENTI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = ? ");
-				preparedStatement.setString(1, username);
+				preparedStatement = conexiune.prepareStatement("SELECT ID FROM PROFESORI WHERE NUME=UPPER(?) AND PRENUME=UPPER(?) ");
+				preparedStatement.setString(1, utilizator.getLastName());
+				preparedStatement.setString(2, utilizator.getFirstName());
 				result=preparedStatement.executeQuery();
+				result.next();
+				utilizator.setId(result.getInt(1));
 
 	
 				this.access = new AccessStudBD( conexiune , utilizator );
@@ -79,6 +81,13 @@ public class BD {
 				utilizator.setFirstName(username.split("\\.")[0]);
 				utilizator.setLastName(username.split("\\.")[1]);
 				
+				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT ID FROM PROFESORI WHERE NUME=UPPER(?) AND PRENUME=UPPER(?) ");
+				preparedStatement.setString(1, utilizator.getLastName());
+				preparedStatement.setString(2, utilizator.getFirstName());
+				ResultSet result=preparedStatement.executeQuery();
+				result.next();
+				utilizator.setId(result.getInt(1));
+				
 				this.access = new AccessProfBD( conexiune , utilizator);
 			}
 			else
@@ -89,10 +98,14 @@ public class BD {
 				utilizator.setFirstName(username.split("\\.")[0]);
 				utilizator.setLastName(username.split("\\.")[1]);
 				
+				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT S.ID FROM PROFESORI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = UPPER( ? ) ");
+				preparedStatement.setString(1, username);
+				ResultSet result=preparedStatement.executeQuery();
+				result.next();
+				utilizator.setId(result.getInt(1));
+				
 				this.access = new AccessSecrBD( conexiune , utilizator);
 			}
-			
-			System.out.println("type user:"+rezultat);
 			
 		}
 		catch( Exception e )

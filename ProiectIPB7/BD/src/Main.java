@@ -10,10 +10,10 @@ public class Main {
 		System.out.println("Inregistrare_stud: "+bd.inregistrare_stud("robert.otrocol@info.uaic.ro", "hashparola"));
 		
 		System.out.println("Inregistrare_prof: "+bd.inregistrare_prof("andreea.arusoaie", "hashparola"));
-		//System.out.println("Logare: "  +bd.login("andreea.arusoaie","hashparola"));
+		System.out.println("Logare: "  +bd.login("andreea.arusoaie","hashparola"));
 		
 		System.out.println("Verificare: "+bd.verificare("52048607175574743650"));
-		System.out.println("Locare: " +bd.login("robert.otrocol", "hashparola"));
+		//System.out.println("Locare: " +bd.login("robert.otrocol", "hashparola"));
 		
 		
 		AccessBD access=bd.getAccess();

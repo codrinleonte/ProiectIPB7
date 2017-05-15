@@ -1,9 +1,11 @@
 package model.users.types;
+import model.session.Session;
 import  model.users.User;
 
 public class Student extends User {
 	
 	String  numarMatricol;
+	Session sesiune;
 	
 	public Student()
 	{

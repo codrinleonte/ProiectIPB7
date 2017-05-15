@@ -50,11 +50,15 @@ public abstract class User {
 	public int getId(){
 		return id;
 	}
+	
+	public String getTip(){
+		return tip;
+	}
 
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", name=" + getName() + ", email=" + email+", tip="+tip+"]";
+		return "User [id="+id+", username=" + username + ", name=" + getName() + ", email=" + email+", tip="+tip+"]";
 	}
 
 }
