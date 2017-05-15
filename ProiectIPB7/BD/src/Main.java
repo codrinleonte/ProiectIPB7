@@ -1,40 +1,74 @@
 import java.util.Vector;
 import bd.*;
-import model.messages.MessageBD;
-import model.users.User;
-import model.users.types.*;
 
 public class Main {
 
 	public static void main( String[] args )
 	{
 		BD bd = new BD();
+		
 		System.out.println("Conectat: "+bd.isConnected());
+		
 		System.out.println("Inregistrare_stud: "+bd.inregistrare_stud("robert.otrocol@info.uaic.ro", "hashparola"));
-		
-		System.out.println("Inregistrare_prof: "+bd.inregistrare_prof("andreea.arusoaie", "hashparola"));
-		System.out.println("Logare: "  +bd.login("Admin","Root"));
-		
-		System.out.println("Verificare: "+bd.verificare("52048607175574743650"));
-		//System.out.println("Locare: " +bd.login("robert.otrocol", "hashparola"));
+		System.out.println("Verificare: "+bd.verificare("83583581482831666356"));
+		System.out.println("Logare: " +bd.login("robert.otrocol", "hashparola"));
 		
 		
-		AccessBD access=bd.getAccess();
-		User user = access.getUser();
-		System.out.println(user);
+		bd.login("Admin", "Root");
 		
-		Vector <Teacher> listaProfi =  access.fetchListaProfesori();
-		System.out.println(listaProfi);
+		if(bd.isLoged() && bd.isConnected())
+		{
+			AccessBD access = bd.getAccess();
+			AccessAdminBD  accessAdmin	= (AccessAdminBD) access;
+			System.out.println(access.getUser());
 		
-		Vector <Account> listaConturi   =  ((AccessAdminBD) access).fetchConturi();
-		System.out.println(listaConturi);
-		
-		Vector <MessageBD> listaMesaje  =  ((AccessAdminBD) access).fetchMesaje();
-		System.out.println(listaMesaje);
-		
-		Vector <Student>  listaStudenti = ((AccessAdminBD) access).fetchStudenti();
-		System.out.println(listaStudenti);
-		
+			/*
+			Teste Mesaje  
+			Vector<IntrareMesaje> mesaje = accessAdmin.selectMesaje();
+			System.out.println("Mesaje:"+mesaje);	
+			IntrareMesaje mesaj = new IntrareMesaje();
+			mesaj.setIdDestinatar(1);
+			mesaj.setIdEmitator(2);
+			mesaj.setMesaj("ceva ciuuudat");
+			accessAdmin.insertMesaj(mesaj);
+			mesaj.setMesaj("Modificat");
+			accessAdmin.updateMesaj(mesaj);
+			*/
+			
+			
+			/*
+			Teste Conturi
+			Vector<IntrareConturi> conturi = accessAdmin.selectConturi();
+			System.out.println("Conturi:"+conturi);
+			IntrareConturi cont = new IntrareConturi();
+			cont.setTipUtilizator("ceva ciuuuudat");
+			accessAdmin.insertCont(cont);
+			*/
+			
+			
+			/*
+			Teste Studenti
+			Vector<IntrareStudenti> studenti = accessAdmin.selectStudenti();
+			System.out.println("Studenti:"+studenti);
+			IntrareStudenti student = new IntrareStudenti();
+			student.setNume("Ceva Ciuuudat");
+			accessAdmin.insertStudent(student);
+			student.setNume("Modificat");
+			accessAdmin.updateStudent(student);
+			*/
+			
+			
+			//Teste Profesori
+			/*
+			Vector<IntrareProfesori> profesori = accessAdmin.selectProfesori();
+			System.out.println("Profesori:"+profesori);
+			IntrareProfesori profesor = new IntrareProfesori();
+			profesor.setNume("Cevaaa ciudat");
+			accessAdmin.insertProfesor( profesor );
+			*/
+
+		}
+		else System.out.println("Logare | Conectare esuata");
 		
 	}
 }

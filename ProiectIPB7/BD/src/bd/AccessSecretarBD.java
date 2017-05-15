@@ -1,10 +1,9 @@
 package bd;
 import java.sql.Connection;
-import model.users.User;
 
-public class AccessSecrBD extends AccessBD{
+public class AccessSecretarBD extends AccessBD{
 
-	AccessSecrBD( Connection conexiune, User user )
+	AccessSecretarBD( Connection conexiune, UserBD user )
 	{
 		this.conexiune = conexiune;
 		this.tip = "Access_Secretary";

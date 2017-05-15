@@ -16,7 +16,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import model.users.types.*;
 
 
 public class BD {
@@ -42,72 +41,50 @@ public class BD {
 			
 			if( rezultat==0 )
 			{
-				Admin utilizator = new Admin();
+				UserBD utilizator = new UserBD();
+				utilizator.setId(0);
+				utilizator.setTip("Admin");
+				utilizator.setUsername("Admin");
 				this.access = new AccessAdminBD( conexiune , utilizator );
 			}
-			else if ( rezultat ==1 )
+			else if ( rezultat == 1 )
 			{
-				
-				Student utilizator = new Student();
-				
-				utilizator.setUsername(username);
-				utilizator.setEmail(username+"@info.uaic.ro");
-				utilizator.setFirstName(username.split("\\.")[0]);
-				utilizator.setLastName(username.split("\\.")[1]);
-				
-				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT NR_MATRICOL FROM STUDENTI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = ? ");
-				preparedStatement.setString(1, username);
-				ResultSet result = preparedStatement.executeQuery();
-				result.next();	
-				utilizator.setNumarMatricol(result.getString(1));
-				
-				preparedStatement = conexiune.prepareStatement("SELECT ID FROM PROFESORI WHERE NUME=UPPER(?) AND PRENUME=UPPER(?) ");
-				preparedStatement.setString(1, utilizator.getLastName());
-				preparedStatement.setString(2, utilizator.getFirstName());
-				result=preparedStatement.executeQuery();
+				UserBD utilizator = new UserBD();
+				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM STUDENTI JOIN CONTURI on STUDENTI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				statement2.setString(1, username);
+				ResultSet result = statement2.executeQuery();
 				result.next();
 				utilizator.setId(result.getInt(1));
-
-	
-				this.access = new AccessStudBD( conexiune , utilizator );
+				utilizator.setTip("Student");
+				utilizator.setUsername(username);
 				
-				
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else if ( rezultat == 2 )
 			{
-				Teacher utilizator = new Teacher("Teacher");
-				utilizator.setUsername(username);
-				utilizator.setEmail(username+"info.uaic.ro");
-				utilizator.setFirstName(username.split("\\.")[0]);
-				utilizator.setLastName(username.split("\\.")[1]);
-				
-				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT ID FROM PROFESORI WHERE NUME=UPPER(?) AND PRENUME=UPPER(?) ");
-				preparedStatement.setString(1, utilizator.getLastName());
-				preparedStatement.setString(2, utilizator.getFirstName());
-				ResultSet result=preparedStatement.executeQuery();
+				UserBD utilizator = new UserBD();
+				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				statement2.setString(1, username);
+				ResultSet result = statement2.executeQuery();
 				result.next();
 				utilizator.setId(result.getInt(1));
-				
-				this.access = new AccessProfBD( conexiune , utilizator);
+				utilizator.setTip("Profesor");
+				utilizator.setUsername(username);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else
 			{
-				Teacher utilizator = new Teacher("Secretary");
-				utilizator.setUsername(username);
-				utilizator.setEmail(username+"info.uaic.ro");
-				utilizator.setFirstName(username.split("\\.")[0]);
-				utilizator.setLastName(username.split("\\.")[1]);
-				
-				PreparedStatement preparedStatement = conexiune.prepareStatement("SELECT S.ID FROM PROFESORI S JOIN CONTURI C ON S.ID_CONT=C.ID WHERE C.USERNAME = UPPER( ? ) ");
-				preparedStatement.setString(1, username);
-				ResultSet result=preparedStatement.executeQuery();
+				UserBD utilizator = new UserBD();
+				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				statement2.setString(1, username);
+				ResultSet result = statement2.executeQuery();
 				result.next();
 				utilizator.setId(result.getInt(1));
-				
-				this.access = new AccessSecrBD( conexiune , utilizator);
+				utilizator.setTip("Secretar");
+				utilizator.setUsername(username);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 		
-			
 		}
 		catch( Exception e )
 		{

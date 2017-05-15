@@ -1,10 +1,9 @@
 package bd;
 import java.sql.Connection;
-import model.users.User;
 
-public class AccessProfBD extends AccessBD{
+public class AccessProfesorBD extends AccessBD{
 	
-	AccessProfBD( Connection conexiune , User user )
+	AccessProfesorBD( Connection conexiune , UserBD user )
 	{
 		this.conexiune = conexiune;
 		this.tip = "Access_Teacher";
