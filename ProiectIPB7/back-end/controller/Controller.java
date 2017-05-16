@@ -207,6 +207,23 @@ public class Controller {
         return new Vector<>(); // return dbGetCommittee(id);
     }
 
+    // 11.
+    public Vector<Integer> getUnassignedTeachers(String token) {
+
+        if (activeAuthTokens.get(token) == null) {
+            Vector<Integer> result = new Vector<>();
+            result.addElement(-1);
+            return result;
+        }
+
+        // TODO DB getUnassignedTeachers function needed
+        // IN:  None
+        // OUT: Vector<Integer>
+        // Returns a Vectors with the IDs of the teachers who are not yet assigned to any committee
+
+        return new Vector<>(); // return dbGetUnassignedTeachers();
+    }
+
 
 }
 
