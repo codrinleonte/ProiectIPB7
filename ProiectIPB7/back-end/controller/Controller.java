@@ -224,6 +224,39 @@ public class Controller {
         return new Vector<>(); // return dbGetUnassignedTeachers();
     }
 
+    // 12.
+    public Boolean assignTeacher(String token, Integer profId, Integer committeeId) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
+
+        // TODO DB assignTeacher function needed
+        // IN:  Integer profId, Integer committeeId
+        // OUT: Boolean
+        // True if the function was successful, false otherwise
+
+        return true; // return dbAssignTeacher(profId, committeeId);
+    }
+
+    // 13.
+    public Vector<Vector<String>> getStudentsForCommittee(String token, Integer id) {
+
+        if (activeAuthTokens.get(token) == null) {
+            Vector<Vector<String>> result = new Vector<>();
+            result.addElement(new Vector<>());
+            result.elementAt(0).addElement("access denied");
+        }
+
+        // TODO DB getStudentsForCommittee function needed
+        // IN:  Integer committeeId
+        // OUT: Vector<Vector<String>>
+        // Returns a vector of "students",
+        // each "student" is a String vector containing, in this order: id_student, nume, prenume
+
+        return new Vector<>(); // return dbGetStudentsForCommittee(id);
+    }
+
 
 }
 
