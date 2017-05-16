@@ -105,7 +105,136 @@ public class AccessAdminBD extends AccessBD {
 			return null;
 		}		
 	}
+	
 
+	public Vector<IntrareComisii> selectComisii(){
+		Vector<IntrareComisii> rezultat = new Vector<IntrareComisii>();
+		try{
+			
+			PreparedStatement pStatement = conexiune.prepareStatement("Select * from comisii");
+			ResultSet result = pStatement.executeQuery(); 
+			while(result.next() && result!=null){
+				IntrareComisii intrare = new IntrareComisii();
+				intrare.setId(result.getInt(1));
+				intrare.setIdProfSef(result.getInt(2));
+				intrare.setIdProf2(result.getInt(3));
+				intrare.setIdProf3(result.getInt(4));
+				intrare.setIdProf4(result.getInt(5));
+				intrare.setIdSecretar(result.getInt(6));
+				intrare.setTipComisie(result.getString(7));
+				intrare.setIdEvaluare(result.getInt(8));
+				rezultat.add(intrare);
+			}
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectComisii: "+e.getMessage());
+			return null;
+		}
+	}
+
+	public Vector<IntrareEvaluari> selectEvaluari(){
+		Vector<IntrareEvaluari> rezultat = new Vector<IntrareEvaluari>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from evaluari"); 
+			while(result.next()){
+				IntrareEvaluari intrare = new IntrareEvaluari();
+				intrare.setId(result.getInt(1));
+				intrare.setIdSesiune(result.getInt(2));
+				intrare.setIdComisie(result.getInt(3));
+				intrare.setInceputEvaluare(result.getTimestamp(4));
+				intrare.setSfarsitEvaluare(result.getTimestamp(5));
+				rezultat.add(intrare);
+			}
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectEvaluari: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	public Vector<IntrareDetaliiLicente> selectDetaliiLicente(){
+		Vector<IntrareDetaliiLicente> rezultat = new Vector<IntrareDetaliiLicente>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from detalii_licente"); 
+			while(result.next()){
+				IntrareDetaliiLicente intrare = new IntrareDetaliiLicente();
+				intrare.setId(result.getInt(1));
+				intrare.setIdComisie(result.getInt(2));
+				intrare.setNota1Oral(result.getInt(3));
+				intrare.setNota1Proiect(result.getInt(4));
+				intrare.setNota2Oral(result.getInt(5));
+				intrare.setNota2Proiect(result.getInt(6));
+				intrare.setNota3Oral(result.getInt(7));
+				intrare.setNota3Proiect(result.getInt(8));
+				intrare.setNota4Oral(result.getInt(9));
+				intrare.setNota4Proiect(result.getInt(10));
+				intrare.setDataOraSustinerii(result.getTimestamp(11));
+				
+				rezultat.add(intrare);
+			}
+			
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectDetaliiLicente: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	public Vector<IntrareLicente> selectLicente(){
+		Vector<IntrareLicente> rezultat = new Vector<IntrareLicente>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from licente"); 
+			while(result.next()){
+				IntrareLicente intrare = new IntrareLicente();
+				intrare.setId(result.getInt(1));
+				intrare.setTitlu(result.getString(2));
+				intrare.setIdProfesor(result.getInt(3));
+				intrare.setIdStudent(result.getInt(4));
+				intrare.setMaterialeLicenta(result.getString(5));
+				intrare.setIdSesiune(result.getInt(6));
+				intrare.setTipLucrare(result.getString(7));
+				
+				rezultat.add(intrare);
+			}
+			
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectLicente: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	public Vector<IntrareSesiuni> selectSesiuni(){
+		Vector<IntrareSesiuni> rezultat = new Vector<IntrareSesiuni>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from sesiuni"); 
+			while(result.next()){
+				IntrareSesiuni intrare = new IntrareSesiuni();
+				intrare.setId(result.getInt(1));
+				intrare.setInceputSesiune(result.getTimestamp(2));
+				intrare.setSfarsitSesiune(result.getTimestamp(3));
+				rezultat.add(intrare);
+			}
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectSesiuni: "+e.getMessage());
+			return null;
+		}	
+	}
+	
 	public int updateMesaj( IntrareMesaje intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update Mesaje set iD_Emitator = ? , ID_Destinatar = ? , Mesaj = ? where id = ? ";
@@ -224,6 +353,167 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 
+	public int updateComisie( IntrareComisii intrare ){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update comisii set ID_Prof1 = ? , ID_Prof2 = ? , ID_Prof3 =?, ID_Prof4_Dizertatie = ?, ID_Secretar = ?, Tip_Comisie = ?, ID_Evaluare = ? where id = ? ";
+		try{
+	
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from comisii where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdProfSef());
+			statement.setInt(2, intrare.getIdProf2());
+			statement.setInt(3, intrare.getIdProf3());
+			statement.setInt(4, intrare.getIdProf4());
+			statement.setInt(5, intrare.getIdSecretar());
+			statement.setString(6, intrare.getTipComisie());
+			statement.setInt(7, intrare.getIdEvaluare());
+			statement.setInt(8, intrare.getId());
+			statement.executeUpdate();	
+			conexiune.commit();
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateComisie" + e.getMessage());
+			return -7;
+		}
+		
+	}
+	
+	public int updateEvaluare( IntrareEvaluari intrare ){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update evaluari set id_sesiune = ?, id_comisie = ?, inceput_evaluare = ?, sfarsit_evaluare = ? where id = ? ";
+		try{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from evaluari where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdSesiune());
+			statement.setInt(2, intrare.getIdComisie());
+			statement.setTimestamp(3, intrare.getInceputEvaluare());
+			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
+			statement.setInt(5, intrare.getId());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateEvaluare" + e.getMessage());
+			return -7;
+		}	
+	}
+	
+	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, data_ora_sustinere = ? where id = ? ";
+		try{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdComisie());
+			statement.setInt(2, intrare.getNota1Oral());
+			statement.setInt(3, intrare.getNota1Proiect());
+			statement.setInt(4, intrare.getNota2Oral());
+			statement.setInt(5, intrare.getNota2Proiect());
+			statement.setInt(6, intrare.getNota3Oral());
+			statement.setInt(7, intrare.getNota3Proiect());
+			statement.setInt(8, intrare.getNota4Oral());
+			statement.setInt(9, intrare.getNota4Proiect());
+			statement.setTimestamp(10, intrare.getDataOraSustinerii());
+			statement.setInt(11, intrare.getId());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateDetaliiLicenta" + e.getMessage());
+			return -7;
+		}	
+		
+	}
+	
+	public int updateLicenta( IntrareLicente intrare){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
+		try{			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from licente where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setString(1, intrare.getTitlu());
+			statement.setInt(2, intrare.getIdProfesor());
+			statement.setInt(3, intrare.getIdStudent());
+			statement.setString(4, intrare.getMaterialeLicenta());
+			statement.setInt(5, intrare.getIdSesiune());
+			statement.setString(6, intrare.getTipLucrare());
+			statement.setInt(7, intrare.getId());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateLicenta" + e.getMessage());
+			return -7;
+		}	
+		
+	}
+	
+	public int updateSesiune( IntrareSesiuni intrare){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update sesiuni set inceput_sesiune = ?, sfarsit_sesiune = ? where id = ? ";
+		try{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from sesiuni where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setTimestamp(1, intrare.getInceputSesiune());
+			statement.setTimestamp(2, intrare.getSfarsitSesiune());
+			statement.setInt(3, intrare.getId());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateSesiune" + e.getMessage());
+			return -7;
+		}	
+		
+	}
+	
 	public int insertMesaj( IntrareMesaje intrare ){
 		String apel;	
 		try{
@@ -426,8 +716,273 @@ public class AccessAdminBD extends AccessBD {
 		}		
 		
 	}
+	
+  public int insertComisie( IntrareComisii intrare){
+		
+		String apel = new String();	
+		try{
+			
+			if(intrare.getId()==0){
+				apel = " Insert into Comisii (ID, ID_Prof1, ID_Prof2, ID_Prof3, ID_Prof4_Dizertatie, ID_Secretar, Tip_Comisie, ID_Evaluare) Values(to_number(COMISII_SEQ.NEXTVAL), ?, ? ,?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1,intrare.getIdProfSef());
+				statement.setInt(2,intrare.getIdProf2());
+				statement.setInt(3,intrare.getIdProf3());
+				statement.setInt(4,intrare.getIdProf4());
+				statement.setInt(5,intrare.getIdSecretar());
+				statement.setString(6, intrare.getTipComisie());
+				statement.setInt(7, intrare.getIdEvaluare());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select COMISII_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				return 0;
+			}
+			else{
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Count(*) from COMISII where id = "+intrare.getId());
+				rs.next();
+				if( rs.getInt(1) > 0 ) {
+					System.out.println("Intrare Existenta. Update?");
+					return -1;
+				}
+				
+				apel = " Insert into Comisii Values(?, ?, ?, ? ,?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1,intrare.getId());
+				statement.setInt(2,intrare.getIdProfSef());
+				statement.setInt(3, intrare.getIdProf2());
+				statement.setInt(4,intrare.getIdProf3());
+				statement.setInt(5,intrare.getIdProf4());
+				statement.setInt(6,intrare.getIdSecretar());
+				statement.setString(7,intrare.getTipComisie());
+				statement.setInt(8, intrare.getIdEvaluare());
+				statement.executeUpdate();
+				conexiune.commit();
+				return 0;
+			}
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la insertComisie: "+e.getMessage());
+			return -7;
+		}		
+		
+	}
 
-	public int dropMesaj( IntrareMesaje intrare ){
+  public int insertEvaluare( IntrareEvaluari intrare ){
+	String apel;	
+	try{
+		if(intrare.getId()==0){
+			apel = " Insert into Evaluari Values(Evaluari_SEQ.NEXTVAL, ?, ? ,?, ?)";
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdSesiune());
+			statement.setInt(2, intrare.getIdComisie());
+			statement.setTimestamp(3, intrare.getInceputEvaluare());
+			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select EVALUARI_SEQ.CURRVAL from dual");
+			rs.next();
+			intrare.setId(rs.getInt(1));
+			
+			return 0;
+		}
+		else{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Evaluari where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) > 0 ) {
+				System.out.println("Intrare Existenta. Update?");
+				return -1;
+			}
+			
+			apel = " Insert into Evaluari Values(?, ?, ?, ? ,?)";
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1,intrare.getId());
+			statement.setInt(2, intrare.getIdSesiune());
+			statement.setInt(3, intrare.getIdComisie());
+			statement.setTimestamp(4, intrare.getInceputEvaluare());
+			statement.setTimestamp(5, intrare.getSfarsitEvaluare());
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			return 0;
+		}
+	}
+	catch( Exception e ){
+		System.out.println("Exceptie la insertEvaluare: "+e.getMessage());
+		return -7;
+	}
+  }
+  
+  public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
+		String apel = new String();	
+		try{
+			
+			if(intrare.getId()==0){
+				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1, intrare.getIdComisie());
+				statement.setInt(2, intrare.getNota1Oral());
+				statement.setInt(3, intrare.getNota1Proiect());
+				statement.setInt(4, intrare.getNota2Oral());
+				statement.setInt(5, intrare.getNota2Proiect());
+				statement.setInt(6, intrare.getNota3Oral());
+				statement.setInt(7, intrare.getNota3Proiect());
+				statement.setInt(8, intrare.getNota4Oral());
+				statement.setInt(9, intrare.getNota4Proiect());
+				statement.setTimestamp(10, intrare.getDataOraSustinerii());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Detalii_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				
+				return 0;
+			}
+			else{
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id = "+intrare.getId());
+				rs.next();
+				if( rs.getInt(1) > 0 ) {
+					System.out.println("Intrare Existenta. Update?");
+					return -1;
+				}
+				
+				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1, intrare.getId());
+				statement.setInt(2, intrare.getIdComisie());
+				statement.setInt(3, intrare.getNota1Oral());
+				statement.setInt(4, intrare.getNota1Proiect());
+				statement.setInt(5, intrare.getNota2Oral());
+				statement.setInt(6, intrare.getNota2Proiect());
+				statement.setInt(7, intrare.getNota3Oral());
+				statement.setInt(8, intrare.getNota3Proiect());
+				statement.setInt(9, intrare.getNota4Oral());
+				statement.setInt(10, intrare.getNota4Proiect());
+				statement.setTimestamp(11, intrare.getDataOraSustinerii());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				return 0;
+			}
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la insertDetaliiLicente: "+e.getMessage());
+			return -7;
+		}
+	}
+    
+  public int insertLicenta( IntrareLicente intrare ){
+		String apel;	
+		try{
+			if(intrare.getId()==0){
+				apel = " Insert into Licente Values(Licente_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setString(1, intrare.getTitlu());
+				statement.setInt(2, intrare.getIdProfesor());
+				statement.setInt(3, intrare.getIdStudent());
+				statement.setString(4, intrare.getMaterialeLicenta());
+				statement.setInt(5, intrare.getIdSesiune());
+				statement.setString(6, intrare.getTipLucrare());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select LICENTE_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				
+				return 0;
+			}
+			else{
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Count(*) from LICENTE where id ="+intrare.getId());
+				rs.next();
+				if( rs.getInt(1) > 0 ) {
+					System.out.println("Intrare Existenta. Update?");
+					return -1;
+				}
+				
+				apel = " Insert into LICENTE Values(?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1,intrare.getId());
+				statement.setString(2, intrare.getTitlu());
+				statement.setInt(3, intrare.getIdProfesor());
+				statement.setInt(4, intrare.getIdStudent());
+				statement.setString(5, intrare.getMaterialeLicenta());
+				statement.setInt(6, intrare.getIdSesiune());
+				statement.setString(7, intrare.getTipLucrare());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				return 0;
+			}
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la insertLicenta: "+e.getMessage());
+			return -7;
+		}
+	}
+  
+  public int insertSesiune( IntrareSesiuni intrare ){
+		String apel;	
+		try{
+			if(intrare.getId()==0){
+				apel = " Insert into sesiuni Values(SESIUNI_SEQ.NEXTVAL, ?, ? )";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setTimestamp(1, intrare.getInceputSesiune());
+				statement.setTimestamp(2, intrare.getSfarsitSesiune());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Sesiuni_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				
+				return 0;
+			}
+			else{
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Count(*) from SESIUNI where id ="+intrare.getId());
+				rs.next();
+				if( rs.getInt(1) > 0 ) {
+					System.out.println("Intrare Existenta. Update?");
+					return -1;
+				}
+				
+				apel = " Insert into SESIUNI Values(?, ?, ?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1,intrare.getId());
+				statement.setTimestamp(2, intrare.getInceputSesiune());
+				statement.setTimestamp(3, intrare.getSfarsitSesiune());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				return 0;
+			}
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la insertSesiune: "+e.getMessage());
+			return -7;
+		}
+	}
+    
+  public int dropMesaj( IntrareMesaje intrare ){
 		try{
 			if(intrare.getId()==0) return -1;
 			Statement  stmt = conexiune.createStatement();
@@ -514,4 +1069,120 @@ public class AccessAdminBD extends AccessBD {
 			return -7;
 		}
 	}
+    
+    public int dropComisie( IntrareComisii intrare ){
+		try{
+			
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Comisii where id = "+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from Comisii where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropComisie:" + e.getMessage());
+			return -7;
+		}
+	}
+ 
+    public int dropEvaluare( IntrareEvaluari intrare ){
+		try{
+			
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from evaluari where id = "+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from EVALUARI where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropEvaluari:" + e.getMessage());
+			return -7;
+		}
+	}
+    
+    public int dropDetaliiLicenta( IntrareDetaliiLicente intrare ){
+		try{
+			
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from DETALII_LICENTE where id = "+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from DETALII_LICENTE where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropDetaliiLicenta:" + e.getMessage());
+			return -7;
+		}
+	}
+    
+    public int dropLicenta( IntrareLicente intrare ){
+		try{
+			
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from LICENTE where id = "+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from LICENTE where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropLicenta:" + e.getMessage());
+			return -7;
+		}
+	}
+    
+    public int dropSesiune( IntrareSesiuni intrare ){
+		try{
+			
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Sesiuni where id = "+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from SESIUNI where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropSesiune:" + e.getMessage());
+			return -7;
+		}
+	}
+    
 }

@@ -40,4 +40,5 @@ public class IntrareEvaluari {
 	public void setSfarsitEvaluare(Timestamp sfarsitEvaluare) {
 		this.sfarsitEvaluare = sfarsitEvaluare;
 	}
+	
 }

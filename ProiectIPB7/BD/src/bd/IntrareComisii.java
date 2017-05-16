@@ -1,6 +1,7 @@
 package bd;
 
 public class IntrareComisii {
+	int id;
 	int idProfSef;
 	int idProf2;
 	int idProf3;
@@ -9,6 +10,12 @@ public class IntrareComisii {
 	String tipComisie;
 	int idEvaluare;
 	
+	public int getId(){
+		return id;
+	}
+	public void setId(int id){
+		this.id=id;
+	}
 	public int getIdProfSef() {
 		return idProfSef;
 	}
@@ -51,4 +58,5 @@ public class IntrareComisii {
 	public void setIdEvaluare(int idEvaluare) {
 		this.idEvaluare = idEvaluare;
 	}
+
 }

@@ -26,4 +26,5 @@ public class IntrareSesiuni {
 	public void setSfarsitSesiune(Timestamp sfarsitSesiune) {
 		this.sfarsitSesiune = sfarsitSesiune;
 	}
+	
 }
