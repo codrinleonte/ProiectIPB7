@@ -1,8 +1,5 @@
 package controller;
 
-import clojure.core.Vec;
-import model.scheduling.Timetable;
-
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -18,7 +15,7 @@ public class Controller {
 
 
     // 1.
-    public boolean register(String email, String password) {
+    public Boolean register(String email, String password) {
 
         String firstName = email.split("@")[0].split("\\.")[0];
         String lastName  = email.split("@")[0].split("\\.")[0];
@@ -35,7 +32,7 @@ public class Controller {
     }
 
     // 2.
-    public boolean confirmEmail(String confirmToken) {
+    public Boolean confirmEmail(String confirmToken) {
 
         // TODO DB confirm function needed
         // IN:  String confirmToken
@@ -108,7 +105,11 @@ public class Controller {
     }
 
     // 6.
-    public boolean newProject(String token, String projectName, String idProf, String projectDescription) {
+    public Boolean newProject(String token, String projectName, String idProf, String projectDescription) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
 
         // TODO DB newProject function needed
         // IN:  String studEmail, String projectName, String idProf, String projectDescription
@@ -117,6 +118,43 @@ public class Controller {
         // False otherwise
 
         return true; // return dbNewProject(studEmail, projectName, idProf, projectDescription);
+    }
+
+    // 7.
+    public Double getMarkForStudent(String token, Integer id) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return -1.0;
+        }
+
+        Double mark, oralMark, projectMark;
+
+        // TODO DB studentMarks function needed
+        // IN:  Integer studId
+        // OUT: Vector<Vector<Integer>>
+        // A vector containing 2 Integer Vectors.
+        // The first vector(at position 0) will hold the PROJECT marks
+        // The second vector(at position 1) will hold ORAL marks
+
+        Vector<Vector<Integer>> marks = new Vector<>(); // = dbStudentMarks(id);
+
+
+
+        projectMark = 0.0;
+        oralMark    = 0.0;
+
+        for (Integer i : marks.elementAt(0)) // Project marks
+            projectMark += i;
+
+        for (Integer i : marks.elementAt(1)) // Oral marks
+            oralMark += i;
+
+        projectMark = (double)((int)(projectMark * 100)) / 100.0; // Truncate to 2 decimal places
+        oralMark    = (double)((int)(oralMark    * 100)) / 100.0;
+
+        mark = (double)((int)(((oralMark + projectMark) / 2.0) * 100)) / 100.0; // Truncate the average to 2 decimal places
+
+        return mark;
     }
 
 }
