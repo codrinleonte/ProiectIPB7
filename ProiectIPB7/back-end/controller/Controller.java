@@ -1,5 +1,7 @@
 package controller;
 
+import clojure.core.Vec;
+
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -155,6 +157,34 @@ public class Controller {
         mark = (double)((int)(((oralMark + projectMark) / 2.0) * 100)) / 100.0; // Truncate the average to 2 decimal places
 
         return mark;
+    }
+
+    // 8.
+    public Vector<Vector<String>> getStudentMarksPage(String token, Integer page) {
+
+        Vector<Vector<String>> result = new Vector<>();
+
+        if (activeAuthTokens.get(token) == null) {
+            result.addElement(new Vector<>());
+            result.elementAt(0).addElement("access denied");
+            return result;
+        }
+
+        // TODO DB getStudents function needed
+        // IN:  None
+        // OUT: Vector<Vector<String>>
+        // Each of the small String vectors will contain, in this order: numeStudent, prenumeStudent, idStudent
+
+        //result = getStudents();
+
+        Vector<Vector<String>> studentPage = new Vector<>();
+        for (int i = 0; i < 10; ++i)
+            studentPage.addElement(result.elementAt(page * 10 + i)); // Getting results for the requested page
+
+        for (Vector<String> stud : studentPage) // Calculating the student marks
+            stud.setElementAt(getMarkForStudent(token, Integer.parseInt(stud.elementAt(2))).toString(), 2);
+
+        return studentPage;
     }
 
 }
