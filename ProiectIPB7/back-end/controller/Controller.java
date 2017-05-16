@@ -257,6 +257,42 @@ public class Controller {
         return new Vector<>(); // return dbGetStudentsForCommittee(id);
     }
 
+    // 14.
+    public Boolean markStudentProject(String token, Integer idProf, Integer idStud, Double mark) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
+
+        // TODO DB markStudentProject function
+        // IN:  Integer idProf, Integer idStud, Double mark
+        // OUT: Boolean
+        // Updates the project mark given by idProf to idStud.
+        // For example: If, in the committee, idProf is the 2nd teacher, the 2nd student mark will be updated,
+        // same for the 1st, 3rd etc. teachers
+        // Returns true for success
+        // False otherwise
+
+        return true; // return dbMarkStudentProject(idProf, idStud, mark);
+    }
+
+    public Boolean markStudentOral(String token, Integer idProf, Integer idStud, Double mark) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
+
+        // TODO DB markStudentOral function
+        // IN:  Integer idProf, Integer idStud, Double mark
+        // OUT: Boolean
+        // Updates the oral mark given by idProf to idStud.
+        // For example: If, in the committee, idProf is the 2nd teacher, the 2nd student mark will be updated,
+        // same for the 1st, 3rd etc. teachers
+        // Returns true for success
+        // False otherwise
+
+        return true; // return dbMarkStudentOral(idProf, idStud, mark);
+    }
 
 }
 
