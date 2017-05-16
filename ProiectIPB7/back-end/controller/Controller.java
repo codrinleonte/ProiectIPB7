@@ -2,30 +2,57 @@ package controller;
 
 import model.scheduling.Timetable;
 
+import java.util.Vector;
+
 public class Controller {
 
-    private Timetable timetable;
+    private static Vector<String> activeAuthTokens = new Vector<>();
 
-    // TODO Add members: refrence to View etc.
+    // TODO Any members
 
 
 
-    public void updateView() {
-        // TODO Implement
+
+
+
+    // 1.
+    public boolean register(String email, String password) {
+
+        String firstName = email.split("@")[0].split("\\.")[0];
+        String lastName  = email.split("@")[0].split("\\.")[0];
+
+
+        // TODO DB insert function needed.
+        // True if validation email has been sent
+        // False in any other case
+        // All accounts are registered as students
+
+        return true; // return dbRegister(email, password, firstName, lastName);
     }
 
-    int login(String username, String password) {
-        // TODO Implement.
-        // TODO Possibly something like dbApi.login(username, password)
+    // 2.
+    public boolean confirmEmail(String email, String confirmToken) {
 
-        return 0;
+        // TODO DB confirm function needed
+        // True if key sent to account matches AND account is NOT already activated(also activate the account in this case)
+        // False in any other case(including account already activated
+
+        return true; // return dbConfirmEmail(email, confirmToken);
     }
 
-    int register(String username, String password, String email) {
-        // TODO Implement
-        // TODO Add any other register parameters(talk with DB guys?)
+    // 3.
+    public String login(String email, String password) {
 
-        return 0;
+        // TODO DB login function needed
+        // String with an authentication token if login successful
+        // Empty string("") otherwise
+
+        String token = ""; // = dbLogin(email, password);
+
+        if (token.length() > 0)
+            activeAuthTokens.addElement(token);
+
+        return token;
     }
 }
 
