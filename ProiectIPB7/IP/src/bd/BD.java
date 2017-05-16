@@ -7,15 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.Properties;
 import java.util.Random;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 
 
 public class BD {
@@ -96,27 +88,6 @@ public class BD {
 	@SuppressWarnings("unused")
 	private int sendEmail( String adresa , String mesaj ) 
 	{
-		String from = "licente@info.uaic.ro";
-		Properties properties = System.getProperties();
-		properties.setProperty("mail.smtp.host", "localhost");
-		properties.setProperty("mail.user", "myuser");
-		properties.setProperty("mail.password", "mypwd");
-		Session session = Session.getDefaultInstance(properties);
-		
-		try{
-			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(from));
-			message.addRecipient(Message.RecipientType.TO,new InternetAddress(adresa));
-			message.setSubject("Licente Info UAIC");
-			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText(mesaj);
-			Transport.send(message);
-		}
-		catch ( Exception e )
-		{
-			System.out.println("Exceptie sendEmail: "+ e.getMessage());
-			return -1;
-		}
 		
 		return 0;
 	}

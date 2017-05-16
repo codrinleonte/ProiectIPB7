@@ -3,7 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccessAdminBD extends AccessBD {
 
@@ -14,8 +15,8 @@ public class AccessAdminBD extends AccessBD {
 		this.user = user;
 	}
 	
-	public Vector<IntrareMesaje> selectMesaje(){
-		Vector<IntrareMesaje> rezultat = new Vector<IntrareMesaje>();
+	public List<IntrareMesaje> selectMesaje(){
+		List<IntrareMesaje> rezultat = new ArrayList<IntrareMesaje>();
 		try{
 			Statement statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from mesaje"); 
@@ -36,8 +37,8 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 
-	public Vector<IntrareConturi> selectConturi(){
-		Vector<IntrareConturi> rezultat = new Vector<IntrareConturi>();
+	public List<IntrareConturi> selectConturi(){
+		List<IntrareConturi> rezultat = new ArrayList<IntrareConturi>();
 		try{
 			Statement statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from conturi"); 
@@ -60,8 +61,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 
-	public Vector<IntrareStudenti> selectStudenti(){
-		Vector<IntrareStudenti> rezultat = new Vector<IntrareStudenti>();
+	public List<IntrareStudenti> selectStudenti(){
+		List<IntrareStudenti> rezultat = new ArrayList<IntrareStudenti>();
 		try{
 			Statement statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from studenti"); 
@@ -83,8 +84,8 @@ public class AccessAdminBD extends AccessBD {
 		}		
 	}
 
-	public Vector<IntrareProfesori> selectProfesori(){
-		Vector<IntrareProfesori> rezultat = new Vector<IntrareProfesori>();
+	public List<IntrareProfesori> selectProfesori(){
+		List<IntrareProfesori> rezultat = new ArrayList<IntrareProfesori>();
 		try{
 			Statement statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from profesori"); 
@@ -106,9 +107,8 @@ public class AccessAdminBD extends AccessBD {
 		}		
 	}
 	
-
-	public Vector<IntrareComisii> selectComisii(){
-		Vector<IntrareComisii> rezultat = new Vector<IntrareComisii>();
+	public List<IntrareComisii> selectComisii(){
+		List<IntrareComisii> rezultat = new ArrayList<IntrareComisii>();
 		try{
 			
 			PreparedStatement pStatement = conexiune.prepareStatement("Select * from comisii");
@@ -133,8 +133,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 
-	public Vector<IntrareEvaluari> selectEvaluari(){
-		Vector<IntrareEvaluari> rezultat = new Vector<IntrareEvaluari>();
+	public List<IntrareEvaluari> selectEvaluari(){
+		List<IntrareEvaluari> rezultat = new ArrayList<IntrareEvaluari>();
 		try{
 			
 			Statement statement=conexiune.createStatement();
@@ -156,8 +156,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
-	public Vector<IntrareDetaliiLicente> selectDetaliiLicente(){
-		Vector<IntrareDetaliiLicente> rezultat = new Vector<IntrareDetaliiLicente>();
+	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
+		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
 		try{
 			
 			Statement statement=conexiune.createStatement();
@@ -187,8 +187,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
-	public Vector<IntrareLicente> selectLicente(){
-		Vector<IntrareLicente> rezultat = new Vector<IntrareLicente>();
+	public List<IntrareLicente> selectLicente(){
+		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
 		try{
 			
 			Statement statement=conexiune.createStatement();
@@ -214,8 +214,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
-	public Vector<IntrareSesiuni> selectSesiuni(){
-		Vector<IntrareSesiuni> rezultat = new Vector<IntrareSesiuni>();
+	public List<IntrareSesiuni> selectSesiuni(){
+		List<IntrareSesiuni> rezultat = new ArrayList<IntrareSesiuni>();
 		try{
 			
 			Statement statement=conexiune.createStatement();
@@ -717,7 +717,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-  public int insertComisie( IntrareComisii intrare){
+	public int insertComisie( IntrareComisii intrare){
 		
 		String apel = new String();	
 		try{
@@ -773,7 +773,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 
-  public int insertEvaluare( IntrareEvaluari intrare ){
+	public int insertEvaluare( IntrareEvaluari intrare ){
 	String apel;	
 	try{
 		if(intrare.getId()==0){
@@ -822,7 +822,7 @@ public class AccessAdminBD extends AccessBD {
 	}
   }
   
-  public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
+	public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		String apel = new String();	
 		try{
 			
@@ -884,7 +884,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-  public int insertLicenta( IntrareLicente intrare ){
+	public int insertLicenta( IntrareLicente intrare ){
 		String apel;	
 		try{
 			if(intrare.getId()==0){
@@ -937,7 +937,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
   
-  public int insertSesiune( IntrareSesiuni intrare ){
+	public int insertSesiune( IntrareSesiuni intrare ){
 		String apel;	
 		try{
 			if(intrare.getId()==0){
@@ -982,7 +982,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-  public int dropMesaj( IntrareMesaje intrare ){
+	public int dropMesaj( IntrareMesaje intrare ){
 		try{
 			if(intrare.getId()==0) return -1;
 			Statement  stmt = conexiune.createStatement();

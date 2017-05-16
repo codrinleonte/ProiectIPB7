@@ -1,12 +1,5 @@
-package BD;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+package bd;
 import java.sql.Timestamp;
-import java.util.Vector;
 
 public class IntrareDetaliiLicente {
 	
