@@ -20,10 +20,10 @@ public class Main {
 		{
 			AccessBD access = bd.getAccess();
 			AccessAdminBD  accessAdmin	= (AccessAdminBD) access;
-			System.out.println(access.getUser());
+			System.out.println(accessAdmin.getUser());
 		
 			/*
-			Teste Mesaje  
+			//Teste Mesaje  
 			Vector<IntrareMesaje> mesaje = accessAdmin.selectMesaje();
 			System.out.println("Mesaje:"+mesaje);	
 			IntrareMesaje mesaj = new IntrareMesaje();
@@ -33,21 +33,24 @@ public class Main {
 			accessAdmin.insertMesaj(mesaj);
 			mesaj.setMesaj("Modificat");
 			accessAdmin.updateMesaj(mesaj);
+			mesaj.setId(40);
+			accessAdmin.dropMesaj(mesaj);
 			*/
 			
 			
 			/*
-			Teste Conturi
+			//TesteConturi
 			Vector<IntrareConturi> conturi = accessAdmin.selectConturi();
 			System.out.println("Conturi:"+conturi);
 			IntrareConturi cont = new IntrareConturi();
 			cont.setTipUtilizator("ceva ciuuuudat");
 			accessAdmin.insertCont(cont);
+			accessAdmin.dropCont(cont);
 			*/
 			
 			
 			/*
-			Teste Studenti
+			//Teste Studenti
 			Vector<IntrareStudenti> studenti = accessAdmin.selectStudenti();
 			System.out.println("Studenti:"+studenti);
 			IntrareStudenti student = new IntrareStudenti();
@@ -55,17 +58,21 @@ public class Main {
 			accessAdmin.insertStudent(student);
 			student.setNume("Modificat");
 			accessAdmin.updateStudent(student);
+			accessAdmin.dropStudent(student);
 			*/
 			
 			
-			//Teste Profesori
 			/*
+			//Teste Profesori
 			Vector<IntrareProfesori> profesori = accessAdmin.selectProfesori();
 			System.out.println("Profesori:"+profesori);
 			IntrareProfesori profesor = new IntrareProfesori();
+			profesor.setId(133);
 			profesor.setNume("Cevaaa ciudat");
 			accessAdmin.insertProfesor( profesor );
+			accessAdmin.dropProfesor(profesor);
 			*/
+			
 
 		}
 		else System.out.println("Logare | Conectare esuata");

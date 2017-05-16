@@ -426,4 +426,92 @@ public class AccessAdminBD extends AccessBD {
 		}		
 		
 	}
+
+	public int dropMesaj( IntrareMesaje intrare ){
+		try{
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from mesaje where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from Mesaje where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropMesaj:" + e.getMessage());
+			return -7;
+		}
+	}
+
+	public int dropCont( IntrareConturi intrare ){
+		try{
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Conturi where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from Conturi where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropCont:" + e.getMessage());
+			return -7;
+		}
+	}
+	
+	public int dropStudent( IntrareStudenti intrare ){
+		try{
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Studenti where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from Studenti where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropStudent:" + e.getMessage());
+			return -7;
+		}
+	}
+
+	public int dropProfesor( IntrareProfesori intrare ){
+		try{
+			if(intrare.getId()==0) return -1;
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Profesori where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("Delete from Profesori where id ="+intrare.getId());
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la dropProfesor:" + e.getMessage());
+			return -7;
+		}
+	}
 }

@@ -40,10 +40,13 @@ Clasa BD contine urmatoarele metode:
 			Metodele din AccessBD lucreaza cu obiecte de tip Intrare<NumeTabel> care contin campurile din tabele ca membri;
 			
 			cele trei metode sunt select<NumeTabel> ()
-						
-								  update<NumeTabel> ( Intrare<NumeTabel> )
-								 
-								  insert<NumeTabel> ( Intrare<NumeTabel> )
+									Ex: Vector<IntrareMesaje> mesaje = accessAdmin.selectMesaje();
+								  update<NumeIntrareTabel> ( Intrare<NumeTabel> )
+									Ex: accessAdmin.updateMesaj( new IntrareMesaje() );
+								  insert<NumeIntrareTabel> ( Intrare<NumeTabel> )
+									Ex: accessAdmin.insertMesaj( new IntrareMesaje() );
+								  drop<NumeIntrareTabel> (Intrare<NumeTabeL> )
+									Ex: acecssAdmin.dropMesaj( new IntrareMesaje() );
 								  
 							Identificarea intrarilor se face dupa membrul id;
 							
@@ -58,3 +61,6 @@ Clasa BD contine urmatoarele metode:
 								   returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola
 								   in cazul in care se insereaza un obiect cu id null, insertul ii atribui acestuia un id corespunzator in baza de date 
 										folosindu-se o secventa oracle si actualizeaza id-ul in interiorul obiectului in cazul in care reuseste
+						->  drop    returneaza 0 daca  intrarea a fost stearsa din tabel
+									returneaza -1 daca intrarea nu exista in tabel
+									returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola
