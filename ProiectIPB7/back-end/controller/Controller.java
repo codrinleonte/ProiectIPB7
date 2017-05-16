@@ -175,7 +175,7 @@ public class Controller {
         // OUT: Vector<Vector<String>>
         // Each of the small String vectors will contain, in this order: numeStudent, prenumeStudent, idStudent
 
-        //result = getStudents();
+        //result = dbGetStudents();
 
         Vector<Vector<String>> studentPage = new Vector<>();
         for (int i = 0; i < 10; ++i)
@@ -186,6 +186,27 @@ public class Controller {
 
         return studentPage;
     }
+
+    // 9.
+    //public Vector<Vector<String>>
+
+    // 10.
+    public Vector<Integer> getCommitee(String token, Integer id) {
+
+        if (activeAuthTokens.get(token) == null) {
+            Vector<Integer> result = new Vector<>();
+            result.addElement(-1);
+            return result;
+        }
+
+        // TODO DB getCommittee function needed
+        // IN:  Integer committeeId
+        // OUT: Vector<Integer>
+        // Returns a Vector with the IDs of the teachers in the specified committee
+
+        return new Vector<>(); // return dbGetCommittee(id);
+    }
+
 
 }
 
