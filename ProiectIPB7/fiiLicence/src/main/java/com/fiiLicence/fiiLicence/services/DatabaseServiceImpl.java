@@ -4,9 +4,10 @@ import com.fiiLicence.fiiLicence.models.*;
 import com.fiiLicence.fiiLicence.services.bd.BD;
 import org.springframework.stereotype.Service;
 
-import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.security.*;
+
 
 @Service
 public class DatabaseServiceImpl implements DatabaseService{
@@ -24,7 +25,24 @@ public class DatabaseServiceImpl implements DatabaseService{
         }
     }
 
+    private String MD5(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
+    }
 
+    private String getHas(String email, String password){
+        email.concat(password);
+        return MD5(email);
+    }
     /*1.
     Descriere: Metoda utilizata pentru intregistrare.
     Input:  - adresa_email (String)
@@ -52,6 +70,7 @@ public class DatabaseServiceImpl implements DatabaseService{
             return false;
         else
             return true;
+
     }
 
     /*3.
@@ -63,8 +82,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     @Override
     public String login(String email, String password) {
         String username = email.substring(0,email.indexOf('@'));
-
-        return null;
+        int result = bd.login(username,password);
+        return getHas(email,password);
     }
 
     /*4.
@@ -76,6 +95,8 @@ public class DatabaseServiceImpl implements DatabaseService{
             - clasa_cont (String) (Valori posibile: Student, Profesor, Secretar, Admin)*/
     @Override
     public UserinfoResponse getUserInfo(String token) {
+        UserinfoResponse output = new UserinfoResponse();
+
         return null;
     }
 
@@ -86,6 +107,7 @@ public class DatabaseServiceImpl implements DatabaseService{
                 (-1 pe id_comisie daca acesta este neasignat unei comisii)*/
     @Override
     public List<ProfListResponse> getProfList(String token) {
+
         return null;
     }
 

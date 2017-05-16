@@ -1,6 +1,7 @@
 package com.fiiLicence.fiiLicence.services.bd;
-
-
+import com.fiiLicence.fiiLicence.services.DatabaseServiceImpl;
+import sun.security.provider.MD5;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +33,10 @@ public class Main{
 
         accessStudent.insertProfesor(profesor);
 
+        int result = bd.verificare("28768364612062147362");
+        System.out.println(result);
 
 
         System.out.println(profesori);
-
     }
 }
