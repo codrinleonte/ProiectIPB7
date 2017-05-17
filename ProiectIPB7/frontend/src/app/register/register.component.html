@@ -1,20 +1,33 @@
 <md-card class="register_card">
-    <md-toolbar class="card_header"><h4>Inregistrare</h4></md-toolbar>
-    <div class="input_container">
-        <md-card-content>
-            <p class="info_text">Introduceti adresa de email furnizata de facultate pentru intregistrare:</p>
-            <md-input-container class="register_input">
-                <input type="email" mdInput placeholder="Adresa email">
-            </md-input-container>
-            <p class="info_text">Introduceti parola ce urmeaza a fi folosita spre autentificare:</p>
-            <md-input-container class="register_input">
-                <input type="password" mdInput placeholder="Parola">
-            </md-input-container>
-            <md-input-container class="register_input">
-                <input type="password" mdInput placeholder="Confirmare parola">
-            </md-input-container>
-        </md-card-content>
+    <div *ngIf="cardMode==1">
+        <md-toolbar class="card_header"><h4>Inregistrare</h4></md-toolbar>
+        <div class="input_container">
+            <md-card-content>
+                <p class="info_text">Introduceti adresa de email furnizata de facultate pentru intregistrare:</p>
+                <md-input-container class="register_input">
+                    <input type="email" mdInput [(ngModel)]="emailTextBox" [value]="emailTextBox" placeholder="Adresa email">
+                </md-input-container>
+                <p class="info_text">Introduceti parola ce urmeaza a fi folosita spre autentificare:</p>
+                <md-input-container class="register_input">
+                    <input type="password" mdInput [(ngModel)]="passwordTextBox" [value]="passwordTextBox" placeholder="Parola">
+                </md-input-container>
+                <md-input-container class="register_input">
+                    <input type="password" mdInput [(ngModel)]="passwordConfirmTextBox" [value]="passwordConfirmTextBox"
+                           placeholder="Confirmare parola">
+                </md-input-container>
+            </md-card-content>
+        </div>
+        <button md-raised-button class="register_btn" (click)="onRegisterClick()">Trimitere email inregistrare</button><br>
+        <p routerLink="/login" class="auth_redirect_info">Aveti deja cont? Click aici pentru a te autentifica!</p>
     </div>
-    <button md-raised-button class="register_btn">Trimitere email inregistrare</button><br>
-    <p routerLink="/login" class="auth_redirect_info">Aveti deja cont? Click aici pentru a te autentifica!</p>
+    <div *ngIf="cardMode==2">
+        <md-toolbar class="card_header"><h4>Succes!</h4></md-toolbar>
+        <div class="input_container">
+            <md-card-content class="txt_content">
+                <p class="register_success_txt">Emai-ul de confirmare a fost trimis catre adresa de email: {{emailTextBox}}!</p>
+                <p class="register_success_txt">Pentru a activa contul va rugam sa deschideti email-ul si sa apasati pe link-ul aflat in acesta!</p>
+                <p class="register_success_txt">Puteti inchide aceasta pagina.</p>
+            </md-card-content>
+        </div>
+    </div>
 </md-card>

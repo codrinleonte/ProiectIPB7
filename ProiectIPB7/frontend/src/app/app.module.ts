@@ -22,6 +22,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { EvaluationComponent } from './dashboard/evaluation/evaluation.component';
 import { ManagestudsComponent } from './dashboard/managestuds/managestuds.component';
 import { EditexamsComponent } from './dashboard/editexams/editexams.component';
+import {BackendService} from "./backend.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { EditexamsComponent } from './dashboard/editexams/editexams.component';
         MaterialModule.forRoot(),
         DragulaModule
     ],
-    providers: [],
+    providers: [ BackendService ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
