@@ -151,7 +151,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setNota3Proiect(result.getInt(8));
 				intrare.setNota4Oral(result.getInt(9));
 				intrare.setNota4Proiect(result.getInt(10));
-				intrare.setDataOraSustinerii(result.getTimestamp(11));
+				intrare.setNota5Oral(result.getInt(11));
+				intrare.setNota5Proiect(result.getInt(12));
+				intrare.setDataOraSustinerii(result.getTimestamp(13));
 				
 				rezultat.add(intrare);
 			}
@@ -163,6 +165,7 @@ public class AccessSecretarBD extends AccessBD{
 			return null;
 		}
 	}
+	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
@@ -309,7 +312,7 @@ public class AccessSecretarBD extends AccessBD{
 	
 	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, data_ora_sustinere = ? where id = ? ";
+		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -330,8 +333,10 @@ public class AccessSecretarBD extends AccessBD{
 			statement.setInt(7, intrare.getNota3Proiect());
 			statement.setInt(8, intrare.getNota4Oral());
 			statement.setInt(9, intrare.getNota4Proiect());
-			statement.setTimestamp(10, intrare.getDataOraSustinerii());
-			statement.setInt(11, intrare.getId());
+			statement.setInt(10, intrare.getNota5Oral());
+			statement.setInt(11, intrare.getNota5Proiect());
+			statement.setTimestamp(12, intrare.getDataOraSustinerii());
+			statement.setInt(13, intrare.getId());
 			statement.executeUpdate();
 			conexiune.commit();
 			

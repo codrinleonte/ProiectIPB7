@@ -33,7 +33,9 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setNota3Proiect(result.getInt(8));
 				intrare.setNota4Oral(result.getInt(9));
 				intrare.setNota4Proiect(result.getInt(10));
-				intrare.setDataOraSustinerii(result.getTimestamp(11));
+				intrare.setNota5Oral(result.getInt(11));
+				intrare.setNota5Proiect(result.getInt(12));
+				intrare.setDataOraSustinerii(result.getTimestamp(13));
 				
 				rezultat.add(intrare);
 			}
@@ -45,6 +47,7 @@ public class AccessStudentBD extends  AccessBD{
 			return null;
 		}
 	}
+	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
@@ -252,7 +255,7 @@ public class AccessStudentBD extends  AccessBD{
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)";
+				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getIdComisie());
 				statement.setInt(2, intrare.getNota1Oral());
@@ -263,7 +266,9 @@ public class AccessStudentBD extends  AccessBD{
 				statement.setInt(7, intrare.getNota3Proiect());
 				statement.setInt(8, intrare.getNota4Oral());
 				statement.setInt(9, intrare.getNota4Proiect());
-				statement.setTimestamp(10, intrare.getDataOraSustinerii());
+				statement.setInt(10,  intrare.getNota5Oral());
+				statement.setInt(11, intrare.getNota5Proiect());
+				statement.setTimestamp(12, intrare.getDataOraSustinerii());
 				statement.executeUpdate();
 				conexiune.commit();
 				
@@ -284,7 +289,7 @@ public class AccessStudentBD extends  AccessBD{
 					return -1;
 				}
 				
-				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getId());
 				statement.setInt(2, intrare.getIdComisie());
@@ -296,7 +301,9 @@ public class AccessStudentBD extends  AccessBD{
 				statement.setInt(8, intrare.getNota3Proiect());
 				statement.setInt(9, intrare.getNota4Oral());
 				statement.setInt(10, intrare.getNota4Proiect());
-				statement.setTimestamp(11, intrare.getDataOraSustinerii());
+				statement.setInt(11,  intrare.getNota5Oral());
+				statement.setInt(12, intrare.getNota5Proiect());
+				statement.setTimestamp(13, intrare.getDataOraSustinerii());
 				statement.executeUpdate();
 				conexiune.commit();
 				
