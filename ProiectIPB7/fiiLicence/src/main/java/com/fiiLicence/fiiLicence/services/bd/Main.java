@@ -1,24 +1,25 @@
 package com.fiiLicence.fiiLicence.services.bd;
+
+import com.fiiLicence.fiiLicence.models.response.CommitteListResponse;
+import com.fiiLicence.fiiLicence.models.response.IdResponse;
 import com.fiiLicence.fiiLicence.services.DatabaseServiceImpl;
-import sun.security.provider.MD5;
+
 import java.io.PrintStream;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main{
     public static void main( String [] args ){
-
+    	//aici ai exemplu cum functioneaza Bd ... 
         BD bd = new BD();
         System.out.println(bd.isConnected());
 
         System.out.println(bd.inregistrare_stud("marian.gica@info.uaic.ro","parola"));
         System.out.println(bd.verificare("03624201201451881688"));
 
-        System.out.println(bd.login("marian.gica","parola"));
-        System.out.println(bd.isLoged());
-
         bd.login("Admin","Root");
-
+        System.out.println(bd.isLoged());
         AccessBD access = bd.getAccess();
         System.out.println(access.getTip());
 
@@ -37,6 +38,26 @@ public class Main{
         System.out.println(result);
 
 
-        System.out.println(profesori.get(0));
+        System.out.println(profesori);
+        
+        
+ //-------------------------------------verificare getProfsWithoutCommitte ----------------       
+        
+      
+        IntrareComisii rez = bd.getAccess().getCommitteeById(1);
+        System.out.println(rez);
+        DatabaseServiceImpl dataBaseService = new DatabaseServiceImpl();
+        
+       
+       
+        
+ //-----------------------------------verificare getCommitteList----------------------------
+        
+       
+        
+        List<CommitteListResponse> comRespList = dataBaseService.getCommitteList("1");
+        System.out.println(comRespList.size());
+        for (CommitteListResponse c : comRespList)
+            System.out.println(c.id + " " + c.numeComisie + " "  + c.dataExaminare);
     }
 }
