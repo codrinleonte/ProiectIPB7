@@ -131,7 +131,8 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setNrMatricol(result.getString(3));
 				intrare.setNume(result.getString(4));
 				intrare.setPrenume(result.getString(5));
-				intrare.setIdSesiune(result.getInt(6));
+				intrare.setId_comisie(result.getInt(6));
+				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -191,7 +192,7 @@ public class AccessStudentBD extends  AccessBD{
 
 	public int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_SESIUNE=? where id = ? ";
+		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -208,7 +209,8 @@ public class AccessStudentBD extends  AccessBD{
 			statement.setString(3, intrare.getNume());
 			statement.setString(4, intrare.getPrenume());
 			statement.setInt(5, intrare.getIdSesiune());
-			statement.setInt(6, intrare.getId());
+			statement.setInt(6, intrare.getId_comisie());
+			statement.setInt(7, intrare.getId());
 			statement.executeUpdate();	
 			return 0;
 		}

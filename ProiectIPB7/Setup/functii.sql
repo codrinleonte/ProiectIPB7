@@ -98,6 +98,10 @@ BEGIN
   
   INSERT INTO CONTURI( ID , USERNAME , PAROLA , EMAIL, TIP_UTILIZATOR, STATUS, COD_ACTIVARE ) 
     VALUES( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Profesor', 1 ,'0');
+    
+  UPDATE PROFESORI SET ID_CONT = CONTURI_SEQ.CURRVAL WHERE lower(prenume||'.'||nume)=user;
   
   return 0;
 END;
+
+

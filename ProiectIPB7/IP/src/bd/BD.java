@@ -55,7 +55,7 @@ public class BD {
 			else if ( rezultat == 2 )
 			{
 				UserBD utilizator = new UserBD();
-				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				PreparedStatement statement2 = conexiune.prepareStatement("Select PROFESORI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
 				statement2.setString(1, username);
 				ResultSet result = statement2.executeQuery();
 				result.next();
@@ -67,7 +67,7 @@ public class BD {
 			else
 			{
 				UserBD utilizator = new UserBD();
-				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				PreparedStatement statement2 = conexiune.prepareStatement("Select PROFESORI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
 				statement2.setString(1, username);
 				ResultSet result = statement2.executeQuery();
 				result.next();

@@ -73,7 +73,8 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setNrMatricol(result.getString(3));
 				intrare.setNume(result.getString(4));
 				intrare.setPrenume(result.getString(5));
-				intrare.setIdSesiune(result.getInt(6));
+				intrare.setId_comisie(result.getInt(6));
+				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -298,7 +299,7 @@ public class AccessAdminBD extends AccessBD {
 
 	public int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_SESIUNE=? where id = ? ";
+		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -315,7 +316,8 @@ public class AccessAdminBD extends AccessBD {
 			statement.setString(3, intrare.getNume());
 			statement.setString(4, intrare.getPrenume());
 			statement.setInt(5, intrare.getIdSesiune());
-			statement.setInt(6, intrare.getId());
+			statement.setInt(6, intrare.getId_comisie());
+			statement.setInt(7, intrare.getId());
 			statement.executeUpdate();	
 			return 0;
 		}
@@ -626,13 +628,14 @@ public class AccessAdminBD extends AccessBD {
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into STUDENTI Values(STUDENTI_SEQ.NEXTVAL, ?, ? ,?, ?, ?)";
+				apel = " Insert into STUDENTI Values(STUDENTI_SEQ.NEXTVAL, ?, ? ,?, ?,?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getIdCont());
 				statement.setString(2,intrare.getNrMatricol());
 				statement.setString(3,intrare.getNume());
 				statement.setString(4,intrare.getPrenume());
-				statement.setInt(5,intrare.getIdSesiune());
+				statement.setInt(5, intrare.getId_comisie());
+				statement.setInt(6,intrare.getIdSesiune());
 				statement.executeUpdate();
 				
 				Statement  stmt = conexiune.createStatement();
@@ -651,14 +654,15 @@ public class AccessAdminBD extends AccessBD {
 					return -1;
 				}
 				
-				apel = " Insert into Studenti Values(?, ?, ? ,?)";
+				apel = " Insert into Studenti Values(?, ?, ? ,?,?,?,?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setInt(2,intrare.getIdCont());
 				statement.setString(3,intrare.getNrMatricol());
 				statement.setString(4,intrare.getNume());
 				statement.setString(5,intrare.getPrenume());
-				statement.setInt(6,intrare.getIdSesiune());
+				statement.setInt(6, intrare.getId_comisie());
+				statement.setInt(7,intrare.getIdSesiune());
 				statement.executeUpdate();
 				return 0;
 			}

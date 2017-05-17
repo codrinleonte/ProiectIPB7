@@ -1,8 +1,8 @@
 INSERT INTO CONTURI  VALUES(CONTURI_SEQ.NEXTVAL,'jimmy.jimmy','jimmy','jimmy.jimmy@info.uaic.ro','Student',1,'fsdagfsdg');
 INSERT INTO CONTURI  VALUES(CONTURI_SEQ.NEXTVAL,'grigory.grigory','grigory','grigory.grygory@info.uaic.ro','Student',0,'safasfasf');
 
-INSERT INTO STUDENTI VALUES(STUDENTI_SEQ.NEXTVAL,2,'nr_matricol_jimmy','jimmy','jimmy','1');
-INSERT INTO STUDENTI VALUES(STUDENTI_SEQ.NEXTVAL,3,'nr_matricol_grigory','grigory','grigory','1');
+INSERT INTO STUDENTI VALUES(STUDENTI_SEQ.NEXTVAL,2,'nr_matricol_jimmy','jimmy','jimmy',1,1);
+INSERT INTO STUDENTI VALUES(STUDENTI_SEQ.NEXTVAL,3,'nr_matricol_grigory','grigory','grigory',1,1);
 
 INSERT INTO COMISII VALUES(COMISII_SEQ.NEXTVAL,1,2,3,4,1,'licenta',1);
 INSERT INTO COMISII VALUES(COMISII_SEQ.NEXTVAL,1,2,3,4,1,'dizertatie',1);

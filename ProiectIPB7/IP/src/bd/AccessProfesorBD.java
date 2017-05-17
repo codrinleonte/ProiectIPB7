@@ -119,6 +119,36 @@ public class AccessProfesorBD extends AccessBD{
 		}	
 	}
 	
+	public int updateStudent( IntrareStudenti intrare ){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
+		try{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdCont());
+			statement.setString(2, intrare.getNrMatricol());
+			statement.setString(3, intrare.getNume());
+			statement.setString(4, intrare.getPrenume());
+			statement.setInt(5, intrare.getIdSesiune());
+			statement.setInt(6, intrare.getId_comisie());
+			statement.setInt(7, intrare.getId());
+			statement.executeUpdate();	
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateStudent" + e.getMessage());
+			return -7;
+		}	
+	}
+	
 	public List<IntrareStudenti> selectStudenti(){
 		List<IntrareStudenti> rezultat = new ArrayList<IntrareStudenti>();
 		try{
@@ -131,7 +161,8 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setNrMatricol(result.getString(3));
 				intrare.setNume(result.getString(4));
 				intrare.setPrenume(result.getString(5));
-				intrare.setIdSesiune(result.getInt(6));
+				intrare.setId_comisie(result.getInt(6));
+				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -141,7 +172,7 @@ public class AccessProfesorBD extends AccessBD{
 			return null;
 		}		
 	}
-
+	
 	public List<IntrareProfesori> selectProfesori(){
 		List<IntrareProfesori> rezultat = new ArrayList<IntrareProfesori>();
 		try{
