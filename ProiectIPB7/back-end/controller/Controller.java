@@ -371,6 +371,25 @@ public class Controller {
     // 18.
     //public Boolean
 
+    // 19.
+    public Vector<Vector<String>> getStudentData(String token) {
+
+        Vector<Vector<String>> result = new Vector<>();
+
+        if (activeAuthTokens.get(token) == null) {
+            result.addElement(new Vector<>());
+            result.elementAt(0).addElement("access denied");
+            return result;
+        }
+
+        //result = dbGetStudents();
+
+        for (Vector<String> stud : result) // Calculating the student marks
+            stud.setElementAt(getMarkForStudent(token, Integer.parseInt(stud.elementAt(2))).toString(), 2);
+
+        return result;
+    }
+
 
 }
 
