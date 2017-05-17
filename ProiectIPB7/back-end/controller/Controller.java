@@ -188,7 +188,21 @@ public class Controller {
     }
 
     // 9.
-    //public Vector<Vector<String>>
+    public Vector<Integer> getCommittees(String token) {
+
+        if (activeAuthTokens.get(token) == null) {
+            Vector<Integer> result = new Vector<>();
+            result.addElement(-1);
+            return result;
+        }
+
+        // TODO DB getCommittees function needed
+        // IN:  None
+        // OUT: Vector<Integer>
+        // Returns a vector of integers with the IDs of all committees
+
+        return new Vector<>(); // return dbGetCommittees();
+    }
 
     // 10.
     public Vector<Integer> getCommitee(String token, Integer id) {
@@ -293,6 +307,70 @@ public class Controller {
 
         return true; // return dbMarkStudentOral(idProf, idStud, mark);
     }
+
+    // 15.
+    public Vector<HashMap<String, String>> getStudentsByCoordinator(String token, Integer id) {
+
+        Vector<HashMap<String, String>> result = new Vector<>();
+
+        if (activeAuthTokens.get(token) == null) {
+            result.addElement(new HashMap<>());
+            result.elementAt(0).put("result", "access denied");
+            return result;
+        }
+
+        // TODO DB getStudentsByCoordinator function needed
+        // IN:  Integer profId
+        // OUT: Vector<HashMap<String, String>>
+        // Returns a Vector of "students", HashMaps with the following entries(Key - Value):
+        // id_stud  - the id of the student
+        // nume     - the last name of the student
+        // prenume  - the first name of the student
+        // nota1proiect, nota2proiect, etc. - the project marks(as strings)
+        // nota1oral, nota2oral, etc.       - the oral marks(as strings)
+
+        //result = dbGetStudentsByCoordinator(id);
+
+        for (HashMap<String, String> stud : result) {
+            stud.put("nota_finala", getMarkForStudent(token, Integer.parseInt(stud.get("id_stud"))).toString());
+        }
+
+        return result;
+    }
+
+    // 16.
+    public Boolean addStudentToTeacher(String token, Integer idProf, String lastName, String firstName) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
+
+        // TODO DB addStudentToTeacher function needed
+        // IN:  Integer profId, String name, String firstName
+        // OUT: Boolean
+        // Adds the student with the specified name to the list of coordinated students for the specified teacher
+
+        return true; // return dbAddStudentToTeacher(idProf, lastName, firstName);
+    }
+
+    // 17.
+    public Boolean removeStudentFromTeacher(String token, Integer idProf, Integer idStud) {
+
+        if (activeAuthTokens.get(token) == null) {
+            return false;
+        }
+
+        // TODO DB removeStudentFromTeacher function needed
+        // IN:  Integer profId, Integer studId
+        // OUT: Boolean
+        // Remove the student from the list of coordinated students for the specified teacher
+
+        return true; // return dbRemoveStudentToTeacher(idProf, idStud);
+    }
+
+    // 18.
+    //public Boolean
+
 
 }
 
