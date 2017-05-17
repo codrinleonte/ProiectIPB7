@@ -390,6 +390,36 @@ public class Controller {
         return result;
     }
 
+    // 20.
+    public HashMap<String, Vector<String>> getRoomRepartition(String token) {
+
+        HashMap<String, Vector<String>> result = new HashMap<>();
+
+        if (activeAuthTokens.get(token) == null) {
+            result.put("result", new Vector<>());
+            result.get("result").addElement("access denied");
+            return result;
+        }
+
+        // TODO DB getRooms function needed
+        // IN:  None
+        // OUT: Vector<String>
+        // Returns a vector of stings with the room names of all the rooms that will be used
+        // Ex: "C201", "C405", etc.
+
+        // TODO DB getStudentsByRoom
+        // IN:  String room
+        // OUT: Vector<String>
+        // Returns a vector of student *full* names
+        // Ex: "Rares Dima", "Robert Otrocol", etc.
+        // for the students that will be evaluated in the specified room
+
+        Vector<String> rooms    = new Vector<>(); // = dbGetRooms();
+        for (String roomName : rooms)
+                result.put(roomName, new Vector<>() /*dbGetStudentsByRoom(roomName)*/);
+
+        return result;
+    }
 
 }
 
