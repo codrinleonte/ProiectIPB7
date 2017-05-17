@@ -1,4 +1,4 @@
-package com.fiiLicence.fiiLicence.models;
+package com.fiiLicence.fiiLicence.models.response;
 
 public class TokenResponse {
     public String token;

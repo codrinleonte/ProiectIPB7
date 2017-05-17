@@ -1,4 +1,4 @@
-package com.fiiLicence.fiiLicence.models;
+package com.fiiLicence.fiiLicence.models.requests;
 
 public class LicenceRequest {
     public String nameOfLicence;

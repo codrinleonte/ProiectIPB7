@@ -1,12 +1,10 @@
 package com.fiiLicence.fiiLicence.services;
 
-import com.fiiLicence.fiiLicence.models.*;
+import com.fiiLicence.fiiLicence.models.response.*;
 import com.fiiLicence.fiiLicence.services.bd.BD;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.security.*;
 
 
 @Service
@@ -158,8 +156,9 @@ public class DatabaseServiceImpl implements DatabaseService{
     Input:  - id_comisie (Integer)
     Output: - Lista de profesori din acea comisie
     (o lista cu id-urile acestora este destul, se poate folosi metoda nr. 5 pentru alte informatii).*/
+
     @Override
-    public List<IdResponse> getProfsFromCommitte(String idCommitte) {
+    public List<IdResponse> getProfsFromCommitte(int idCommitte) {
         return null;
     }
 

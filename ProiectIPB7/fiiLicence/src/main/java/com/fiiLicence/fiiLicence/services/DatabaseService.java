@@ -1,7 +1,7 @@
 package com.fiiLicence.fiiLicence.services;
 
 
-import com.fiiLicence.fiiLicence.models.*;
+import com.fiiLicence.fiiLicence.models.response.*;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface DatabaseService {
     //9
     List<CommitteListResponse> getCommitteList (String token);
     //10
-    List<IdResponse> getProfsFromCommitte (String idCommitte);
+    List<IdResponse> getProfsFromCommitte (int idCommitte);
     //11
     List<IdResponse> getProfsWithoutCommitte(String token);
     //12

@@ -37,6 +37,6 @@ public class Main{
         System.out.println(result);
 
 
-        System.out.println(profesori);
+        System.out.println(profesori.get(0));
     }
 }
