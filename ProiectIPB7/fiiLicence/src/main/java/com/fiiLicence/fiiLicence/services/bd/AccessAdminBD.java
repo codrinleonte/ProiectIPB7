@@ -73,7 +73,8 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setNrMatricol(result.getString(3));
 				intrare.setNume(result.getString(4));
 				intrare.setPrenume(result.getString(5));
-				intrare.setIdSesiune(result.getInt(6));
+				intrare.setId_comisie(result.getInt(6));
+				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -110,10 +111,9 @@ public class AccessAdminBD extends AccessBD {
 	public List<IntrareComisii> selectComisii(){
 		List<IntrareComisii> rezultat = new ArrayList<IntrareComisii>();
 		try{
-			
-			PreparedStatement pStatement = conexiune.prepareStatement("Select * from comisii");
-			ResultSet result = pStatement.executeQuery(); 
-			while(result.next() && result!=null){
+			PreparedStatement pStatement = conexiune.prepareStatement("SELECT * FROM comisii c join evaluari e on c.id = e.id_comisie");
+			ResultSet result = pStatement.executeQuery();
+			while(result.next() ){
 				IntrareComisii intrare = new IntrareComisii();
 				intrare.setId(result.getInt(1));
 				intrare.setIdProfSef(result.getInt(2));
@@ -146,6 +146,7 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setIdComisie(result.getInt(3));
 				intrare.setInceputEvaluare(result.getTimestamp(4));
 				intrare.setSfarsitEvaluare(result.getTimestamp(5));
+				intrare.setSala(result.getString(6));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -174,7 +175,9 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setNota3Proiect(result.getInt(8));
 				intrare.setNota4Oral(result.getInt(9));
 				intrare.setNota4Proiect(result.getInt(10));
-				intrare.setDataOraSustinerii(result.getTimestamp(11));
+				intrare.setNota5Oral(result.getInt(11));
+				intrare.setNota5Proiect(result.getInt(12));
+				intrare.setDataOraSustinerii(result.getTimestamp(13));
 				
 				rezultat.add(intrare);
 			}
@@ -295,7 +298,7 @@ public class AccessAdminBD extends AccessBD {
 
 	public int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_SESIUNE=? where id = ? ";
+		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -312,7 +315,8 @@ public class AccessAdminBD extends AccessBD {
 			statement.setString(3, intrare.getNume());
 			statement.setString(4, intrare.getPrenume());
 			statement.setInt(5, intrare.getIdSesiune());
-			statement.setInt(6, intrare.getId());
+			statement.setInt(6, intrare.getId_comisie());
+			statement.setInt(7, intrare.getId());
 			statement.executeUpdate();	
 			return 0;
 		}
@@ -388,7 +392,7 @@ public class AccessAdminBD extends AccessBD {
 	
 	public int updateEvaluare( IntrareEvaluari intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update evaluari set id_sesiune = ?, id_comisie = ?, inceput_evaluare = ?, sfarsit_evaluare = ? where id = ? ";
+		String apel=" Update evaluari set id_sesiune = ?, id_comisie = ?, inceput_evaluare = ?, sfarsit_evaluare = ? , sala =? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -405,6 +409,7 @@ public class AccessAdminBD extends AccessBD {
 			statement.setTimestamp(3, intrare.getInceputEvaluare());
 			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
 			statement.setInt(5, intrare.getId());
+			statement.setString(6, intrare.getSala());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -418,7 +423,7 @@ public class AccessAdminBD extends AccessBD {
 	
 	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, data_ora_sustinere = ? where id = ? ";
+		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -439,8 +444,10 @@ public class AccessAdminBD extends AccessBD {
 			statement.setInt(7, intrare.getNota3Proiect());
 			statement.setInt(8, intrare.getNota4Oral());
 			statement.setInt(9, intrare.getNota4Proiect());
-			statement.setTimestamp(10, intrare.getDataOraSustinerii());
-			statement.setInt(11, intrare.getId());
+			statement.setInt(10, intrare.getNota5Oral());
+			statement.setInt(11, intrare.getNota5Proiect());
+			statement.setTimestamp(12, intrare.getDataOraSustinerii());
+			statement.setInt(13, intrare.getId());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -620,13 +627,14 @@ public class AccessAdminBD extends AccessBD {
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into STUDENTI Values(STUDENTI_SEQ.NEXTVAL, ?, ? ,?, ?, ?)";
+				apel = " Insert into STUDENTI Values(STUDENTI_SEQ.NEXTVAL, ?, ? ,?, ?,?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getIdCont());
 				statement.setString(2,intrare.getNrMatricol());
 				statement.setString(3,intrare.getNume());
 				statement.setString(4,intrare.getPrenume());
-				statement.setInt(5,intrare.getIdSesiune());
+				statement.setInt(5, intrare.getId_comisie());
+				statement.setInt(6,intrare.getIdSesiune());
 				statement.executeUpdate();
 				
 				Statement  stmt = conexiune.createStatement();
@@ -645,14 +653,15 @@ public class AccessAdminBD extends AccessBD {
 					return -1;
 				}
 				
-				apel = " Insert into Studenti Values(?, ?, ? ,?)";
+				apel = " Insert into Studenti Values(?, ?, ? ,?,?,?,?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setInt(2,intrare.getIdCont());
 				statement.setString(3,intrare.getNrMatricol());
 				statement.setString(4,intrare.getNume());
 				statement.setString(5,intrare.getPrenume());
-				statement.setInt(6,intrare.getIdSesiune());
+				statement.setInt(6, intrare.getId_comisie());
+				statement.setInt(7,intrare.getIdSesiune());
 				statement.executeUpdate();
 				return 0;
 			}
@@ -777,12 +786,13 @@ public class AccessAdminBD extends AccessBD {
 	String apel;	
 	try{
 		if(intrare.getId()==0){
-			apel = " Insert into Evaluari Values(Evaluari_SEQ.NEXTVAL, ?, ? ,?, ?)";
+			apel = " Insert into Evaluari Values(Evaluari_SEQ.NEXTVAL, ?, ? ,?, ?,?)";
 			PreparedStatement statement = conexiune.prepareStatement(apel);
 			statement.setInt(1, intrare.getIdSesiune());
 			statement.setInt(2, intrare.getIdComisie());
 			statement.setTimestamp(3, intrare.getInceputEvaluare());
 			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
+			statement.setString(5, intrare.getSala());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -803,13 +813,14 @@ public class AccessAdminBD extends AccessBD {
 				return -1;
 			}
 			
-			apel = " Insert into Evaluari Values(?, ?, ?, ? ,?)";
+			apel = " Insert into Evaluari Values(?, ?, ?, ? ,?,?)";
 			PreparedStatement statement = conexiune.prepareStatement(apel);
 			statement.setInt(1,intrare.getId());
 			statement.setInt(2, intrare.getIdSesiune());
 			statement.setInt(3, intrare.getIdComisie());
 			statement.setTimestamp(4, intrare.getInceputEvaluare());
 			statement.setTimestamp(5, intrare.getSfarsitEvaluare());
+			statement.setString(6, intrare.getSala());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -827,7 +838,7 @@ public class AccessAdminBD extends AccessBD {
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)";
+				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getIdComisie());
 				statement.setInt(2, intrare.getNota1Oral());
@@ -838,7 +849,9 @@ public class AccessAdminBD extends AccessBD {
 				statement.setInt(7, intrare.getNota3Proiect());
 				statement.setInt(8, intrare.getNota4Oral());
 				statement.setInt(9, intrare.getNota4Proiect());
-				statement.setTimestamp(10, intrare.getDataOraSustinerii());
+				statement.setInt(10,  intrare.getNota5Oral());
+				statement.setInt(11, intrare.getNota5Proiect());
+				statement.setTimestamp(12, intrare.getDataOraSustinerii());
 				statement.executeUpdate();
 				conexiune.commit();
 				
@@ -859,7 +872,7 @@ public class AccessAdminBD extends AccessBD {
 					return -1;
 				}
 				
-				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getId());
 				statement.setInt(2, intrare.getIdComisie());
@@ -871,7 +884,9 @@ public class AccessAdminBD extends AccessBD {
 				statement.setInt(8, intrare.getNota3Proiect());
 				statement.setInt(9, intrare.getNota4Oral());
 				statement.setInt(10, intrare.getNota4Proiect());
-				statement.setTimestamp(11, intrare.getDataOraSustinerii());
+				statement.setInt(11,  intrare.getNota5Oral());
+				statement.setInt(12, intrare.getNota5Proiect());
+				statement.setTimestamp(13, intrare.getDataOraSustinerii());
 				statement.executeUpdate();
 				conexiune.commit();
 				

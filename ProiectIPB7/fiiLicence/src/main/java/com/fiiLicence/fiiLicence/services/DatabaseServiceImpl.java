@@ -1,9 +1,10 @@
 package com.fiiLicence.fiiLicence.services;
 
 import com.fiiLicence.fiiLicence.models.response.*;
-import com.fiiLicence.fiiLicence.services.bd.BD;
+import com.fiiLicence.fiiLicence.services.bd.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -148,7 +149,29 @@ public class DatabaseServiceImpl implements DatabaseService{
     (Forma data_examinare: '12-02-2017' adica 'DD-MM-YYYY')*/
     @Override
     public List<CommitteListResponse> getCommitteList(String token) {
-        return null;
+        List<CommitteListResponse> committeeList = new ArrayList<CommitteListResponse>();
+
+        // aici trebuie verificat ce fel de utilizator este cu ajutorul
+        // token-ului ..
+
+        // daca utilizator are drept de acces la o astfel de actiune ( Secretar
+        // sau Admin)
+
+        bd.login("Admin", "Root");
+        AccessBD access = bd.getAccess();
+        AccessAdminBD accessAdmin = (AccessAdminBD) access;// presupunem ca este
+        // admin
+        List<IntrareComisii> listaComisii = accessAdmin.selectComisii();
+
+        for (IntrareComisii c : listaComisii) {
+            CommitteListResponse comListRes = new CommitteListResponse();
+            comListRes.id = c.getId();
+            comListRes.numeComisie = "Comisie "+ comListRes.id;
+            comListRes.dataExaminare = c.getDataEvaluare();
+            committeeList.add(comListRes);
+        }
+
+        return committeeList;
     }
 
     /*10.
@@ -159,7 +182,28 @@ public class DatabaseServiceImpl implements DatabaseService{
 
     @Override
     public List<IdResponse> getProfsFromCommitte(int idCommitte) {
-        return null;
+        IntrareComisii comisie = bd.getAccess().getCommitteeById(idCommitte);
+        List<Integer> idProfiComisie = new ArrayList<Integer>();
+
+        idProfiComisie.add(comisie.getIdProfSef()); // la indexul 0 se va afla
+        // id-ul Sefului de comisie
+        idProfiComisie.add(comisie.getIdProf2());// la indexul 1 se va afla
+        // id-ul profului2
+        idProfiComisie.add(comisie.getIdProf3());// la indexul 0 se va afla
+        // id-ul profului3
+
+        if (comisie.getIdProf4() != 0) // daca exista al 4 lea
+            // profesor(dizertatie) => id_ul
+            // profului 4 la indexul3
+            idProfiComisie.add(comisie.getIdProf4());
+
+        List<IdResponse> result = new ArrayList<IdResponse>();
+        for (Integer i : idProfiComisie) {
+            IdResponse idRes = new IdResponse();
+            idRes.id = idProfiComisie.get(i - 1);
+            result.add(idRes);
+        }
+        return result;
     }
 
     /*11.
@@ -169,7 +213,15 @@ public class DatabaseServiceImpl implements DatabaseService{
     (o lista cu id-urile acestora este destul, se poate folosi metoda nr. 5 pentru alte informatii).*/
     @Override
     public List<IdResponse> getProfsWithoutCommitte(String token) {
-        return null;
+        List<IdResponse> profsWithoutCommitteeIdList = new ArrayList<IdResponse>();
+        List<IntrareProfesori> profsWithoutCommitteeList = bd.getAccess().getProfesorsWithoutCommittee();
+
+        for (IntrareProfesori p : profsWithoutCommitteeList) {
+            IdResponse idRes = new IdResponse();
+            idRes.id = p.getId();
+            profsWithoutCommitteeIdList.add(idRes);
+        }
+        return profsWithoutCommitteeIdList;
     }
 
     /*12.

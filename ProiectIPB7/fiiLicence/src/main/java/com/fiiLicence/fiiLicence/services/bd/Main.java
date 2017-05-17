@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Main{
     public static void main( String [] args ){
-    	//aici ai exemplu cum functioneaza Bd ... 
+        //aici ai exemplu cum functioneaza Bd ...
         BD bd = new BD();
         System.out.println(bd.isConnected());
 
@@ -39,22 +39,22 @@ public class Main{
 
 
         System.out.println(profesori);
-        
-        
- //-------------------------------------verificare getProfsWithoutCommitte ----------------       
-        
-      
+
+
+        //-------------------------------------verificare getProfsWithoutCommitte ----------------
+
+
         IntrareComisii rez = bd.getAccess().getCommitteeById(1);
         System.out.println(rez);
         DatabaseServiceImpl dataBaseService = new DatabaseServiceImpl();
-        
-       
-       
-        
- //-----------------------------------verificare getCommitteList----------------------------
-        
-       
-        
+
+
+
+
+        //-----------------------------------verificare getCommitteList----------------------------
+
+
+
         List<CommitteListResponse> comRespList = dataBaseService.getCommitteList("1");
         System.out.println(comRespList.size());
         for (CommitteListResponse c : comRespList)

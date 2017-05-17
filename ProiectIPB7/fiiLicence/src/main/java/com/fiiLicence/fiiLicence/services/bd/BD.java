@@ -18,7 +18,7 @@ public class BD {
 	private Connection conexiune;
 	@SuppressWarnings("unused")
 	private String     domeniu="";
-	private AccessBD access;
+	private AccessBD   access;
 	private boolean    loged  = false;
 		
 	private void createAccess( String username ){
@@ -52,31 +52,31 @@ public class BD {
 				utilizator.setTip("Student");
 				utilizator.setUsername(username);
 				
-				this.access = new AccessStudentBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else if ( rezultat == 2 )
 			{
 				UserBD utilizator = new UserBD();
-				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				PreparedStatement statement2 = conexiune.prepareStatement("Select PROFESORI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
 				statement2.setString(1, username);
 				ResultSet result = statement2.executeQuery();
 				result.next();
 				utilizator.setId(result.getInt(1));
 				utilizator.setTip("Profesor");
 				utilizator.setUsername(username);
-				this.access = new AccessProfesorBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else
 			{
 				UserBD utilizator = new UserBD();
-				PreparedStatement statement2 = conexiune.prepareStatement("Select STUDENTI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
+				PreparedStatement statement2 = conexiune.prepareStatement("Select PROFESORI.ID FROM PROFESORI JOIN CONTURI on PROFESORI.ID_CONT=CONTURI.ID WHERE CONTURI.USERNAME=?");
 				statement2.setString(1, username);
 				ResultSet result = statement2.executeQuery();
 				result.next();
 				utilizator.setId(result.getInt(1));
 				utilizator.setTip("Secretar");
 				utilizator.setUsername(username);
-				this.access = new AccessSecretarBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 		
 		}
@@ -99,7 +99,7 @@ public class BD {
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");  
-			this.conexiune = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","ip","IP");
+			this.conexiune = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","Licente","ADMIN");
 			this.connected = true;
 			
 		} 
@@ -258,134 +258,132 @@ public class BD {
 			return -7;
 		}
 	}
-	
-	
-	//15.functie : luam toti studentii in functie de un profesor 
-	
+
+	//15.functie : luam toti studentii in functie de un profesor
+
 	public List<IntrareStudenti> getStudentsOfATeacher(int idTeacher){
-		 List<IntrareStudenti>result_return = new ArrayList<>();
-		 String apel = "select distinct st.id,st.nume,st.prenume,d.NOTA_1_ORAL,d.NOTA_2_ORAL,d.NOTA_3_ORAL,d.NOTA_4_ORAL_DIZERTATIE,d.NOTA_1_proiect,d.NOTA_2_proiect,d.NOTA_3_proiect,d.NOTA_4_PROIECT_DIZERTATIE  from detalii_licente d join comisii c on d.id_comisie=c.id join evaluari e on e.id_comisie=c.id join sesiuni s on s.id=e.id_sesiune join studenti st on s.id=st.id_sesiune join profesori p on p.ID_COMISIE=c.id where p.id= ?";
-         
-         try{
- 			
- 			PreparedStatement statement = conexiune.prepareStatement(apel);
- 			statement.setInt(1, idTeacher);
- 			ResultSet result  =statement.executeQuery(); 
- 			System.out.println("ceao marocanii "+result.getFetchSize());
- 			while(result.next()){ //something wrong i do, but i don't know what :(
- 				System.out.println("ceao marocanii");
- 				IntrareStudenti student = new IntrareStudenti();
- 				IntrareDetaliiLicente det = new IntrareDetaliiLicente();
- 				student.setId(result.getInt(1));
- 				System.out.println("id este: "+result.getInt(1));
- 				student.setNume(result.getString(2));
- 				student.setPrenume(result.getString(3));
- 				det.setNota1Oral(result.getInt(4));
- 				det.setNota2Oral(result.getInt(5));
- 				det.setNota3Oral(result.getInt(6));
- 				det.setNota4Oral(result.getInt(7));
- 				det.setNota1Proiect(result.getInt(8));
- 				det.setNota2Proiect(result.getInt(9));
- 				det.setNota3Proiect(result.getInt(10));
- 				det.setNota4Proiect(result.getInt(11));
- 				student.setDetaliiLicenta(det);
- 		
- 				result_return.add(student);
- 			}
- 			return result_return;
- 		}
- 		catch( Exception e ){
- 			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
- 			return null;
- 		}
-		
+		List<IntrareStudenti>result_return = new ArrayList<>();
+		String apel = "select distinct st.id,st.nume,st.prenume,d.NOTA_1_ORAL,d.NOTA_2_ORAL,d.NOTA_3_ORAL,d.NOTA_4_ORAL_DIZERTATIE,d.NOTA_1_proiect,d.NOTA_2_proiect,d.NOTA_3_proiect,d.NOTA_4_PROIECT_DIZERTATIE  from detalii_licente d join comisii c on d.id_comisie=c.id join evaluari e on e.id_comisie=c.id join sesiuni s on s.id=e.id_sesiune join studenti st on s.id=st.id_sesiune join profesori p on p.ID_COMISIE=c.id where p.id= ?";
+
+		try{
+
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, idTeacher);
+			ResultSet result  =statement.executeQuery();
+			System.out.println("ceao marocanii "+result.getFetchSize());
+			while(result.next()){ //something wrong i do, but i don't know what :(
+				System.out.println("ceao marocanii");
+				IntrareStudenti student = new IntrareStudenti();
+				IntrareDetaliiLicente det = new IntrareDetaliiLicente();
+				student.setId(result.getInt(1));
+				System.out.println("id este: "+result.getInt(1));
+				student.setNume(result.getString(2));
+				student.setPrenume(result.getString(3));
+				det.setNota1Oral(result.getInt(4));
+				det.setNota2Oral(result.getInt(5));
+				det.setNota3Oral(result.getInt(6));
+				det.setNota4Oral(result.getInt(7));
+				det.setNota1Proiect(result.getInt(8));
+				det.setNota2Proiect(result.getInt(9));
+				det.setNota3Proiect(result.getInt(10));
+				det.setNota4Proiect(result.getInt(11));
+				student.setDetaliiLicenta(det);
+
+				result_return.add(student);
+			}
+			return result_return;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+			return null;
+		}
+
 		//inca nu e functionala functia asta, nu imi dau seama de ce nu-mi intra in while...
-         
+
 	}
-	
-	
-	
+
+
+
 	//16.functie: un profesor poate sa adauge un student
-	
+
 	public boolean addStudent(int idTeacher,String numeStud,String prenumeStud){
 		int idLicenta=0;
 		int idStud=0;
 		int idSes=0;
-        String apel = "select id,id_sesiune from studenti where nume=? and prenume=?";
-         try{
- 			
- 			PreparedStatement statement = conexiune.prepareStatement(apel);
- 			statement.setString(1, numeStud);
- 			statement.setString(2, prenumeStud);
- 			ResultSet result =statement.executeQuery(); 
- 			
- 		
- 			if(result.next()){
- 				
- 				idStud=result.getInt(1);
- 				idSes=result.getInt(2);
- 				System.out.println(idStud);
- 				System.out.println(idSes);
- 		
- 			}
- 			if(idStud==0 && idSes==0)// verificam daca exista studentul in baza de date;
- 				return false;
- 			
- 			String apel2="select max(id) from licente";
- 			PreparedStatement statement2 = conexiune.prepareStatement(apel2);
- 			ResultSet result2 =statement2.executeQuery();
- 			
- 		
- 			if(result2.next()){
- 
- 				idLicenta=result2.getInt(1)+1;
- 				System.out.println(idLicenta);
- 		
- 			}
- 			System.out.println(idLicenta);
- 			System.out.println(idStud);
-				System.out.println(idSes);
- 			String apel3="insert into licente(id,id_profesor,id_student,id_sesiune) values(?,?,?,?)";
- 			PreparedStatement statement3 = conexiune.prepareStatement(apel3);
- 			statement3.setInt(1, idLicenta);
- 			statement3.setInt(2, idTeacher);
- 			statement3.setInt(3, idStud);
- 			statement3.setInt(4, idSes);
- 			statement3.executeUpdate();
- 			
- 		
- 			
- 			
- 			return true;
- 		}
- 		catch( Exception e ){
- 			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
- 			return false;
- 		}
-	}
-	
-	
-	//17.functie:un profesor poate scoate un student din lista sa
-	
-	public boolean removeStudent(int idTeacher,int idStudent){
-		 String apel = "delete from licente where ID_PROFESOR=? and ID_STUDENT=?";
-         try{
- 			
- 			PreparedStatement statement = conexiune.prepareStatement(apel);
- 			statement.setInt(1, idTeacher);
- 			statement.setInt(2, idStudent);
- 			statement.executeUpdate(); 
+		String apel = "select id,id_sesiune from studenti where nume=? and prenume=?";
+		try{
 
- 			return true;
- 		}
- 		catch( Exception e ){
- 			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
- 			return false;
- 		}
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setString(1, numeStud);
+			statement.setString(2, prenumeStud);
+			ResultSet result =statement.executeQuery();
+
+
+			if(result.next()){
+
+				idStud=result.getInt(1);
+				idSes=result.getInt(2);
+				System.out.println(idStud);
+				System.out.println(idSes);
+
+			}
+			if(idStud==0 && idSes==0)// verificam daca exista studentul in baza de date;
+				return false;
+
+			String apel2="select max(id) from licente";
+			PreparedStatement statement2 = conexiune.prepareStatement(apel2);
+			ResultSet result2 =statement2.executeQuery();
+
+
+			if(result2.next()){
+
+				idLicenta=result2.getInt(1)+1;
+				System.out.println(idLicenta);
+
+			}
+			System.out.println(idLicenta);
+			System.out.println(idStud);
+			System.out.println(idSes);
+			String apel3="insert into licente(id,id_profesor,id_student,id_sesiune) values(?,?,?,?)";
+			PreparedStatement statement3 = conexiune.prepareStatement(apel3);
+			statement3.setInt(1, idLicenta);
+			statement3.setInt(2, idTeacher);
+			statement3.setInt(3, idStud);
+			statement3.setInt(4, idSes);
+			statement3.executeUpdate();
+
+
+
+
+			return true;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+			return false;
+		}
 	}
-	
+
+
+	//17.functie:un profesor poate scoate un student din lista sa
+
+	public boolean removeStudent(int idTeacher,int idStudent){
+		String apel = "delete from licente where ID_PROFESOR=? and ID_STUDENT=?";
+		try{
+
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, idTeacher);
+			statement.setInt(2, idStudent);
+			statement.executeUpdate();
+
+			return true;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+			return false;
+		}
+	}
+
 
 	//18,19 si 20 urmeaza sa le fac :) ( RAZVAN )
-	
-	
 }
+

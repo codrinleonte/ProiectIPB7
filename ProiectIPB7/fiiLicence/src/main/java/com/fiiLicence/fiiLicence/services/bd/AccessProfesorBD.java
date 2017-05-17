@@ -55,7 +55,9 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setNota3Proiect(result.getInt(8));
 				intrare.setNota4Oral(result.getInt(9));
 				intrare.setNota4Proiect(result.getInt(10));
-				intrare.setDataOraSustinerii(result.getTimestamp(11));
+				intrare.setNota5Oral(result.getInt(11));
+				intrare.setNota5Proiect(result.getInt(12));
+				intrare.setDataOraSustinerii(result.getTimestamp(13));
 				
 				rezultat.add(intrare);
 			}
@@ -67,6 +69,7 @@ public class AccessProfesorBD extends AccessBD{
 			return null;
 		}
 	}
+	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
@@ -116,6 +119,36 @@ public class AccessProfesorBD extends AccessBD{
 		}	
 	}
 	
+	public int updateStudent( IntrareStudenti intrare ){
+		if(intrare.getId()==0) return -1;
+		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
+		try{
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setInt(1, intrare.getIdCont());
+			statement.setString(2, intrare.getNrMatricol());
+			statement.setString(3, intrare.getNume());
+			statement.setString(4, intrare.getPrenume());
+			statement.setInt(5, intrare.getIdSesiune());
+			statement.setInt(6, intrare.getId_comisie());
+			statement.setInt(7, intrare.getId());
+			statement.executeUpdate();	
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la updateStudent" + e.getMessage());
+			return -7;
+		}	
+	}
+	
 	public List<IntrareStudenti> selectStudenti(){
 		List<IntrareStudenti> rezultat = new ArrayList<IntrareStudenti>();
 		try{
@@ -128,7 +161,8 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setNrMatricol(result.getString(3));
 				intrare.setNume(result.getString(4));
 				intrare.setPrenume(result.getString(5));
-				intrare.setIdSesiune(result.getInt(6));
+				intrare.setId_comisie(result.getInt(6));
+				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -138,7 +172,7 @@ public class AccessProfesorBD extends AccessBD{
 			return null;
 		}		
 	}
-
+	
 	public List<IntrareProfesori> selectProfesori(){
 		List<IntrareProfesori> rezultat = new ArrayList<IntrareProfesori>();
 		try{
@@ -160,6 +194,30 @@ public class AccessProfesorBD extends AccessBD{
 			System.out.println("Exceptie la selectProfesori :"+e.getMessage());
 			return null;
 		}		
+	}
+	
+	public List<IntrareEvaluari> selectEvaluari(){
+		List<IntrareEvaluari> rezultat = new ArrayList<IntrareEvaluari>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from evaluari"); 
+			while(result.next()){
+				IntrareEvaluari intrare = new IntrareEvaluari();
+				intrare.setId(result.getInt(1));
+				intrare.setIdSesiune(result.getInt(2));
+				intrare.setIdComisie(result.getInt(3));
+				intrare.setInceputEvaluare(result.getTimestamp(4));
+				intrare.setSfarsitEvaluare(result.getTimestamp(5));
+				intrare.setSala(result.getString(6));
+				rezultat.add(intrare);
+			}
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectEvaluari: "+e.getMessage());
+			return null;
+		}
 	}
 	
 	public int updateLicenta( IntrareLicente intrare){
@@ -196,7 +254,7 @@ public class AccessProfesorBD extends AccessBD{
 
 	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, data_ora_sustinere = ? where id = ? ";
+		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -217,8 +275,10 @@ public class AccessProfesorBD extends AccessBD{
 			statement.setInt(7, intrare.getNota3Proiect());
 			statement.setInt(8, intrare.getNota4Oral());
 			statement.setInt(9, intrare.getNota4Proiect());
-			statement.setTimestamp(10, intrare.getDataOraSustinerii());
-			statement.setInt(11, intrare.getId());
+			statement.setInt(10, intrare.getNota5Oral());
+			statement.setInt(11, intrare.getNota5Proiect());
+			statement.setTimestamp(12, intrare.getDataOraSustinerii());
+			statement.setInt(13, intrare.getId());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -227,8 +287,9 @@ public class AccessProfesorBD extends AccessBD{
 		catch( Exception e ){
 			System.out.println("Exceptie la updateDetaliiLicenta" + e.getMessage());
 			return -7;
-		}
-	}	
+		}	
+		
+	}
 
 	public int insertMesaj( IntrareMesaje intrare ){
 		String apel;	

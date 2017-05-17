@@ -13,6 +13,8 @@ public class IntrareDetaliiLicente {
 	int nota3Proiect;
 	int nota4Oral;
 	int nota4Proiect;
+	int nota5Oral;
+	int nota5Proiect;
 	Timestamp dataOraSustinerii;
 	
 	public int getId() {
@@ -74,6 +76,18 @@ public class IntrareDetaliiLicente {
 	}
 	public void setNota4Proiect(int nota4Proiect) {
 		this.nota4Proiect = nota4Proiect;
+	}
+	public int getNota5Oral() {
+		return nota5Oral;
+	}
+	public void setNota5Oral(int nota5Oral) {
+		this.nota5Oral = nota5Oral;
+	}
+	public int getNota5Proiect() {
+		return nota5Proiect;
+	}
+	public void setNota5Proiect(int nota5Proiect) {
+		this.nota5Proiect = nota5Proiect;
 	}
 	public Timestamp getDataOraSustinerii() {
 		return dataOraSustinerii;
