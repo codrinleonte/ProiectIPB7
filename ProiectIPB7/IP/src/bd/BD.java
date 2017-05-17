@@ -50,7 +50,7 @@ public class BD {
 				utilizator.setTip("Student");
 				utilizator.setUsername(username);
 				
-				this.access = new AccessStudentBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else if ( rezultat == 2 )
 			{
@@ -62,7 +62,7 @@ public class BD {
 				utilizator.setId(result.getInt(1));
 				utilizator.setTip("Profesor");
 				utilizator.setUsername(username);
-				this.access = new AccessProfesorBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 			else
 			{
@@ -74,7 +74,7 @@ public class BD {
 				utilizator.setId(result.getInt(1));
 				utilizator.setTip("Secretar");
 				utilizator.setUsername(username);
-				this.access = new AccessSecretarBD(conexiune,utilizator);
+				this.access = new AccessAdminBD(conexiune,utilizator);
 			}
 		
 		}

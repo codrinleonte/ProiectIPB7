@@ -122,6 +122,7 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setIdComisie(result.getInt(3));
 				intrare.setInceputEvaluare(result.getTimestamp(4));
 				intrare.setSfarsitEvaluare(result.getTimestamp(5));
+				intrare.setSala(result.getString(6));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -277,7 +278,7 @@ public class AccessSecretarBD extends AccessBD{
 	
 	public int updateEvaluare( IntrareEvaluari intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update evaluari set id_sesiune = ?, id_comisie = ?, inceput_evaluare = ?, sfarsit_evaluare = ? where id = ? ";
+		String apel=" Update evaluari set id_sesiune = ?, id_comisie = ?, inceput_evaluare = ?, sfarsit_evaluare = ? , sala =? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -294,6 +295,7 @@ public class AccessSecretarBD extends AccessBD{
 			statement.setTimestamp(3, intrare.getInceputEvaluare());
 			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
 			statement.setInt(5, intrare.getId());
+			statement.setString(6, intrare.getSala());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -477,52 +479,54 @@ public class AccessSecretarBD extends AccessBD{
 	}
 
 	public int insertEvaluare( IntrareEvaluari intrare ){
-	String apel;	
-	try{
-		if(intrare.getId()==0){
-			apel = " Insert into Evaluari Values(Evaluari_SEQ.NEXTVAL, ?, ? ,?, ?)";
-			PreparedStatement statement = conexiune.prepareStatement(apel);
-			statement.setInt(1, intrare.getIdSesiune());
-			statement.setInt(2, intrare.getIdComisie());
-			statement.setTimestamp(3, intrare.getInceputEvaluare());
-			statement.setTimestamp(4, intrare.getSfarsitEvaluare());
-			statement.executeUpdate();
-			conexiune.commit();
-			
-			Statement  stmt = conexiune.createStatement();
-			ResultSet  rs   = stmt.executeQuery("Select EVALUARI_SEQ.CURRVAL from dual");
-			rs.next();
-			intrare.setId(rs.getInt(1));
-			
-			return 0;
-		}
-		else{
-			
-			Statement  stmt = conexiune.createStatement();
-			ResultSet  rs   = stmt.executeQuery("Select Count(*) from Evaluari where id ="+intrare.getId());
-			rs.next();
-			if( rs.getInt(1) > 0 ) {
-				System.out.println("Intrare Existenta. Update?");
-				return -1;
+		String apel;	
+		try{
+			if(intrare.getId()==0){
+				apel = " Insert into Evaluari Values(Evaluari_SEQ.NEXTVAL, ?, ? ,?, ?,?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1, intrare.getIdSesiune());
+				statement.setInt(2, intrare.getIdComisie());
+				statement.setTimestamp(3, intrare.getInceputEvaluare());
+				statement.setTimestamp(4, intrare.getSfarsitEvaluare());
+				statement.setString(5, intrare.getSala());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select EVALUARI_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				
+				return 0;
 			}
-			
-			apel = " Insert into Evaluari Values(?, ?, ?, ? ,?)";
-			PreparedStatement statement = conexiune.prepareStatement(apel);
-			statement.setInt(1,intrare.getId());
-			statement.setInt(2, intrare.getIdSesiune());
-			statement.setInt(3, intrare.getIdComisie());
-			statement.setTimestamp(4, intrare.getInceputEvaluare());
-			statement.setTimestamp(5, intrare.getSfarsitEvaluare());
-			statement.executeUpdate();
-			conexiune.commit();
-			
-			return 0;
+			else{
+				
+				Statement  stmt = conexiune.createStatement();
+				ResultSet  rs   = stmt.executeQuery("Select Count(*) from Evaluari where id ="+intrare.getId());
+				rs.next();
+				if( rs.getInt(1) > 0 ) {
+					System.out.println("Intrare Existenta. Update?");
+					return -1;
+				}
+				
+				apel = " Insert into Evaluari Values(?, ?, ?, ? ,?,?)";
+				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement.setInt(1,intrare.getId());
+				statement.setInt(2, intrare.getIdSesiune());
+				statement.setInt(3, intrare.getIdComisie());
+				statement.setTimestamp(4, intrare.getInceputEvaluare());
+				statement.setTimestamp(5, intrare.getSfarsitEvaluare());
+				statement.setString(6, intrare.getSala());
+				statement.executeUpdate();
+				conexiune.commit();
+				
+				return 0;
+			}
 		}
-	}
-	catch( Exception e ){
-		System.out.println("Exceptie la insertEvaluare: "+e.getMessage());
-		return -7;
-	}
-  }
-  
+		catch( Exception e ){
+			System.out.println("Exceptie la insertEvaluare: "+e.getMessage());
+			return -7;
+		}
+	  }
+	  
 }
