@@ -8,7 +8,9 @@ public class IntrareComisii {
 	int idProf4;
 	int idSecretar;
 	String tipComisie;
+	String numeComisie;
 	int idEvaluare;
+	String dataEvaluare;
 	
 	public int getId(){
 		return id;
@@ -52,11 +54,31 @@ public class IntrareComisii {
 	public void setTipComisie(String tipComisie) {
 		this.tipComisie = tipComisie;
 	}
+	public String getNumeComisie() {
+		return numeComisie;
+	}
+	public void setNumeComisie(String numeComisie) {
+		this.numeComisie = numeComisie;
+	}
 	public int getIdEvaluare() {
 		return idEvaluare;
 	}
 	public void setIdEvaluare(int idEvaluare) {
 		this.idEvaluare = idEvaluare;
 	}
+	public String getDataEvaluare() {
+		return dataEvaluare;
+	}
+	public void setDataEvaluare(String dataEvaluare) {
+		this.dataEvaluare = dataEvaluare;
+	}
+	@Override
+	public String toString() {
+		return "IntrareComisii [id=" + id + ", idProfSef=" + idProfSef + ", idProf2=" + idProf2 + ", idProf3=" + idProf3
+				+ ", idProf4=" + idProf4 + ", idSecretar=" + idSecretar + ", tipComisie=" + tipComisie + ", idEvaluare="
+				+ idEvaluare + "]";
+	}
+	
+	
 
 }
