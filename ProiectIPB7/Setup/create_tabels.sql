@@ -9,9 +9,10 @@ CREATE TABLE CONTURI (
 	 EMAIL    VARCHAR2(50),
 	 TIP_UTILIZATOR VARCHAR2(20),
          Status Integer,
-	 Cod_Activare VARCHAR(20)
+	 Cod_Activare VARCHAR(20),
+   Token        VARCHAR(50)
 );
-INSERT INTO CONTURI  VALUES(1,'Admin','Root','Admin','Admin',1,'0');
+INSERT INTO CONTURI  VALUES(1,'Admin','Root','Admin','Admin',1,'0','0');
 
 
 DROP   SEQUENCE STUDENTI_SEQ;

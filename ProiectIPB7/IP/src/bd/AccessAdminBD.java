@@ -51,6 +51,7 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setTipUtilizator(result.getString(5));
 				intrare.setStatus(result.getInt(6));
 				intrare.setCodActivare(result.getString(7));
+				intrare.setToken(result.getString(8));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -268,7 +269,7 @@ public class AccessAdminBD extends AccessBD {
 
 	public int updateCont( IntrareConturi intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update Conturi set USERNAME = ? , PAROLA = ? , EMAIL = ? ,  TIP_UTILIZATOR=? , STATUS=? ,COD_ACTIVARE=? where id = ? ";
+		String apel=" Update Conturi set USERNAME = ? , PAROLA = ? , EMAIL = ? ,  TIP_UTILIZATOR=? , STATUS=? ,COD_ACTIVARE=?,Token=? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -286,7 +287,8 @@ public class AccessAdminBD extends AccessBD {
 			statement.setString(4,intrare.getTipUtilizator());
 			statement.setInt(5, intrare.getStatus());
 			statement.setString(6,intrare.getCodActivare());
-			statement.setInt(7, intrare.getId());
+			statement.setString(7,intrare.getToken());
+			statement.setInt(8, intrare.getId());
 			statement.executeUpdate();	
 			return 0;
 		}
@@ -573,7 +575,7 @@ public class AccessAdminBD extends AccessBD {
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into Conturi Values(CONTURI_SEQ.NEXTVAL, ?, ? ,?, ?, ? , ?)";
+				apel = " Insert into Conturi Values(CONTURI_SEQ.NEXTVAL, ?, ? ,?, ?, ? , ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setString(1, intrare.getUsername());
 				statement.setString(2, intrare.getHashparola());
@@ -581,6 +583,7 @@ public class AccessAdminBD extends AccessBD {
 				statement.setString(4, intrare.getTipUtilizator());	
 				statement.setInt(5, intrare.getStatus());
 				statement.setString(6, intrare.getCodActivare());
+				statement.setString(7, intrare.getToken());
 				statement.executeUpdate();
 				
 				
@@ -600,7 +603,7 @@ public class AccessAdminBD extends AccessBD {
 					return -1;
 				}
 				
-				apel = " Insert into Conturi Values(? , ?, ? ,?, ?, ? , ?)";
+				apel = " Insert into Conturi Values(? , ?, ? ,?, ?, ? , ?,?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setString(2, intrare.getUsername());
@@ -609,6 +612,7 @@ public class AccessAdminBD extends AccessBD {
 				statement.setString(5, intrare.getTipUtilizator());
 				statement.setInt(6, intrare.getStatus());
 				statement.setString(7, intrare.getCodActivare());
+				statement.setString(8, intrare.getToken());
 				statement.executeUpdate();
 				
 				

@@ -25,7 +25,7 @@ public class AccessBD{
 		this.idCont = idCont;
 	}
 	
-	public int getIdCont( int idCont ){
+	public int getIdCont(){
 		return idCont;
 	}
 	

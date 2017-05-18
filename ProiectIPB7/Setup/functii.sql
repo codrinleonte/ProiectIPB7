@@ -72,8 +72,8 @@ BEGIN
   ELSE 
     SELECT MAX(ID) into sesiune_curenta FROM SESIUNI;
     INSERT ALL
-    INTO CONTURI( ID,USERNAME,PAROLA,EMAIL,TIP_UTILIZATOR,STATUS,COD_ACTIVARE )
-      VALUES ( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Student', 0, hashcod)
+    INTO CONTURI( ID,USERNAME,PAROLA,EMAIL,TIP_UTILIZATOR,STATUS,COD_ACTIVARE,TOKEN )
+      VALUES ( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Student', 0, hashcod, '0')
     INTO STUDENTI( ID ,ID_CONT, NUME, PRENUME, ID_SESIUNE ) 
       VALUES( STUDENTI_SEQ.NEXTVAL,CONTURI_SEQ.CURRVAL, prenume, nume, sesiune_curenta ) SELECT DUMMY  FROM DUAL;
   END IF;
@@ -96,8 +96,8 @@ BEGIN
   SELECT COUNT (ID) into aparitii_profesori FROM PROFESORI WHERE PROFESORI.prenume = UPPER(prenumeV) and PROFESORI.nume = UPPER(numeV);
   IF aparitii_profesori <1 THEN return -1; END IF;
   
-  INSERT INTO CONTURI( ID , USERNAME , PAROLA , EMAIL, TIP_UTILIZATOR, STATUS, COD_ACTIVARE ) 
-    VALUES( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Profesor', 1 ,'0');
+  INSERT INTO CONTURI( ID , USERNAME , PAROLA , EMAIL, TIP_UTILIZATOR, STATUS, COD_ACTIVARE,TOKEN ) 
+    VALUES( CONTURI_SEQ.NEXTVAL, user, hashparola, user||'@info.uaic.ro', 'Profesor', 1 ,'0','0');
     
   UPDATE PROFESORI SET ID_CONT = CONTURI_SEQ.CURRVAL WHERE lower(prenume||'.'||nume)=user;
   

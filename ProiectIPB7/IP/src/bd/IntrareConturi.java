@@ -9,6 +9,7 @@ public class IntrareConturi {
 	private String tipUtilizator;
 	private int    status;
 	private String codActivare;
+	private String token;
 	
 	public int getId() {
 		return id;
@@ -69,6 +70,14 @@ public class IntrareConturi {
 	@Override
 	public String toString(){
 		return "( ID:"+id+", Username:"+username+", hash parola:"+hashparola+", cod_activare:"+codActivare +" )";
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

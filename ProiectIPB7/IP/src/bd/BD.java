@@ -23,8 +23,15 @@ public class BD {
 		
 		String apel = " { ? = call get_type( ? ) }";
 		int rezultat;
+		int idCont;
 		
 		try {
+			
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select ID from CONTURI where username = '"+username+"'");
+			rs.next();
+			idCont=rs.getInt(1);
+			
 			CallableStatement statement = conexiune.prepareCall(apel);
 			statement.registerOutParameter(1, Types.INTEGER);
 			statement.setString(2, username);
@@ -38,6 +45,7 @@ public class BD {
 				utilizator.setTip("Admin");
 				utilizator.setUsername("Admin");
 				this.access = new AccessAdminBD( conexiune , utilizator );
+				this.access.setIdCont(idCont);
 			}
 			else if ( rezultat == 1 )
 			{
@@ -51,6 +59,7 @@ public class BD {
 				utilizator.setUsername(username);
 				
 				this.access = new AccessAdminBD(conexiune,utilizator);
+				this.access.setIdCont(idCont);
 			}
 			else if ( rezultat == 2 )
 			{
@@ -63,6 +72,7 @@ public class BD {
 				utilizator.setTip("Profesor");
 				utilizator.setUsername(username);
 				this.access = new AccessAdminBD(conexiune,utilizator);
+				this.access.setIdCont(idCont);
 			}
 			else
 			{
@@ -75,6 +85,7 @@ public class BD {
 				utilizator.setTip("Secretar");
 				utilizator.setUsername(username);
 				this.access = new AccessAdminBD(conexiune,utilizator);
+				this.access.setIdCont(idCont);
 			}
 		
 		}
@@ -128,6 +139,60 @@ public class BD {
 		return access;
 	}
 
+	public IntrareConturi getContByToken( String token )
+	{
+		IntrareConturi cont = new IntrareConturi();
+		try{
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from conturi where token='"+token+"'");
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return null;
+			}
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from conturi where token='"+token+"'"); 
+			result.next();
+			cont.setId(result.getInt(1));
+			cont.setUsername(result.getString(2));
+			cont.setHashparola(result.getString(3));
+			cont.setEmail(result.getString(4));
+			cont.setTipUtilizator(result.getString(5));
+			cont.setStatus(result.getInt(6));
+			cont.setCodActivare(result.getString(7));
+			cont.setToken(result.getString(8));
+			return cont;
+			
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la getContByToken: "+e.getMessage());
+			return null;
+		}
+		
+	}
+		
+	public int setTokenByIdCont( int id , String token )
+	{
+		try{
+			Statement  stmt = conexiune.createStatement();
+			ResultSet  rs   = stmt.executeQuery("Select Count(*) from conturi where id="+id);
+			rs.next();
+			if( rs.getInt(1) == 0 ) {
+				System.out.println("Intrare Inexistenta");
+				return -1;
+			}
+			
+			Statement statement=conexiune.createStatement();
+			statement.executeUpdate("UPDATE CONTURI SET Token = '"+token+"' Where id="+id);
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la setTokenByIdCont: "+e.getMessage());
+			return 0;
+		}
+	}
+	
 	public int login ( String username, String hashparola )
 	{
 		String apel = "{ ? = call login( ?, ? ) }";
