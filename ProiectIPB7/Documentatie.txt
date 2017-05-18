@@ -14,6 +14,13 @@ Clasa BD contine urmatoarele metode:
 
 	-> setDomeniu() seteaza domeniul pentru crearea linkului de activare. Exemplu <domeniu>/activate/<cod_activare> 
 
+	-> getContByToken( String token ) returneaza Intrarea din Conturi avand acel token;
+					  in caz de eroare sau in cazul in care nu avem o astfel de intrare returneaza null;
+					  
+	-> setTokenByIdCont( int id, String token ) returneaza 0 daca reuseste;
+						    returneaza -1 daca nu exista un cont cu acel id;
+						    returneaza -7 in caz de exceptie si returneaza codul de eroare
+
 	-> login( String username, String hashparola ) returneaza 0  daca logarea a reusit: contul este existent si activat, parola este corecta;
 					returneaza -1 daca contul nu este existent;
 					returneaza -2 daca contul este existent iar parola este gresita;
@@ -34,7 +41,7 @@ Clasa BD contine urmatoarele metode:
 					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
 	
 	-> getAccessBD() returneaza un obiect de tip Access care va fi extins in obiecte AccessBDStud, AccessBDProf, AccessBDAdmin ... fiecare cu metode specifice
-				AccessBD contine un membru id, membru tip si membru conexiune;
+				AccessBD contine un membru idCont, membru tip si membru conexiune;
 				AccessBDAdmin contine toate metodele pentru lucrul cu baza de date;
 			
 			Metodele din AccessBD lucreaza cu obiecte de tip Intrare<NumeTabel> care contin campurile din tabele ca membri;
