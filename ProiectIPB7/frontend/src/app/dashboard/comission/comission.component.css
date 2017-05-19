@@ -17,7 +17,6 @@
 }
 
 .prof_container{
-    display: inline-table;
     width: 500px;
     height: 250px;
     border: 1px solid lightgray;
@@ -25,10 +24,14 @@
     text-align: center;
     overflow-y: auto;
     box-shadow: 1px 1px 5px gray;
+    margin-left: 75px;
+}
+
+.floater{
+    display: inline-table;
     position: sticky;
     position: -webkit-sticky;
     top: 10px;
-    margin-left: 75px;
 }
 
 .drag_option{

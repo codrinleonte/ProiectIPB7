@@ -38,4 +38,37 @@ export class BackendService {
 
         return this.http.get('http://localhost:4500/userinfo', { headers: header }).map(res => res.json());
     }
+
+    getProfs(token: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        return this.http.get('http://localhost:4500/profesorlist', { headers: header }).map(res => res.json());
+    }
+
+    getProfsWithoutComitte(token: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        return this.http.get('http://localhost:4500/getProfsWithoutCommitte', { headers: header }).map(res => res.json());
+    }
+
+    getComitteList(token: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        return this.http.get('http://localhost:4500/getCommitteList', { headers: header }).map(res => res.json());
+    }
+
+    getProfsFromComitte(token: string, id: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: id });
+        return this.http.post('http://localhost:4500/getProfsFromCommitte', json, { headers: header }).map(res => res.json());
+    }
 }
