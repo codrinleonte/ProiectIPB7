@@ -37,3 +37,15 @@
 .info_text{
     margin-left: 20px;
 }
+
+.register_success_txt {
+    margin-top: 15px;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-family: "Myriad Arabic";
+    font-size: 15px;
+}
+
+.txt_content{
+    margin-top: 150px;
+}

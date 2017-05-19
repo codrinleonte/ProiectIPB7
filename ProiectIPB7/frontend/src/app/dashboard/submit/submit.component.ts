@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BackendService } from "../../backend.service";
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-submit',
   templateUrl: './submit.component.html',
   styleUrls: ['./submit.component.css']
 })
-export class SubmitComponent {
-    profs = [
-        { name: 'Prof Number 1' },
-        { name: 'Prof Number 2' },
-        { name: 'Prof Number 3' },
-        { name: 'Prof Number 4' },
-        { name: 'Prof Number 5' },
-        { name: 'Prof Number 6' },
-        { name: 'Prof Number 7' },
-        { name: 'Prof Number 8' },
-        { name: 'Prof Number 9' }
-    ];
+export class SubmitComponent implements OnInit {
+
+    profs = [];
+
+    constructor(private backendService: BackendService) {}
+
+    ngOnInit() {
+        this.backendService.getProfs(Cookie.get('sessionId')).subscribe(
+            data => {
+                this.profs = data;
+            },
+            error => console.error('ERROR: BackendService - getProfs()')
+        );
+    }
 }
