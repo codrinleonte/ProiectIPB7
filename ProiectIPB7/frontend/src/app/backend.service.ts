@@ -30,4 +30,12 @@ export class BackendService {
         let json = JSON.stringify({ email: email, password: password });
         return this.http.post('http://localhost:4500/login', json, { headers: header }).map(res => res.json());
     }
+
+    getUserInfo(token: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        return this.http.get('http://localhost:4500/userinfo', { headers: header }).map(res => res.json());
+    }
 }
