@@ -23,6 +23,7 @@ import { EvaluationComponent } from './dashboard/evaluation/evaluation.component
 import { ManagestudsComponent } from './dashboard/managestuds/managestuds.component';
 import { EditexamsComponent } from './dashboard/editexams/editexams.component';
 import {BackendService} from "./backend.service";
+import { ActivationComponent } from './dashboard/activation/activation.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {BackendService} from "./backend.service";
     EvaluationComponent,
     ManagestudsComponent,
     EditexamsComponent,
+    ActivationComponent,
   ],
     entryComponents: [GradeDialogComponent],
     imports: [
