@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BackendService } from "../backend.service";
 import { MdSnackBar } from '@angular/material';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
     cardMode = 1;
     emailTextBox: string = '';
     passwordTextBox: string = '';
     passwordConfirmTextBox: string = '';
 
-    constructor(private backendService: BackendService, public snackBar: MdSnackBar) {}
+    constructor(private backendService: BackendService, public snackBar: MdSnackBar, private router: Router) {}
+
+    ngOnInit(){
+        if(Cookie.get('sessionId') != null){
+            this.router.navigateByUrl('');
+        }
+    }
 
     onRegisterClick(){
         if(this.emailTextBox == '' || this.passwordTextBox == '' || this.passwordConfirmTextBox == '') {

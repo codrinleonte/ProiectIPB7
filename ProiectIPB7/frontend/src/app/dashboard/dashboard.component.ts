@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+    constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        if(Cookie.get('sessionId') == null){
+            this.router.navigateByUrl('/login');
+        }
+    }
 
+    onLogoutClick() {
+        Cookie.delete('sessionId');
+        this.router.navigateByUrl('/login');
+    }
 }

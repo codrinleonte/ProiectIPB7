@@ -5,7 +5,7 @@
     </div>
     <div class="bar_btns_container">
         <button md-raised-button class="user_btn" routerLink="/profile">Popescu Ion</button>
-        <button md-raised-button class="user_btn" routerLink="/login">Logout</button>
+        <button md-raised-button class="user_btn" (click)="onLogoutClick()">Logout</button>
     </div>
 </md-toolbar>
 <router-outlet></router-outlet>

@@ -22,4 +22,12 @@ export class BackendService {
         let json = JSON.stringify({ confirmToken: token });
         return this.http.post('http://localhost:4500/confirmregistration', json, { headers: header }).map(res => res.json());
     }
+
+    login(email: string, password: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+
+        let json = JSON.stringify({ email: email, password: password });
+        return this.http.post('http://localhost:4500/login', json, { headers: header }).map(res => res.json());
+    }
 }
