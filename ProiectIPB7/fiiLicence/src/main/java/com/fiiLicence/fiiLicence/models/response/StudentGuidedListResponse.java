@@ -1,12 +1,17 @@
 package com.fiiLicence.fiiLicence.models.response;
 
 public class StudentGuidedListResponse {
-    int id_stud;
-    String nume_stud;
-    String prenume_stud;
-    int nota_finala;
-    int nota1;
-    int nota2;
-    int nota3;
-    int nota4;
+    public int id_stud;
+    public String nume_stud;
+    public String prenume_stud;
+    public double nota_finala;
+    public int nota1oral;
+    public int nota2oral;
+    public int nota3oral;
+    public int nota4oral;
+    public int nota1project;
+    public int nota2project;
+    public int nota3project;
+    public int nota4project;
 }
+
