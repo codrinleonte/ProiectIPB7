@@ -42,7 +42,7 @@ public interface DatabaseService {
     //17
     boolean deleteStudentToListProf(int idProf, int idStudent);
     //18
-    boolean modifyDate(int idCommitte, String date);
+    boolean modifyDate(int idCommitte, String beginDate,String endDate);
     //19+20
     //to add
 
