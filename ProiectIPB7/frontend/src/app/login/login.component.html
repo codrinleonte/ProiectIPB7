@@ -4,13 +4,13 @@
         <md-card-content>
             <p class="info_text">Introduceti adresa de email si parola pentru a va autentifica:</p>
             <md-input-container class="login_input">
-                <input type="email" mdInput placeholder="Adresa email">
+                <input type="email" mdInput [(ngModel)]="emailTextBox" [value]="emailTextBox" placeholder="Adresa email">
             </md-input-container>
             <md-input-container class="login_input">
-                <input type="password" mdInput placeholder="Parola">
+                <input type="password" mdInput [(ngModel)]="passwordTextBox" [value]="passwordTextBox" placeholder="Parola">
             </md-input-container>
         </md-card-content>
     </div>
-    <button md-raised-button class="login_btn">Confirma</button><br>
+    <button md-raised-button class="login_btn" (click)="onLoginClick()">Confirma</button><br>
     <p routerLink="/register" class="auth_redirect_info">Nu sunteti intregistat? Click aici!</p>
 </md-card>

@@ -76,7 +76,7 @@ Output: - O lista cu 10 structuri de forma: { String nume_stud; String prenume_s
 9.
 Descriere: Metoda ce returneaza o lista de comisii.
 Input:  - None
-Output: - O lista de comisii de forma: { int id; String nume_comisie; }
+Output: - O lista de comisii de forma: { int id; }
 
 
 
