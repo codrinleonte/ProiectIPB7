@@ -258,11 +258,11 @@ public class BD {
 			return -7;
 		}
 	}
-
+	
 	//15.functie : luam toti studentii in functie de un profesor
 
-	public List<IntrareStudenti> getStudentsOfATeacher(int idTeacher){
-		List<IntrareStudenti>result_return = new ArrayList<>();
+	public List<StudentGuidedListResponse> getStudentsOfATeacher(int idTeacher){
+		List<StudentGuidedListResponse> result_return = new ArrayList<>();
 		String apel = "select distinct st.id,st.nume,st.prenume,d.NOTA_1_ORAL,d.NOTA_2_ORAL,d.NOTA_3_ORAL,d.NOTA_4_ORAL_DIZERTATIE,d.NOTA_1_proiect,d.NOTA_2_proiect,d.NOTA_3_proiect,d.NOTA_4_PROIECT_DIZERTATIE  from detalii_licente d join comisii c on d.id_comisie=c.id join evaluari e on e.id_comisie=c.id join sesiuni s on s.id=e.id_sesiune join studenti st on s.id=st.id_sesiune join profesori p on p.ID_COMISIE=c.id where p.id= ?";
 
 		try{
@@ -272,23 +272,32 @@ public class BD {
 			ResultSet result  =statement.executeQuery();
 			System.out.println("ceao marocanii "+result.getFetchSize());
 			while(result.next()){ //something wrong i do, but i don't know what :(
-				System.out.println("ceao marocanii");
-				IntrareStudenti student = new IntrareStudenti();
+				int nrProjectMarks=4;
+				int nrOralMarks=4;
+				StudentGuidedListResponse  student = new StudentGuidedListResponse();
 				IntrareDetaliiLicente det = new IntrareDetaliiLicente();
-				student.setId(result.getInt(1));
-				System.out.println("id este: "+result.getInt(1));
-				student.setNume(result.getString(2));
-				student.setPrenume(result.getString(3));
-				det.setNota1Oral(result.getInt(4));
-				det.setNota2Oral(result.getInt(5));
-				det.setNota3Oral(result.getInt(6));
-				det.setNota4Oral(result.getInt(7));
-				det.setNota1Proiect(result.getInt(8));
-				det.setNota2Proiect(result.getInt(9));
-				det.setNota3Proiect(result.getInt(10));
-				det.setNota4Proiect(result.getInt(11));
-				student.setDetaliiLicenta(det);
-
+				//if(result.wasNull())
+				//{
+				student.id_stud=result.getInt(1);
+				//}
+				student.nume_stud= result.getString(2);
+				student.prenume_stud= result.getString(3);
+				student.nota1oral=result.getInt(4);
+				student.nota2oral=result.getInt(5);
+				student.nota3oral=result.getInt(6);
+				student.nota4oral=result.getInt(7);
+				student.nota1project=result.getInt(8);
+				student.nota2project=result.getInt(9);
+				student.nota3project=result.getInt(10);
+				student.nota4project=result.getInt(11);
+				  Double project = 0.0;
+			      Double oral    = 0.0;
+			     // project = 
+				
+		
+				project =(double) (student.nota1project+student.nota2project+student.nota3project+student.nota4project);
+				oral =(double) (student.nota1oral+student.nota2oral+student.nota3oral+student.nota4oral);
+				student.nota_finala = Math.floor((Math.floor(project/nrProjectMarks * 100) / 100 + Math.floor(oral/nrOralMarks * 100) / 100) / 2.0 * 100) / 100.0;
 				result_return.add(student);
 			}
 			return result_return;
@@ -384,6 +393,28 @@ public class BD {
 	}
 
 
-	//18,19 si 20 urmeaza sa le fac :) ( RAZVAN )
+	//18. functie: se poate edita data de examinare a unei comisii
+	
+	public boolean editExaminationDate(int idComisie,String beginDate,String endDate)
+	{
+		String apel = "update  evaluari e set e.INCEPUT_EVALUARE=to_date(?),e.sfarsit_evaluare=to_date(?)where e.id_comisie=?";
+		try{
+
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement.setString(1, beginDate);
+			statement.setString(2, endDate);
+			statement.setInt(3, idComisie);
+			statement.executeQuery();
+
+			return true;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+			return false;
+		}
+	}
+	
+	
+	//15 inca nu e functionala, iar 19 si 20 le pun cand e gata si baza de date
 }
 
