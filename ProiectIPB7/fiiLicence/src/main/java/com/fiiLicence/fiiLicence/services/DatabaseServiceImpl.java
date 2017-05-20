@@ -274,7 +274,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - result (Boolean) (true - daca studentul a fost adauga, false - orice alt motiv)*/
     @Override
     public boolean insertStudentToListProf(int idProf, String numeStudent, String prenumeStudent) {
-        return false;
+        BD b = new BD();
+        return b.addStudent(idProf, numeStudent, prenumeStudent);
     }
 
     /*17.
@@ -284,7 +285,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - result (Boolean) (true - daca studentul a fost eliminat din lista, false - orice alt motiv)*/
     @Override
     public boolean deleteStudentToListProf(int idProf, int idStudent) {
-        return false;
+       BD b = new BD();
+       return b.removeStudent(idProf, idStudent);
     }
 
     /*18.
@@ -293,9 +295,12 @@ public class DatabaseServiceImpl implements DatabaseService{
             - data_examinare (String) (forma data: 'DD-MM-YYYY')
     Output: - result (Boolean) (true - daca data a fost modificata, false - orice alt motiv)*/
     @Override
-    public boolean modifyDate(int idCommitte, String date) {
-        return false;
+    public boolean modifyDate(int idCommitte, String beginDate,String endDate) {
+    	BD b = new BD();
+        return b.editExaminationDate(idCommitte, beginDate, endDate);
     }
+    
+    //pentru 15, 19 si 20 astept baza de date (am nevoie doar de select)
 
     @Override
     public void finalize(){
