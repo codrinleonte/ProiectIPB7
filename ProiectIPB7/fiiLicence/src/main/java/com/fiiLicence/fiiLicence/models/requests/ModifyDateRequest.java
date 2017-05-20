@@ -1,6 +1,7 @@
 package com.fiiLicence.fiiLicence.models.requests;
 
 public class ModifyDateRequest {
+<<<<<<< HEAD
     private int idCommitte;
     private  String beginDate;
     private  String endDate;;
@@ -28,4 +29,10 @@ public class ModifyDateRequest {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+=======
+   public  int idCommitte;
+   public  String beginDate;
+   public  String endDate;
+>>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
 }
+

@@ -1,6 +1,7 @@
 package com.fiiLicence.fiiLicence.models.response;
 
 public class StudentGuidedListResponse {
+<<<<<<< HEAD
     private int idStudent;
     private String numeStudent;
     private String prenumStudent;
@@ -109,4 +110,19 @@ public class StudentGuidedListResponse {
     public void setNota4project(int nota4project) {
         this.nota4project = nota4project;
     }
+=======
+    public int id_stud;
+    public String nume_stud;
+    public String prenume_stud;
+    public double nota_finala;
+    public int nota1oral;
+    public int nota2oral;
+    public int nota3oral;
+    public int nota4oral;
+    public int nota1project;
+    public int nota2project;
+    public int nota3project;
+    public int nota4project;
+>>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
 }
+

@@ -272,12 +272,20 @@ public class HTTPController {
     @RequestMapping(value = "/modifyDate", method = RequestMethod.POST)
     public ResponseEntity<RegistrationResponse> modifyDate(@RequestHeader("Authorization") String token, @RequestBody ModifyDateRequest request) {
 
+<<<<<<< HEAD
         boolean result = databaseService.modifyDate(request.getIdCommitte(),request.getBeginDate(),request.getEndDate());
+=======
+        boolean result = databaseService.modifyDate(request.idCommitte,request.beginDate,request.endDate);
+>>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
 
         RegistrationResponse response = new RegistrationResponse();
         response.setResponse(result);
 
+<<<<<<< HEAD
         System.out.println("------ /modifyDate - " + request.getIdCommitte() +" " + request.getBeginDate() +" "+request.getEndDate() + " - " + result + " ------");
+=======
+        System.out.println("------ /modifyDate - " + request.idCommitte +" " + request.beginDate +" "+request.endDate+ " - " + result + " ------");
+>>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
         return new ResponseEntity<RegistrationResponse>(response, HttpStatus.OK);
     }
 

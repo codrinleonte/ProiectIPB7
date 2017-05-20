@@ -1,0 +1,7 @@
+<md-card class="activation_card">
+    <md-toolbar class="card_header"><h4>Activare cont</h4></md-toolbar>
+    <md-card-content class="info_text">
+        <p *ngIf="activationStatus==1">Contul dumneavoastra a fost activat cu succes! Acum va puteti loga!</p>
+        <p *ngIf="activationStatus==2">A intervenit o eroare in activarea contului! (cont deja activat/cod activare invalid)</p>
+    </md-card-content>
+</md-card>

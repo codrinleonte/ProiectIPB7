@@ -9,6 +9,7 @@ Alte dependente:
 - Angular Animations - "npm install @angular/animations"
 - HammerJS - "npm install hammerjs"
 - Dragula - "npm install ng2-dragula"
+- Cookies - "npm install ng2-cookies"
 
 # Rularea proiectului
 
