@@ -9,39 +9,69 @@ import java.util.List;
 
 
 @Service
-public class DatabaseServiceImpl implements DatabaseService{
+public class DatabaseServiceImpl implements DatabaseService {
     private BD bd;
-    public DatabaseServiceImpl(){
-         this.bd = new BD();
-        if(bd.isConnected()){
+
+    public DatabaseServiceImpl() {
+        this.bd = new BD();
+        if (bd.isConnected()) {
             System.out.println("================================");
             System.out.println("  CONNECTED TO ORACLE DATABASE  ");
             System.out.println("================================");
-        } else{
+        } else {
             System.out.println("================================");
             System.out.println("  ERROR TO ORACLE DATABASE  ");
             System.out.println("================================");
         }
     }
 
-    private String MD5(String md5) {
-        try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(md5.getBytes());
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < array.length; ++i) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
-            }
-            return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException e) {
-        }
-        return null;
+    public boolean verifyToken(String token) {
+        BD database = new BD();
+        IntrareConturi cont = new IntrareConturi();
+        bd.login("Admin", "Root");
+        cont = database.getContByToken(token);
+        if (cont != null)
+            return true;
+        return false;
     }
 
-    private String getHas(String email, String password){
-        email.concat(password);
-        return MD5(email);
+
+    public boolean verifyIfCommitteExists(int idCommitte, String token) {
+        List<CommitteListResponse> committeeList = getCommitteList(token);
+        List<Integer> committeIdList = new ArrayList<Integer>();
+
+        for (CommitteListResponse c : committeeList) {
+            committeIdList.add(c.getId());
+        }
+        if (committeIdList.contains(idCommitte)) {
+            return true;
+        }
+
+        return false;
+
     }
+
+
+    public boolean verifyIfProfesorExists(int idProfesor, String token) {
+        List<ProfListResponse> profsList = getProfList(token);
+        System.out.println("-------------ceva---------");
+        System.out.println(profsList);
+        System.out.println("-------------ceva---------");
+        List<Integer> profsIdList = new ArrayList<Integer>();
+
+        for (ProfListResponse p : profsList) {
+            profsIdList.add(p.getId());
+        }
+
+        if (profsIdList.contains(idProfesor)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+
     /*1.
     Descriere: Metoda utilizata pentru intregistrare.
     Input:  - adresa_email (String)
@@ -49,8 +79,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - result (Boolean) (true - daca email-ul de inregistare a fost trimis, false - in caz de orice alta eroare)*/
     @Override
     public boolean validateRegistration(String email, String password) {
-        int result = bd.inregistrare_stud(email,password);
-        if(result != 0)
+        int result = bd.inregistrare_stud(email, password);
+        if (result != 0)
             return false;
         else
             return true;
@@ -65,7 +95,7 @@ public class DatabaseServiceImpl implements DatabaseService{
     public boolean confirmRegistration(String confirmToken) {
         int result = bd.verificare(confirmToken);
         System.out.println(result);
-        if( result != 0)
+        if (result != 0)
             return false;
         else
             return true;
@@ -80,9 +110,15 @@ public class DatabaseServiceImpl implements DatabaseService{
                                     fi utilizat pentru apelarea in mod securizat a celorlalte metode, daca nu un empty string)*/
     @Override
     public String login(String email, String password) {
-        String username = email.substring(0,email.indexOf('@'));
-        int result = bd.login(username,password);
-        return getHas(email,password);
+        String token = "";
+        String username = email.substring(0, email.indexOf('@'));
+        IntrareConturi idCont = new IntrareConturi();
+        int result = bd.login(username, password);
+        if (result == 0) {
+            token = bd.getHas(email, password);
+            bd.setTokenByIdCont(email, token);
+        }
+        return token;
     }
 
     /*4.
@@ -95,8 +131,17 @@ public class DatabaseServiceImpl implements DatabaseService{
     @Override
     public UserinfoResponse getUserInfo(String token) {
         UserinfoResponse output = new UserinfoResponse();
-
-        return null;
+        IntrareConturi cont = new IntrareConturi();
+        boolean verifyToken = verifyToken(token);
+        if (verifyToken == true) {
+            cont = bd.getContByToken(token);
+            output.setNume(cont.getUsername().substring(0, cont.getUsername().indexOf('.')));
+            output.setPrenume(cont.getUsername().substring(cont.getUsername().indexOf('.') + 1, cont.getUsername().length()));
+            output.setEmail(cont.getEmail());
+            output.setTip(cont.getTipUtilizator());
+            return output;
+        } else
+            return null;
     }
 
     /*5.
@@ -106,8 +151,26 @@ public class DatabaseServiceImpl implements DatabaseService{
                 (-1 pe id_comisie daca acesta este neasignat unei comisii)*/
     @Override
     public List<ProfListResponse> getProfList(String token) {
+        List<ProfListResponse> profList = new ArrayList<ProfListResponse>();
+        List<IntrareProfesori> profesori = new ArrayList<IntrareProfesori>();
+        boolean verifyToken = verifyToken(token);
 
-        return null;
+        if (verifyToken == true) {
+            bd.login("Admin", "Root");
+            AccessBD access = bd.getAccess();
+            profesori = access.selectProfesori();
+            for (IntrareProfesori profesor : profesori) {
+                ProfListResponse profesorList = new ProfListResponse();
+                profesorList.setId(profesor.getId());
+                profesorList.setNumeProf(profesor.getNume());
+                profesorList.setPrenumeProf(profesor.getPrenume());
+                profesorList.setEmailProf(profesor.getNume() + '.' + profesor.getPrenume() + "@info.uaic.ro");
+                profesorList.setIdComisie(profesor.getIdComisie());
+                profList.add(profesorList);
+            }
+            return profList;
+        } else
+            return null;
     }
 
     /*6.
@@ -119,8 +182,36 @@ public class DatabaseServiceImpl implements DatabaseService{
 
     Output: - result (Boolean) (true - daca totul s-a desfasurat cu succes, false - altfel)*/
     @Override
-    public boolean recordLicence(String nameOfLicence, int id_profesor, String descriptionOfLicence) {
-        return false;
+    public boolean recordLicence(String token, String nameOfLicence, int idProfesor, String descriptionOfLicence) {
+        int idCont;
+        IntrareConturi cont = new IntrareConturi();
+        IntrareStudenti student = new IntrareStudenti();
+        AccessAdminBD accessAdminBD = (AccessAdminBD) bd.getAccess();
+        IntrareLicente licenta = new IntrareLicente();
+        List<IntrareLicente> licente = accessAdminBD.selectLicente();
+
+        cont = bd.getContByToken(token);
+        idCont = cont.getId();
+        student = bd.selectStudentByIdCont(idCont);
+
+        if (!cont.getTipUtilizator().equals("Student"))
+            return false;
+
+        for (IntrareLicente licence : licente) {
+            if (licence.getIdStudent() == student.getId())
+                return false;
+        }
+
+        licenta.setId(0);
+        licenta.setTitlu(nameOfLicence);
+        licenta.setIdProfesor(idProfesor);
+        licenta.setTipLucrare(descriptionOfLicence);
+        licenta.setIdStudent(student.getId());
+
+        if (accessAdminBD.insertLicenta(licenta) == 0)
+            return true;
+        else
+            return false;
     }
 
     /*7.
@@ -129,7 +220,9 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - valoare_nota (Integer) (-1 daca nota nu exista)*/
     @Override
     public GradeResponse getStudentGrade(int idStudent) {
-        return null;
+        GradeResponse grade = new GradeResponse();
+        grade.setGrade(10);
+        return grade;
     }
 
     /*8.
@@ -139,7 +232,27 @@ public class DatabaseServiceImpl implements DatabaseService{
               structurile 1-10, daca numar_pagina = 2 se returneaza structurile 11-20, etc)*/
     @Override
     public List<StundetListPageResponse> getClientListPage(int pagenumber, int pagesize) {
-        return null;
+        List<StundetListPageResponse> list = new ArrayList<StundetListPageResponse>(); // return list
+        List<IntrareStudenti> studenti = new ArrayList<IntrareStudenti>(); // select all students list
+        GradeResponse grade; // to get grade for each student
+        AccessAdminBD accessAdminBD = (AccessAdminBD) bd.getAccess();
+
+        studenti = accessAdminBD.selectStudenti(); // select all student
+
+        //get students from page pagenaumber
+        for (int index = (pagenumber - 1) * pagesize, size = studenti.size(); index < pagenumber * pagesize && index < size; index++) {
+            IntrareStudenti student = new IntrareStudenti();
+            StundetListPageResponse result = new StundetListPageResponse();
+            student = studenti.get(index);
+            grade = getStudentGrade(student.getId());
+
+            result.setNumeStudent(student.getNume());
+            result.setPrenumeStudent(student.getPrenume());
+            result.setNotaFinala(grade.getGrade());
+
+            list.add(result);
+        }
+        return list;
     }
 
     /*9.
@@ -165,9 +278,9 @@ public class DatabaseServiceImpl implements DatabaseService{
 
         for (IntrareComisii c : listaComisii) {
             CommitteListResponse comListRes = new CommitteListResponse();
-            comListRes.id = c.getId();
-            comListRes.numeComisie = "Comisie "+ comListRes.id;
-            comListRes.dataExaminare = c.getDataEvaluare();
+            comListRes.setId(c.getId());
+            comListRes.setNumeComisie("Comisie " + comListRes.getId());
+            comListRes.setDataExaminare(c.getDataEvaluare());
             committeeList.add(comListRes);
         }
 
@@ -200,7 +313,7 @@ public class DatabaseServiceImpl implements DatabaseService{
         List<IdResponse> result = new ArrayList<IdResponse>();
         for (Integer i : idProfiComisie) {
             IdResponse idRes = new IdResponse();
-            idRes.id = idProfiComisie.get(i - 1);
+            idRes.setId(idProfiComisie.get(i - 1));
             result.add(idRes);
         }
         return result;
@@ -218,7 +331,7 @@ public class DatabaseServiceImpl implements DatabaseService{
 
         for (IntrareProfesori p : profsWithoutCommitteeList) {
             IdResponse idRes = new IdResponse();
-            idRes.id = p.getId();
+            idRes.setId(p.getId());
             profsWithoutCommitteeIdList.add(idRes);
         }
         return profsWithoutCommitteeIdList;
@@ -226,13 +339,112 @@ public class DatabaseServiceImpl implements DatabaseService{
 
     /*12.
     Descriere: Metoda ce va muta un profesor din orice comisie ar fi
-    (s-au daca nu este asignat unei comisii) in comisia specificata.
+    (sau daca nu este asignat unei comisii) in comisia specificata.
     Input:  - id_prof (Integer)
             - id_comisie (Integer)
     Output: - result (true - daca profesorul a fost mutat, false - din orice alt motiv)*/
     @Override
-    public boolean moveProfToCommitte(int idProf, int idCommitte) {
-        return false;
+    public boolean moveProfToCommitte(String token, int idProf, int idCommitte) {
+
+        if (!(verifyIfCommitteExists(idCommitte, token) || verifyIfProfesorExists(idProf, token))) {
+            return false;
+        }
+        BD test = new BD();
+        test.login("lacra.lacra", "lacra");
+        AccessBD accessSecretar = test.getAccess();
+
+        IntrareComisii comisieNoua = accessSecretar.getCommitteeById(idCommitte);
+        IntrareComisii comisieActuala = accessSecretar.getCommitteByProf(idProf);
+        if (comisieNoua.getIdProfSef() != 0 && comisieNoua.getIdProf2() != 0 && comisieNoua.getIdProf3() != 0) {  // pt dizertatie +comisie.getIdProf4()!=0
+            return false;
+        } else {
+
+            if (comisieNoua.getIdProfSef() == 0) {
+                comisieNoua.setIdProfSef(idProf);
+                accessSecretar.updateComisie(comisieNoua);
+
+                if (comisieActuala != null) {
+                    if (comisieActuala.getIdProf2() == idProf) {
+                        comisieActuala.setIdProf2(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProf3() == idProf) {
+                        comisieActuala.setIdProf3(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProfSef() == idProf) {
+                        comisieActuala.setIdProfSef(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    }
+
+                }
+
+                return true;
+
+            } else if (comisieNoua.getIdProfSef() == 0) {
+                comisieNoua.setIdProfSef(idProf);
+                accessSecretar.updateComisie(comisieNoua);
+
+
+                if (comisieActuala != null) {
+                    if (comisieActuala.getIdProf2() == idProf) {
+                        comisieActuala.setIdProf2(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProf3() == idProf) {
+                        comisieActuala.setIdProf3(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProfSef() == idProf) {
+                        comisieActuala.setIdProfSef(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    }
+
+                }
+
+
+                return true;
+            } else if (comisieNoua.getIdProf2() == 0) {
+                comisieNoua.setIdProf2(idProf);
+                accessSecretar.updateComisie(comisieNoua);
+
+
+                if (comisieActuala != null) {
+                    if (comisieActuala.getIdProf2() == idProf) {
+                        comisieActuala.setIdProf2(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProf3() == idProf) {
+                        comisieActuala.setIdProf3(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProfSef() == idProf) {
+                        comisieActuala.setIdProfSef(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    }
+
+                }
+
+
+                return true;
+            } else if (comisieNoua.getIdProf3() == 0) {
+                comisieNoua.setIdProf3(idProf);
+                accessSecretar.updateComisie(comisieNoua);
+
+
+                if (comisieActuala != null) {
+                    if (comisieActuala.getIdProf2() == idProf) {
+                        comisieActuala.setIdProf2(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProf3() == idProf) {
+                        comisieActuala.setIdProf3(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    } else if (comisieActuala.getIdProfSef() == idProf) {
+                        comisieActuala.setIdProfSef(0);
+                        accessSecretar.updateComisie(comisieActuala);
+                    }
+
+                }
+
+                return true;
+            }
+            // pentru dizertatie verificare pt prof4
+            return false;
+        }
     }
 
     /*13.
@@ -241,7 +453,18 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - Lista de studenti ce trebuie evaluati de forma: { int id_stud; String nume_stud; String prenume_stud; }   */
     @Override
     public List<StudentResponse> getEvaluateStudentsByCommitte(int idCommitte) {
-        return null;
+        List<IntrareStudenti> listaStudenti = bd.getAccess().getStudentsByCommitte(idCommitte);
+        List<StudentResponse> listaResposeStudenti = new ArrayList<StudentResponse>();
+
+        for (IntrareStudenti s : listaStudenti) {
+            StudentResponse studResp = new StudentResponse();
+            studResp.setIdStudent(s.getId());
+            studResp.setNumeStudent(s.getNume());
+            studResp.setPrenumeStudent(s.getPrenume());
+            listaResposeStudenti.add(studResp);
+        }
+
+        return listaResposeStudenti;
     }
 
     /*14.
@@ -251,7 +474,7 @@ public class DatabaseServiceImpl implements DatabaseService{
             - valoare_nota (Integer)
     Output: - result (true - daca nota a fost trecuta, false - din orice alt motiv)*/
     @Override
-    public boolean profNote(int idProf, int idStudent, int grade) {
+    public boolean profNote(int idProf, int idStudent, int gradeOral, int gradeProiect) {
         return false;
     }
 
@@ -274,7 +497,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - result (Boolean) (true - daca studentul a fost adauga, false - orice alt motiv)*/
     @Override
     public boolean insertStudentToListProf(int idProf, String numeStudent, String prenumeStudent) {
-        return false;
+        BD b = new BD();
+        return b.addStudent(idProf, numeStudent, prenumeStudent);
     }
 
     /*17.
@@ -284,7 +508,8 @@ public class DatabaseServiceImpl implements DatabaseService{
     Output: - result (Boolean) (true - daca studentul a fost eliminat din lista, false - orice alt motiv)*/
     @Override
     public boolean deleteStudentToListProf(int idProf, int idStudent) {
-        return false;
+        BD b = new BD();
+        return b.removeStudent(idProf, idStudent);
     }
 
     /*18.
@@ -293,18 +518,19 @@ public class DatabaseServiceImpl implements DatabaseService{
             - data_examinare (String) (forma data: 'DD-MM-YYYY')
     Output: - result (Boolean) (true - daca data a fost modificata, false - orice alt motiv)*/
     @Override
-    public boolean modifyDate(int idCommitte, String date) {
-        return false;
+    public boolean modifyDate(int idCommitte,String beginDate,String endDate) {
+
+        BD b = new BD();
+        return b.editExaminationDate(idCommitte, beginDate, endDate);
     }
 
     @Override
-    public void finalize(){
+    public void finalize() {
         try {
             System.out.println("================================");
             System.out.println("  DISCONNECTED FROM ORACLE DB   ");
             System.out.println("================================");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Error shutting down database!");
         }
     }

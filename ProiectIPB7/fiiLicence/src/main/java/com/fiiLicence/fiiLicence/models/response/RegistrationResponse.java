@@ -1,5 +1,13 @@
 package com.fiiLicence.fiiLicence.models.response;
 
 public class RegistrationResponse {
-    public boolean response;
+    private boolean response;
+
+    public boolean isResponse() {
+        return response;
+    }
+
+    public void setResponse(boolean response) {
+        this.response = response;
+    }
 }
