@@ -2,5 +2,7 @@ package com.fiiLicence.fiiLicence.models.requests;
 
 public class ModifyDateRequest {
    public  int idCommitte;
-   public  String date;
+   public  String beginDate;
+   public  String endDate;
 }
+
