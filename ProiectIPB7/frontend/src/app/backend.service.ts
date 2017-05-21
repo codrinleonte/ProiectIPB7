@@ -71,4 +71,13 @@ export class BackendService {
         let json = JSON.stringify({ id: id });
         return this.http.post('http://localhost:4500/getProfsFromCommitte', json, { headers: header }).map(res => res.json());
     }
+
+    recordLicence(token: string, title: string, description: string, idProf: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ nameOfLicence: title, idProfesor: idProf, descriptionOfLicence: description });
+        return this.http.post('http://localhost:4500/recordlicence', json, { headers: header }).map(res => res.json());
+    }
 }
