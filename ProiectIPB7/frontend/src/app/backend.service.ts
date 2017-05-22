@@ -107,4 +107,40 @@ export class BackendService {
         let json = JSON.stringify({ idProf: idProf, idCommitte: idCommitte });
         return this.http.post('http://localhost:4500/moveProfToCommitte', json, { headers: header }).map(res => res.json());
     }
+
+    getStudentsEvaluatedByCommitte(token: string, id: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: id });
+        return this.http.post('http://localhost:4500/getEvaluateStudentsByCommitte', json, { headers: header }).map(res => res.json());
+    }
+
+    getStudentsGuided(token: string, id: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: id });
+        return this.http.post('http://localhost:4500/getStudentGuided', json, { headers: header }).map(res => res.json());
+    }
+
+    addStudentGuided(token: string, idProf: number, numeStudent: string, prenumeStudent: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ idProf: idProf, numeStudent: numeStudent, prenumeStudent: prenumeStudent });
+        return this.http.post('http://localhost:4500/getStudentGuided', json, { headers: header }).map(res => res.json());
+    }
+
+    removeStudentGuided(token: string, idProf: number, idStudent: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ idProf: idProf, idStudent: idStudent });
+        return this.http.post('http://localhost:4500/deleteStudentToListProf', json, { headers: header }).map(res => res.json());
+    }
 }

@@ -8,8 +8,13 @@
             <button md-raised-button class="register_btn">Adauga student</button>
         </div>
         <div class="student_entry" *ngFor="let student of students">
-            <p class="student_entry_name" mdTooltip="Note: [8, 7, 7, 8] Nota finala: 8" [mdTooltipPosition]="'after'">{{student.name}}</p>
-            <p class="delete_btn">X</p>
+            <p class="student_entry_name" mdTooltip="Note oral: [{{student.nota1oral}},
+                              {{student.nota2oral}}, {{student.nota3oral}}, {{student.nota4oral}}] Note proiect: [
+                              {{student.nota1project}}, {{student.nota2project}}, {{student.nota3project}},
+                              {{student.nota4project}}] Nota finala: {{student.notaFinala}}" [mdTooltipPosition]="'after'">
+                {{student.numeStudent}} {{student.prenumStudent}}
+            </p>
+            <p class="delete_btn" id="{{student.idStudent}}" (click)="onRemoveStudentClick($event)">X</p>
         </div>
     </md-card-content>
 </md-card>
