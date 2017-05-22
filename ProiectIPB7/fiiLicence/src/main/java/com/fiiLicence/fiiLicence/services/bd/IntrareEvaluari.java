@@ -9,6 +9,7 @@ public class IntrareEvaluari {
 	int idComisie;
 	Timestamp inceputEvaluare;
 	Timestamp sfarsitEvaluare;
+	String sala;
 	
 	public int getId() {
 		return id;
@@ -24,6 +25,12 @@ public class IntrareEvaluari {
 	}
 	public int getIdComisie() {
 		return idComisie;
+	}
+	public String getSala() {
+		return sala;
+	}
+	public void setSala(String sala) {
+		this.sala = sala;
 	}
 	public void setIdComisie(int idComisie) {
 		this.idComisie = idComisie;

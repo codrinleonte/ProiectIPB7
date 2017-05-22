@@ -1,5 +1,13 @@
 package com.fiiLicence.fiiLicence.models.requests;
 
 public class ConfirmRegistrationRequest {
-    public String confirmToken;
+    private String confirmToken;
+
+    public String getConfirmToken() {
+        return confirmToken;
+    }
+
+    public void setConfirmToken(String confirmToken) {
+        this.confirmToken = confirmToken;
+    }
 }
