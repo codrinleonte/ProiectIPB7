@@ -508,13 +508,12 @@ public class DatabaseServiceImpl implements DatabaseService {
     Output: - result (Boolean) (true - daca studentul a fost eliminat din lista, false - orice alt motiv)*/
     @Override
     public boolean deleteStudentToListProf(int idProf, int idStudent) {
-<<<<<<< HEAD
+
         BD b = new BD();
         return b.removeStudent(idProf, idStudent);
-=======
+
        BD b = new BD();
        return b.removeStudent(idProf, idStudent);
->>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
     }
 
     /*18.
@@ -523,18 +522,35 @@ public class DatabaseServiceImpl implements DatabaseService {
             - data_examinare (String) (forma data: 'DD-MM-YYYY')
     Output: - result (Boolean) (true - daca data a fost modificata, false - orice alt motiv)*/
     @Override
-<<<<<<< HEAD
-    public boolean modifyDate(int idCommitte,String beginDate,String endDate) {
 
-        BD b = new BD();
-=======
+ 
+
     public boolean modifyDate(int idCommitte, String beginDate,String endDate) {
     	BD b = new BD();
->>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
         return b.editExaminationDate(idCommitte, beginDate, endDate);
     }
     
-    //pentru 15, 19 si 20 astept baza de date (am nevoie doar de select)
+       /* 19.
+    Descriere: Metoda ce returneaza o tabela cu toti studentii si notele obtinute de acestia (metoda utilizata de secretar).
+    Input:  - None
+    Output: - Ce vreti voi, noi luam datele si le bagam intr-un PDF. Un exemplu ar fi o lista de structuri de forma: {String nume; String prenume; int nota;}
+    */
+    
+    public  List<StundetListPageResponse> getFinalMarksOfStudents(){
+    	BD b= new BD();
+    	return b.getStudentsMarks(); 
+    }
+   
+     /*20.
+    Descriere: Metoda ce returneaza o tabela cu repartizarea pe sali a studentilor (metoda utilizata de admin).
+    Input:  - None
+    Output: - Tot la fel, ce considerati voi a fi relevant, noi preluam si punem in PDF.
+    */
+    public List<DistributionOnHallsResponse> getDistributionOfStudentsOnHalls(){
+    	BD b =new BD();
+    	return b.getDistributionOnHalls();
+    }
+    
 
     @Override
     public void finalize() {
