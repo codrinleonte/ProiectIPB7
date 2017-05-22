@@ -80,4 +80,22 @@ export class BackendService {
         let json = JSON.stringify({ nameOfLicence: title, idProfesor: idProf, descriptionOfLicence: description });
         return this.http.post('http://localhost:4500/recordlicence', json, { headers: header }).map(res => res.json());
     }
+
+    getStudentGrade(token: string, id: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: id });
+        return this.http.post('http://localhost:4500/getStudentGrade', json, { headers: header }).map(res => res.json());
+    }
+
+    getStudentGradeList(token: string, pagenumber: number, pagesize: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ pagenumber: pagenumber, pagesize: pagesize });
+        return this.http.post('http://localhost:4500/clientListPage', json, { headers: header }).map(res => res.json());
+    }
 }
