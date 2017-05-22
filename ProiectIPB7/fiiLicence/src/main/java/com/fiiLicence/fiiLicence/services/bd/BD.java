@@ -921,8 +921,126 @@ public class BD {
 		}
 	}
 	
+	//19.functie: obtinem toti studentii cu notele lor finale
 	
-	//15 inca nu e functionala, iar 19 si 20 le pun cand e gata si baza de date
->>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
+	public List<StundetListPageResponse> getStudentsMarks(){
+	List<StundetListPageResponse>studenti = new ArrayList<>();
+	
+	String apel = "select s.nume,s.prenume,d.NOTA_1_ORAL,d.NOTA_2_ORAL,d.NOTA_3_ORAL,d.NOTA_4_ORAL_DIZERTATIE,d.NOTA_5_ORAL_COORDONATOR,d.NOTA_1_proiect,d.NOTA_2_proiect,d.NOTA_3_proiect,d.NOTA_4_PROIECT_DIZERTATIE,d.NOTA_5_PROIECT_COORDONATOR from detalii_licente d join licente l on d.id=l.id join studenti s on s.ID=l.ID_STUDENT";
+	try{
+      
+		
+		PreparedStatement statement = conexiune.prepareStatement(apel);
+		ResultSet result  =statement.executeQuery();
+		
+		Vector<Integer>notePosibile = new Vector<>();
+		
+		notePosibile.add(1);notePosibile.add(2);notePosibile.add(3);notePosibile.add(4);
+		notePosibile.add(5);notePosibile.add(6);notePosibile.add(7);notePosibile.add(8);
+		notePosibile.add(9);notePosibile.add(10);
+		
+		while(result.next()){ 
+			  int nrNoteOral = 0;
+		      int nrNoteProiect = 0;
+				Vector<Integer>noteOral = new Vector<>();
+				Vector<Integer>noteProiect = new Vector<>();
+			StundetListPageResponse student = new StundetListPageResponse();
+			student.numeStudent = result.getString(1);
+			System.out.println(result.getString(1));
+			student.prenumeStudent= result.getString(2);
+			if(notePosibile.contains(result.getInt(3))){
+				noteOral.add(result.getInt(3));
+				nrNoteOral = nrNoteOral + 1;
+			}
+			if(notePosibile.contains(result.getInt(4))){
+				noteOral.add(result.getInt(4));
+				nrNoteOral = nrNoteOral + 1;
+			}
+			if(notePosibile.contains(result.getInt(5))){
+				noteOral.add(result.getInt(5));
+				nrNoteOral = nrNoteOral + 1;
+			}
+			if(notePosibile.contains(result.getInt(6))){
+				noteOral.add(result.getInt(6));
+				nrNoteOral = nrNoteOral + 1;
+			}
+			if(notePosibile.contains(result.getInt(7))){
+				noteOral.add(result.getInt(7));
+				nrNoteOral = nrNoteOral + 1;
+			}
+			if(notePosibile.contains(result.getInt(8))){
+				noteProiect.add(result.getInt(8));
+				nrNoteProiect = nrNoteProiect + 1;
+			}
+			if(notePosibile.contains(result.getInt(9))){
+				noteProiect.add(result.getInt(9));
+				nrNoteProiect = nrNoteProiect + 1;
+			}
+			if(notePosibile.contains(result.getInt(10))){
+				noteProiect.add(result.getInt(10));
+				nrNoteProiect = nrNoteProiect + 1;
+			}
+			if(notePosibile.contains(result.getInt(11))){
+				noteProiect.add(result.getInt(11));
+				nrNoteProiect = nrNoteProiect + 1;
+			}
+			if(notePosibile.contains(result.getInt(12))){
+				noteProiect.add(result.getInt(12));
+				nrNoteProiect = nrNoteProiect + 1;
+			}
+		
+			  Double project = 0.0;
+		      Double oral    = 0.0;
+		    
+			
+	         for (Integer notaPrj : noteProiect) {
+				project = project + (double)notaPrj;
+			}
+	         for (Integer notaOrl : noteProiect) {
+					project = project + (double)notaOrl;
+			}
+	         
+			
+			student.notaFinala= Math.floor((Math.floor(project/nrNoteProiect * 100) / 100 + Math.floor(oral/nrNoteOral * 100) / 100) / 2.0 * 100) / 100.0;
+			studenti.add(student);
+		}
+		return studenti;
+	}
+	catch( Exception e ){
+		System.out.println("Exceptie la obtinerea notelor studentilor: "+e.getMessage());
+		return null;
+	}
+
+	
+	}
+	
+	//20. functie: obtinem distributia pe sali a studentilor
+	
+	
+	public List<DistributionOnHallsResponse>getDistributionOnHalls(){
+		List<DistributionOnHallsResponse>distribution = new ArrayList<>();
+		String apel = "select distinct s.nume,s.prenume,e.sala from studenti s join comisii c on c.id=s.id_comisie join evaluari e on e.id_comisie=c.id";
+		try{
+
+			PreparedStatement statement = conexiune.prepareStatement(apel);
+			ResultSet result  =statement.executeQuery();
+			while(result.next()){ 
+			
+				DistributionOnHallsResponse hall = new DistributionOnHallsResponse();
+				hall.numeStudent=result.getString(1);
+				hall.prenumeStudent=result.getString(2);
+				hall.sala=result.getString(3);
+		        distribution.add(hall);
+			}
+			return distribution;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	
+	
 }
 
