@@ -98,4 +98,13 @@ export class BackendService {
         let json = JSON.stringify({ pagenumber: pagenumber, pagesize: pagesize });
         return this.http.post('http://localhost:4500/clientListPage', json, { headers: header }).map(res => res.json());
     }
+
+    moveProfToComitte(token: string, idProf: number, idCommitte: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ idProf: idProf, idCommitte: idCommitte });
+        return this.http.post('http://localhost:4500/moveProfToCommitte', json, { headers: header }).map(res => res.json());
+    }
 }

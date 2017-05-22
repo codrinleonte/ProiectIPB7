@@ -2,15 +2,15 @@
     <md-toolbar class="card_header"><h4>Gestionare comisii</h4></md-toolbar>
     <md-card-content class="content">
         <div class="commission_container">
-            <div *ngFor="let comitte of comittes" class="commission" [dragula]='"first-bag"'>
+            <div *ngFor="let comitte of comittes" class="commission" [dragula]='"first-bag"' id="{{comitte.id}}">
                 {{comitte.numeComisie}}
-                <div *ngFor="let prof of comitte.profs" class="drag_option">{{prof.numeProf}} {{prof.prenumeProf}}</div>
+                <div *ngFor="let prof of comitte.profs" class="drag_option" id="{{prof.id}}">{{prof.numeProf}} {{prof.prenumeProf}}</div>
             </div>
         </div>
         <div class="floater">
             <div class="prof_container" [dragula]='"first-bag"'>
                 Profesori neasignati
-                <div *ngFor="let prof of profs_without_comitte" class="drag_option">
+                <div *ngFor="let prof of profs_without_comitte" class="drag_option" id="{{prof.id}}">
                     {{prof.numeProf}} {{prof.prenumeProf}}
                 </div>
             </div>

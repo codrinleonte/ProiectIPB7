@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from "../../backend.service";
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { DragulaService } from "ng2-dragula";
+import get = Reflect.get;
 
 @Component({
   selector: 'app-comission',
@@ -13,7 +15,17 @@ export class ComissionComponent implements OnInit {
     profs: any = [];
     profs_without_comitte: any = [];
 
-    constructor(private backendService: BackendService) { }
+    constructor(private backendService: BackendService, private dragulaService: DragulaService) {
+        dragulaService.drop.subscribe(
+            (value) => { this.onDrop(value.slice(1)); }
+        );
+    }
+
+    onDrop(args){
+        let [e, el] = args;
+        this.backendService.moveProfToComitte(Cookie.get('sessionId'), +get(e, 'id'), +get(el, 'id')).subscribe();
+        console.log('da ma s-a apelat');
+    }
 
     getProfById(id){
         for(var i = 0; i < this.profs.length; i++){
