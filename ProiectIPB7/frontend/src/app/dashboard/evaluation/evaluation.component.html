@@ -6,8 +6,11 @@
         <div class="evaluation_container">
             <div class="evaluation_entry" *ngFor="let student of students">
                 <p class="name">{{student.numeStudent}} {{student.prenumeStudent}}</p>
-                <md-input-container class="entry_input">
-                    <input type="text" mdInput placeholder="Nota">
+                <md-input-container class="entry_input_oral">
+                    <input type="text" mdInput placeholder="Nota oral">
+                </md-input-container>
+                <md-input-container class="entry_input_project">
+                    <input type="text" mdInput placeholder="Nota proiect">
                 </md-input-container>
             </div>
         </div>

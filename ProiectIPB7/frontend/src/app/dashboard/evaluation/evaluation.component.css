@@ -31,11 +31,18 @@
     font-weight: bold;
 }
 
-.entry_input{
+.entry_input_oral{
     position: absolute;
     margin: 8px;
     margin-left: 400px;
-    width: 40%;
+    width: 20%;
+}
+
+.entry_input_project{
+    position: absolute;
+    margin: 8px;
+    margin-left: calc(400px + 25%);
+    width: 20%;
 }
 
 .save_btn{
