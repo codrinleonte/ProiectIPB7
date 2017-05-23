@@ -33,3 +33,10 @@ thead{
 #btn_forward{
     float: right;
 }
+
+.pagenumber{
+    position: absolute;
+    margin: 0;
+    margin-top: -25px;
+    margin-left: 50%;
+}

@@ -10,6 +10,7 @@ Alte dependente:
 - HammerJS - "npm install hammerjs"
 - Dragula - "npm install ng2-dragula"
 - Cookies - "npm install ng2-cookies"
+- JSPDF - "npm install jspdf"
 
 # Rularea proiectului
 

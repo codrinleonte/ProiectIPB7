@@ -1,2 +1,8 @@
-<p class="info_text">Nota obtinuta de dumneavoastra la examenul de licenta este:</p><br>
-<p class="grade_text">10</p>
+<div *ngIf="grade!=-1">
+    <p class="info_text">Nota obtinuta de dumneavoastra la examenul de licenta este:</p><br>
+    <p class="grade_text">{{grade}}</p>
+</div>
+<div *ngIf="grade==-1">
+    <p class="info_text">Nota dumneavoastra nu a fost stabilita inca!</p><br>
+    <p class="info_text">Va rugam incercati mai tarziu!</p>
+</div>

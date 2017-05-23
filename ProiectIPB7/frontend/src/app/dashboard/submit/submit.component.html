@@ -1,17 +1,19 @@
 <md-card class="submit_card">
-    <md-toolbar class="card_header"><h4>Formular inscriere examen licenta</h4></md-toolbar>
+    <md-toolbar class="card_header"><h4>Formular inscriere examen</h4></md-toolbar>
     <md-card-content class="content">
-        <p class="form_info">Pentru a va putea inscrie in seisunea de examinare a lucrarii de licenta, va rugam
+        <p class="form_info">Pentru a va putea inscrie in seisunea de examinare a lucrarii, va rugam
         sa completati urmatorul formular.</p>
         <md-input-container class="submit_input">
-            <input type="text" mdInput placeholder="Nume lucrare licenta">
+            <input type="text" mdInput [(ngModel)]="licenceTitle" [value]="licenceTitle" placeholder="Nume lucrare">
         </md-input-container><br>
-        <md-select  class="submit_input" placeholder="Profesor coordonator" name="profs">
-            <md-option *ngFor="let prof of profs">{{prof.numeProf}} {{prof.prenumeProf}}</md-option>
+        <md-select  class="submit_input" placeholder="Profesor coordonator" name="profs" [(ngModel)]="selectedIdProf">
+            <md-option *ngFor="let prof of profs" [value]="prof.id">{{prof.numeProf}} {{prof.prenumeProf}}</md-option>
         </md-select><br>
-        <textarea placeholder="Descriere" cols="40" rows="5" class="submit_textarea"></textarea><br>
+        <md-select  class="submit_input" placeholder="Tip" name="profs" [(ngModel)]="selectedType">
+            <md-option *ngFor="let type of types" [value]="type.name">{{type.name}}</md-option>
+        </md-select><br>
         <input type="file" class="submit_input"><br>
 
-        <button md-raised-button class="submit_btn">Inscriere</button>
+        <button md-raised-button class="submit_btn" (click)="onSubmitClick()">Inscriere</button>
     </md-card-content>
 </md-card>

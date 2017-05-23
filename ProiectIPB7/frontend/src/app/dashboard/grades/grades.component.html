@@ -10,12 +10,13 @@
                 </tr>
             </thead>
             <tr *ngFor="let grade of grades">
-                <td class="info">{{grade.nume}}</td>
-                <td class="info">{{grade.prenume}}</td>
-                <td class="grade">{{grade.grade}}</td>
+                <td class="info">{{grade.numeStudent}}</td>
+                <td class="info">{{grade.prenumeStudent}}</td>
+                <td class="grade">{{grade.notaFinala}}</td>
             </tr>
         </table>
-        <button md-raised-button>Inapoi</button>
-        <button md-raised-button id="btn_forward">Inainte</button>
+        <button md-raised-button (click)="onPrevPageClick()">Inapoi ({{pagenumber-1}})</button>
+        <p class="pagenumber">{{pagenumber}}</p>
+        <button md-raised-button id="btn_forward" (click)="onNextPageClick()">Inainte ({{pagenumber+1}})</button>
     </md-card-content>
 </md-card>

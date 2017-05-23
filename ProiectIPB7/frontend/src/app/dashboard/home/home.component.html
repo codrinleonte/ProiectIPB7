@@ -1,6 +1,6 @@
 <md-card class="panel">
     <div *ngIf="userClass==1">
-        <app-panel-button icon="assets/submit.svg" desc="Inscriere examen licenta"
+        <app-panel-button icon="assets/submit.svg" desc="Inscriere examen"
                             routerLink="/submit"></app-panel-button>
         <app-panel-button icon="assets/mygrade.svg" desc="Vizualizare nota obtinuta"
                             (click)="openMyGradeDialog()"></app-panel-button>
@@ -14,22 +14,22 @@
                             routerLink="/evaluation"></app-panel-button>
         <app-panel-button icon="assets/grades.svg" desc="Vizualizare note studenti"
                             routerLink="/grades"></app-panel-button>
-        <app-panel-button icon="assets/mygrade.svg" desc="Management studenti"
+        <app-panel-button icon="assets/managestuds.svg" desc="Management studenti"
                             routerLink="/managestuds"></app-panel-button>
     </div>
     <div *ngIf="userClass==3">
-        <app-panel-button icon="assets/generate.svg" desc="Generare tabele note"></app-panel-button>
+        <app-panel-button icon="assets/generate.svg" desc="Generare tabele note" (click)="generateGradesPdf()"></app-panel-button>
         <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"
                             routerLink="/grades"></app-panel-button>
         <app-panel-button icon="assets/manage.svg" desc="Gestionare profesori/comisii"
                             routerLink="/commission"></app-panel-button>
     </div>
     <div *ngIf="userClass==4">
-        <app-panel-button icon="assets/generate.svg" desc="Generare tabela note"></app-panel-button>
-        <app-panel-button icon="assets/manage.svg" desc="Editeaza data examinare"
+        <app-panel-button icon="assets/generate.svg" desc="Generare tabela note" (click)="generateGradesPdf()"></app-panel-button>
+        <app-panel-button icon="assets/editdate.svg" desc="Editeaza data examinare"
                           routerLink="/editexams"></app-panel-button>
-        <app-panel-button icon="assets/generate.svg" desc="Generare repartizare pe sali"></app-panel-button>
-        <app-panel-button icon="assets/comission.svg" desc="Gestionare profesori/comisii"
+        <app-panel-button icon="assets/classes.svg" desc="Generare repartizare pe sali" (click)="generateRepartitionPdf()"></app-panel-button>
+        <app-panel-button icon="assets/manage.svg" desc="Gestionare profesori/comisii"
                           routerLink="/commission"></app-panel-button>
         <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"
                           routerLink="/grades"></app-panel-button>
