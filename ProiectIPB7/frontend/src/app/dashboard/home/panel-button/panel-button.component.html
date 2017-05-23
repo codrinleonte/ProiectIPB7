@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@glowAnim]="animState" (mouseover)="onHover()" (mouseout)="onHoverEnd()">
     <div class="content">
         <img class="button_icon" src={{icon}}>
         <p class="button_desc">{{desc}}</p>
