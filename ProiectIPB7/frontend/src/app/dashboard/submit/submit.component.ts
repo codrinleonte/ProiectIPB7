@@ -10,10 +10,14 @@ import { MdSnackBar } from '@angular/material';
 })
 export class SubmitComponent implements OnInit {
 
+    types = [
+        { name: 'Licenta' },
+        { name: 'Diseratie' }
+    ];
     profs = [];
     licenceTitle: string = '';
-    licenceDescription: string = '';
     selectedIdProf: number;
+    selectedType: string = '';
 
     constructor(private backendService: BackendService, private snackBar: MdSnackBar) {}
 
@@ -27,18 +31,17 @@ export class SubmitComponent implements OnInit {
     }
 
     onSubmitClick(){
-        this.backendService.recordLicence(Cookie.get('sessionId'), this.licenceTitle, this.licenceDescription, this.selectedIdProf).subscribe(
+        this.backendService.recordLicence(Cookie.get('sessionId'), this.licenceTitle, this.selectedType, this.selectedIdProf).subscribe(
             data => {
                 let jsonParsed = JSON.parse(JSON.stringify(data));
                 if(jsonParsed.response == true){
-                    this.snackBar.open("A mers totu bine, cred!", '', {duration: 2000});
+                    this.snackBar.open("Lucrarea a fost uplodata!", '', {duration: 2000});
                 }
                 else {
-                    this.snackBar.open("Eroare la uploadarea licentei!", '', {duration: 2000});
+                    this.snackBar.open("Nu s-a uploadat (lucrare deja uploadata?)" + this.selectedType, '', {duration: 2000});
                 }
             },
             error => console.error('ERROR: BackendService - recordLicence()')
         );
-        this.snackBar.open(this.licenceTitle + ' ' + this.licenceDescription + ' ' + this.selectedIdProf, '', {duration: 2000});
     }
 }
