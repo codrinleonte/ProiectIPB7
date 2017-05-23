@@ -126,13 +126,13 @@ export class BackendService {
         return this.http.post('http://localhost:4500/getStudentGuided', json, { headers: header }).map(res => res.json());
     }
 
-    addStudentGuided(token: string, idProf: number, numeStudent: string, prenumeStudent: string){
+    addStudentGuided(token: string, idProf: number, email: string){
         let header = new Headers();
         header.append('Content-Type', 'application/json');
         header.append('Authorization', token);
 
-        let json = JSON.stringify({ idProf: idProf, numeStudent: numeStudent, prenumeStudent: prenumeStudent });
-        return this.http.post('http://localhost:4500/getStudentGuided', json, { headers: header }).map(res => res.json());
+        let json = JSON.stringify({ idProf: idProf, email: email });
+        return this.http.post('http://localhost:4500/insertStudentToListProf', json, { headers: header }).map(res => res.json());
     }
 
     removeStudentGuided(token: string, idProf: number, idStudent: number){
