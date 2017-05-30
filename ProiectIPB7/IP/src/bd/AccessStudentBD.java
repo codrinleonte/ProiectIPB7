@@ -166,30 +166,6 @@ public class AccessStudentBD extends  AccessBD{
 		}		
 	}
 	
-	public List<IntrareEvaluari> selectEvaluari(){
-		List<IntrareEvaluari> rezultat = new ArrayList<IntrareEvaluari>();
-		try{
-			
-			Statement statement=conexiune.createStatement();
-			ResultSet result   =statement.executeQuery("Select * from evaluari"); 
-			while(result.next()){
-				IntrareEvaluari intrare = new IntrareEvaluari();
-				intrare.setId(result.getInt(1));
-				intrare.setIdSesiune(result.getInt(2));
-				intrare.setIdComisie(result.getInt(3));
-				intrare.setInceputEvaluare(result.getTimestamp(4));
-				intrare.setSfarsitEvaluare(result.getTimestamp(5));
-				intrare.setSala(result.getString(6));
-				rezultat.add(intrare);
-			}
-			return rezultat;
-		}
-		catch( Exception e ){
-			System.out.println("Exceptie la selectEvaluari: "+e.getMessage());
-			return null;
-		}
-	}
-
 	public int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";

@@ -8,8 +8,8 @@ public class IntrareComisii {
 	int idProf4;
 	int idSecretar;
 	String tipComisie;
-	int idEvaluare;
-	
+	String sala;
+
 	public int getId(){
 		return id;
 	}
@@ -52,11 +52,11 @@ public class IntrareComisii {
 	public void setTipComisie(String tipComisie) {
 		this.tipComisie = tipComisie;
 	}
-	public int getIdEvaluare() {
-		return idEvaluare;
-	}
-	public void setIdEvaluare(int idEvaluare) {
-		this.idEvaluare = idEvaluare;
-	}
+    public String getSala(){
+        return sala;
+    }
+    public void setSala( String sala){
+        this.sala = sala;
+    }
 
 }
