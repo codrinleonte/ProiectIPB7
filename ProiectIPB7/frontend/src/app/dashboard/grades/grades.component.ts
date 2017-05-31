@@ -10,7 +10,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class GradesComponent implements OnInit {
     grades = [];
     pagenumber: number = 1;
-    pagesize: number = 3;
+    pagesize: number = 8;
 
     constructor(private backendService: BackendService) {}
 

@@ -8,7 +8,7 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
     animations: [
         trigger('glowAnim', [
             state('hidden', style({ 'box-shadow': 'none' })),
-            state('visible', style({ 'box-shadow': '0px 0px 12px #0054ff'})),
+            state('visible', style({ 'box-shadow': '0px 0px 20px #0054ff'})),
             transition('hidden => visible', animate('300ms ease-in')),
             transition('visible => hidden', animate('300ms ease-out'))
         ])

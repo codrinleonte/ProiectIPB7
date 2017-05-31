@@ -1,15 +1,24 @@
 <md-card class="edit_exams_card">
-    <md-toolbar class="card_header"><h4>Editare data examinare</h4></md-toolbar>
+    <md-toolbar class="card_header"><h4>Creare sesiune examinare noua</h4></md-toolbar>
     <md-card-content class="content">
-        <div class="entry" *ngFor="let com of commissions">
-            <p class="com_name">{{com.name}}</p>
-            <div class="entry_date_container">
-                <p>Data examinare:</p>
-                <md-input-container class="date_input">
-                    <input type="date" mdInput placeholder="Data">
-                </md-input-container>
-            </div>
+        <div class="display_flex">
+            <p class="com_name">Data inceput sesiune:</p>
+            <md-input-container class="date_input">
+                <input type="date" mdInput placeholder="Data">
+            </md-input-container>
         </div>
-        <button md-raised-button class="exam_save_btn">Salveaza</button>
+        <div class="display_flex">
+            <p class="com_name">Data sfarsit sesiune:</p>
+            <md-input-container class="date_input">
+                <input type="date" mdInput placeholder="Data">
+            </md-input-container>
+        </div>
+        <div class="display_flex">
+            <p class="com_name">Numar total de comisii:</p>
+            <md-input-container class="date_input">
+                <input type="number" mdInput placeholder="Numar comisii">
+            </md-input-container>
+        </div>
+        <button md-raised-button class="exam_save_btn">Creeaza sesiune noua</button>
     </md-card-content>
 </md-card>

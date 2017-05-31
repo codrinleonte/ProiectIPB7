@@ -23,8 +23,9 @@
 }
 
 .date_input{
-    margin-left: 25px;
-    width: 300px;
+    position: absolute;
+    right: 50px;
+    width: 500px;
 }
 
 .exam_save_btn{

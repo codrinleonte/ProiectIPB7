@@ -1,19 +1,20 @@
 <md-card class="evaluation_card">
     <md-toolbar class="card_header"><h4>Evaluare</h4></md-toolbar>
     <md-card-content class="content">
-        <p class="info_text">Comisie curenta: Comisia 1</p>
-        <p  class="info_text">Data: 25-05-2017</p>
+        <p class="info_text">Sesiune curenta: 25/05/2017 - 31/05/2017</p>
+        <p  class="info_text">Comisia curenta: Comisia 1</p>
         <div class="evaluation_container">
             <div class="evaluation_entry" *ngFor="let student of students">
                 <p class="name">{{student.numeStudent}} {{student.prenumeStudent}}</p>
+                <p class="date_label">26/05/2017 - 12:00</p>
                 <md-input-container class="entry_input_oral">
                     <input type="text" mdInput placeholder="Nota oral">
                 </md-input-container>
                 <md-input-container class="entry_input_project">
                     <input type="text" mdInput placeholder="Nota proiect">
                 </md-input-container>
+                <button md-raised-button class="save_btn">Salveaza Nota</button>
             </div>
         </div>
-        <button md-raised-button class="save_btn">Salveaza</button>
     </md-card-content>
 </md-card>

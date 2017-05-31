@@ -19,6 +19,7 @@
     </div>
     <div *ngIf="userClass==3">
         <app-panel-button icon="assets/generate.svg" desc="Generare tabele note" (click)="generateGradesPdf()"></app-panel-button>
+        <app-panel-button icon="assets/classes.svg" desc="Generare repartizare pe sali" (click)="generateRepartitionPdf()"></app-panel-button>
         <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"
                             routerLink="/grades"></app-panel-button>
         <app-panel-button icon="assets/manage.svg" desc="Gestionare profesori/comisii"
@@ -26,9 +27,9 @@
     </div>
     <div *ngIf="userClass==4">
         <app-panel-button icon="assets/generate.svg" desc="Generare tabela note" (click)="generateGradesPdf()"></app-panel-button>
-        <app-panel-button icon="assets/editdate.svg" desc="Editeaza data examinare"
-                          routerLink="/editexams"></app-panel-button>
         <app-panel-button icon="assets/classes.svg" desc="Generare repartizare pe sali" (click)="generateRepartitionPdf()"></app-panel-button>
+        <app-panel-button icon="assets/editdate.svg" desc="Sesiune examinare noua"
+                          routerLink="/editexams"></app-panel-button>
         <app-panel-button icon="assets/manage.svg" desc="Gestionare profesori/comisii"
                           routerLink="/commission"></app-panel-button>
         <app-panel-button icon="assets/grades.svg" desc="Afisare note studenti"
