@@ -551,6 +551,20 @@ public class DatabaseServiceImpl implements DatabaseService {
     	return b.getDistributionOnHalls();
     }
     
+    
+      /*21. [-] O metoda noua, utilizata pentru crearea unei noi sesiuni:
+	Input: - Data inceput sesiune (String, format 'MM/DD/YYYY')
+	       - Data sfarsit sesiune (String, format 'MM/DD/YYYY')
+	       - Numar total de comisii alocate pentru acea sesiune (Integer)
+	Output: - true daca s-a creat, false daca nu (de exemplu, false daca exista una deja activa?)
+*/
+
+  public boolean addSession(String dataInceput,String dataSfarsit,int nrDeComisii){
+	  BD b =new BD();
+	  return b.addSession(dataInceput, dataSfarsit, nrDeComisii);
+  }
+    
+    
 
     @Override
     public void finalize() {
