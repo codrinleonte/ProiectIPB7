@@ -64,6 +64,7 @@ public interface DatabaseService {
     List<StundetListPageResponse> getFinalMarksOfStudents();
     //20
     List<DistributionOnHallsResponse> getDistributionOfStudentsOnHalls();
-
+    //21
+    boolean addSession(String dataInceput,String dataSfarsit,int nrDeComisii);
 
 }
