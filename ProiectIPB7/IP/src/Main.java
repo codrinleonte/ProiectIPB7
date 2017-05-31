@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class Main {
 			System.out.println("Setare token: "+bd.setTokenByIdCont(accessAdmin.getIdCont(), "Token Ciudat"));
 			System.out.println("getContByToken: "+bd.getContByToken("Token Ciudat"));
 			
+			System.out.println("setDataSustinere:" + accessAdmin.setDataSustinere(1, new Timestamp(System.currentTimeMillis()) ));
+			System.out.println("getDataSustinere:" + accessAdmin.getDataSustinere(1));
+			System.out.println("setComisieProfesor:" + accessAdmin.setComisieProfesor(1,1));
+			System.out.println("getSala:"+ accessAdmin.getSala(1));
+			System.out.println("setComisieProfesori:"+ accessAdmin.setComisieProfesor(1, 2));
 		}
 		else System.out.println("Logare | Conectare esuata");
 		

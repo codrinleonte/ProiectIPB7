@@ -114,4 +114,4 @@ CREATE TABLE DETALII_LICENTE (
 );
 
 
-
+commit;

@@ -93,7 +93,7 @@ BEGIN
   SELECT SUBSTR( user, INSTR(user,'.')+1,50) into numeV from dual;
   SELECT REPLACE ( user, '.'||numeV, '') into prenumeV from dual;
  
-  SELECT COUNT (ID) into aparitii_profesori FROM PROFESORI WHERE PROFESORI.prenume = UPPER(prenumeV) and PROFESORI.nume = UPPER(numeV);
+  SELECT COUNT (ID) into aparitii_profesori FROM PROFESORI WHERE UPPER(PROFESORI.prenume) = UPPER(prenumeV) and UPPER(PROFESORI.nume) = UPPER(numeV);
   IF aparitii_profesori <1 THEN return -1; END IF;
   
   INSERT INTO CONTURI( ID , USERNAME , PAROLA , EMAIL, TIP_UTILIZATOR, STATUS, COD_ACTIVARE,TOKEN ) 

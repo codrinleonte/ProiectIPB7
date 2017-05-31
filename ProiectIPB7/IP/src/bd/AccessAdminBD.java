@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,95 @@ public class AccessAdminBD extends AccessBD {
 		this.conexiune = conexiune;
 		this.tip = "Access_Admin";
 		this.user = user;
+	}
+	
+	public int setDataSustinere( int idStudent, Timestamp inceput ){
+		try{
+			int idLicenta;
+			Statement statement = conexiune.createStatement();
+			ResultSet result = statement.executeQuery("Select * from licente where id_student="+idStudent);
+			result.next();
+			idLicenta=result.getInt(1);
+			statement.close();
+			result.close();
+			
+			PreparedStatement preparedStatement = conexiune.prepareStatement("Update detalii_licente set data_ora_sustinere = ? where id="+idLicenta);
+			preparedStatement.setTimestamp(1, inceput);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la setDataSustinere: "+e.getMessage());
+			e.printStackTrace();
+			return -7;
+		}
+	}
+	
+	public Timestamp getDataSustinere(int idStudent) {
+		try{
+			int idLicenta;
+			Statement statement = conexiune.createStatement();
+			ResultSet result = statement.executeQuery("Select * from licente where id_student="+idStudent);
+			result.next();
+			idLicenta=result.getInt(1);
+			statement.close();
+			result.close();
+			
+			statement = conexiune.createStatement();
+			result = statement.executeQuery("Select data_ora_sustinere from detalii_licente where id="+idLicenta);
+			result.next();
+			return result.getTimestamp(1);
+		}
+		catch( Exception e ){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+    
+	public String getSala(int idComisie) {
+		try{
+			Statement statement = conexiune.createStatement();
+			ResultSet result    = statement.executeQuery("Select sala from comisii where id="+idComisie);
+			result.next();
+			return result.getString(1);
+		}
+		catch( Exception e ){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int setComisieProfesor(int idProfesor, int idComisie) {
+		try{
+			Statement statement = conexiune.createStatement();
+			statement.executeUpdate("UPDATE profesori set id_comisie="+idComisie+" where id="+idProfesor);
+			statement.close();
+			
+			statement = conexiune.createStatement();
+			ResultSet result = statement.executeQuery("Select id,id_student from licente where id_profesor="+idProfesor);
+			while(result.next())
+			{
+				Statement statementLoop = conexiune.createStatement();
+				statementLoop.executeUpdate("UPDATE studenti set id_comisie="+idComisie+" where id="+result.getInt(2));
+				statementLoop.close();
+				
+				statementLoop = conexiune.createStatement();
+				statementLoop.executeUpdate("UPDATE detalii_licente set id_comisie="+idComisie+" where id="+result.getInt(1));
+				statementLoop.close();
+			}
+			
+			
+			return 0;
+		
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la setComisieProfesor: "+e.getMessage());
+			return -7;
+		}
 	}
 	
 	public List<IntrareMesaje> selectMesaje(){
@@ -1077,5 +1167,10 @@ public class AccessAdminBD extends AccessBD {
 			return -7;
 		}
 	}
-    
+
+
+
+
+
+
 }
