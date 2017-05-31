@@ -1016,10 +1016,10 @@ public class BD {
 	
 	//20. functie: obtinem distributia pe sali a studentilor
 	
-	
 	public List<DistributionOnHallsResponse>getDistributionOnHalls(){
 		List<DistributionOnHallsResponse>distribution = new ArrayList<>();
-		String apel = "select distinct s.nume,s.prenume,e.sala from studenti s join comisii c on c.id=s.id_comisie join evaluari e on e.id_comisie=c.id";
+		String apel = "select distinct s.nume,s.prenume,e.sala,c.id,to_char(d.DATA_ORA_SUSTINERE, 'HH24:MI'),to_char(d.DATA_ORA_SUSTINERE + (.000694 * 21), 'HH24:MI')";
+		apel =apel+"from studenti s join comisii c on c.id=s.id_comisie join evaluari e on e.id_comisie=c.id join detalii_licente d on d.ID_COMISIE=c.id";
 		try{
 
 			PreparedStatement statement = conexiune.prepareStatement(apel);
@@ -1030,6 +1030,9 @@ public class BD {
 				hall.numeStudent=result.getString(1);
 				hall.prenumeStudent=result.getString(2);
 				hall.sala=result.getString(3);
+				hall.idComisie=result.getInt(4);
+				hall.oraDeInceput=result.getString(5);
+				hall.oraDeSfarsit=result.getString(6);
 		        distribution.add(hall);
 			}
 			return distribution;
