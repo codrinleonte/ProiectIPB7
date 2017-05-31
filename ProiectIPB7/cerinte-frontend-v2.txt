@@ -1,0 +1,46 @@
+Task-uri pentru backend:
+
+[IMPORTANT] Repararea crash-urilor cauzate de cursoare ramase deschise. Asta inainte de toate ar fi ideal.
+
+[-] /clientListPage intoarce note intr-un mod necorespunzator (valorile normale ar fi cuprinse
+intre 1-10 si -1 in caz studentul nu a fost notat inca. Acum primesc valori cu 0 si -1 random,
+atentie la testare pls)
+
+[-] /getStudentGrade intoarce mereu -1 (conform /clientListPage, jimmy.jimmy@info.uaic.ro ar avea nota 5,
+insa /getStudentGrade intoarce -1 pentru acest cont)
+
+[-] /moveProfToCommitte nu are nici un efect
+
+[-] Un .txt unde sa fie plasat un JSON de exemplu pentru fiecare metoda (ce poate primi un JSON) ar fi 
+de mare folos.
+
+[-] /profNote intoarce intotdeauana false (deci momentan este imposibil sa notezi un student)
+
+[-] Metoda ce returneaza repartizarea pe sali a studentilor ceruta de data trecuta
+    (
+	20.
+	Descriere: Metoda ce returneaza o tabela cu repartizarea pe sali a studentilor (metoda utilizata de admin).
+	Input:  - None
+	Output: - Tot la fel, ce considerati voi a fi relevant, noi preluam si punem in PDF.
+    )
+    Cum ne-a aratat domnul profesor, o posibilia structura: nume, prenume, sala, comisie, ora inceput examinare si
+ora sfarsit.
+
+[-] O metoda noua, utilizata pentru crearea unei noi sesiuni:
+Input: - Data inceput sesiune (String, format 'MM/DD/YYYY')
+       - Data sfarsit sesiune (String, format 'MM/DD/YYYY')
+       - Numar total de comisii alocate pentru acea sesiune (Integer)
+Output: - true daca s-a creat, false daca nu (de exemplu, false daca exista una deja activa?)
+
+[-] O noua metoda:
+Input - ID student (Integer)
+Output - true daca studentul are licenta uploadata, false daca nu
+
+[-] Un nou camp pentru /recordlicence ce va permite uploadarea licentei. Ma ocup eu de transformat in
+binar, voi ar trebui sa primiti datele reprezentate ca un String si sa le puneti intr-un BLOB in baza de date.
+
+[-] O noua metoda ce permite vizualizarea unei licente a unui student:
+Input - ID student (Integer)
+Output - toate datele licentei: Nume licenta, tip, profesor coordonator, BLOB-ul, etc..
+
+Daca mai aveti sugestii, imi spuneti voi.
