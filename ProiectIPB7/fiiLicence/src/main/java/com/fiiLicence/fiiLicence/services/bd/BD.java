@@ -1045,5 +1045,65 @@ public class BD {
 	
 	
 	
+	
+	/*21. [-] O metoda noua, utilizata pentru crearea unei noi sesiuni:
+		Input: - Data inceput sesiune (String, format 'MM/DD/YYYY')
+		       - Data sfarsit sesiune (String, format 'MM/DD/YYYY')
+		       - Numar total de comisii alocate pentru acea sesiune (Integer)
+		Output: - true daca s-a creat, false daca nu (de exemplu, false daca exista una deja activa?)
+	*/
+	
+	  public boolean addSession(String dataInceput,String dataSfarsit,int nrDeComisii){
+		  String apel1="select max(id) from comisii";
+		  String apel2="select max(id) from sesiuni";
+		  int idComisie=0;
+		  int idSesiune=0;
+		  
+			try{
+
+				PreparedStatement statement = conexiune.prepareStatement(apel1);
+				ResultSet result  =statement.executeQuery();
+				if(result.next()){ 
+				
+					idComisie=result.getInt(1);
+			
+				}
+				
+				PreparedStatement statement1 = conexiune.prepareStatement(apel2);
+				ResultSet result1  =statement1.executeQuery();
+				if(result1.next()){ 
+				
+					idSesiune=result1.getInt(1)+1;
+			
+				}
+				
+				String apel3="insert into sesiuni (id,inceput_sesiune,sfarsit_sesiune) values(?,TO_DATE(?,'dd-mm-yyyy'),TO_DATE( ?,'dd-mm-yyyy'))";
+				
+				PreparedStatement statement3 = conexiune.prepareStatement(apel3);
+				statement3.setInt(1, idSesiune);
+				statement3.setString(2, dataInceput);
+				statement3.setString(3, dataSfarsit);
+				
+				statement3.executeUpdate();
+				
+				
+				for (int i = 1; i <= nrDeComisii; i++) {
+					String apel4="insert into comisii(id,id_sesiune) values(?,?)";
+					
+					PreparedStatement statement4 = conexiune.prepareStatement(apel4);
+					statement4.setInt(1, idComisie+i);
+					statement4.setInt(2, idSesiune);
+					statement4.executeUpdate();
+				}
+               return true;  
+			}
+			catch( Exception e ){
+				System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
+				return false;
+			}
+	  }
+	
+	
+	
 }
 
