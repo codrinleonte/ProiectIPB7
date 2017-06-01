@@ -32,8 +32,11 @@ public class Main {
 				System.out.println(accessAdmin.selectProfesori());
 				String ceva = "A";
 				byte[] b = ceva.getBytes();
-				accessAdmin.setFisierLucrare(1, b);
-				System.out.println(accessAdmin.getFisierLucrare(1)[0]);
+				System.out.println("Set Fisier:"+accessAdmin.setFisierLucrare(1, b));
+				System.out.println("Get Fisier:"+accessAdmin.getFisierLucrare(1)[0]);
+				System.out.println("Update Sesiune Active:"+accessAdmin.updateSesiuneActive(99));
+				System.out.println("Get Sesiune Active:"+accessAdmin.selectSesiuni().get(0).getActive());
+				System.out.println("Coordonatori fara comisie:"+accessAdmin.profesoriCoordonatoriFaraComisie());
 			}
 		}
 		

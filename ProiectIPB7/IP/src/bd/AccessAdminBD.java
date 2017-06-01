@@ -149,6 +149,53 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
+	public int updateSesiuneActive( int val )
+	{
+		Statement statement = null;
+		try{
+			statement = conexiune.createStatement();
+			statement.executeUpdate("UPDATE SESIUNI SET ACTIVE ="+val);
+			statement.close();
+			return 0;
+		}
+		catch( Exception e ){
+			try{statement.close();}
+			catch(Exception exceptie){};
+			System.out.println();
+			return -7;
+		}
+	}
+	
+	public List<IntrareProfesori> profesoriCoordonatoriFaraComisie(){
+		List<IntrareProfesori> rezultat = new ArrayList<IntrareProfesori>();
+		List<IntrareProfesori> profesori = selectProfesori();
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		for(int i=0; i<profesori.size(); i++)
+		{
+			try{
+				statement = conexiune.prepareStatement("SELECT COUNT(*) FROM LICENTE WHERE ID_PROFESOR=?");
+				statement.setInt(1, profesori.get(i).getId());
+				result = statement.executeQuery();
+				result.next();
+				if(result.getInt(1)>0 && profesori.get(i).getIdComisie()==0){
+					rezultat.add(profesori.get(i));
+					System.out.println(result.getInt(1));
+				}
+				result.close();
+				statement.close();
+			}
+			catch( Exception e ){
+				try{
+					statement.close();
+					result.close();
+				}catch( Exception exceptie ){}
+				return null;
+			}
+		}
+		return rezultat;
+	}
+	
 	public List<IntrareMesaje> selectMesaje(){
 		List<IntrareMesaje> rezultat = new ArrayList<IntrareMesaje>();
 		try{
@@ -341,6 +388,7 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setId(result.getInt(1));
 				intrare.setInceputSesiune(result.getTimestamp(2));
 				intrare.setSfarsitSesiune(result.getTimestamp(3));
+				intrare.setActive(result.getInt(4));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -577,7 +625,7 @@ public class AccessAdminBD extends AccessBD {
 	
 	public int updateSesiune( IntrareSesiuni intrare){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update sesiuni set inceput_sesiune = ?, sfarsit_sesiune = ? where id = ? ";
+		String apel=" Update sesiuni set inceput_sesiune = ?, sfarsit_sesiune = ? ,set active= ? where id = ? ";
 		try{
 			
 			Statement  stmt = conexiune.createStatement();
@@ -591,7 +639,8 @@ public class AccessAdminBD extends AccessBD {
 			PreparedStatement statement = conexiune.prepareStatement(apel);
 			statement.setTimestamp(1, intrare.getInceputSesiune());
 			statement.setTimestamp(2, intrare.getSfarsitSesiune());
-			statement.setInt(3, intrare.getId());
+			statement.setInt(3,intrare.getActive());
+			statement.setInt(4, intrare.getId());
 			statement.executeUpdate();
 			conexiune.commit();
 			
@@ -990,10 +1039,11 @@ public class AccessAdminBD extends AccessBD {
 		String apel;	
 		try{
 			if(intrare.getId()==0){
-				apel = " Insert into sesiuni Values(SESIUNI_SEQ.NEXTVAL, ?, ? )";
+				apel = " Insert into sesiuni Values(SESIUNI_SEQ.NEXTVAL, ?, ?,? )";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setTimestamp(1, intrare.getInceputSesiune());
 				statement.setTimestamp(2, intrare.getSfarsitSesiune());
+				statement.setInt(3, intrare.getActive());
 				statement.executeUpdate();
 				conexiune.commit();
 				
@@ -1014,11 +1064,12 @@ public class AccessAdminBD extends AccessBD {
 					return -1;
 				}
 				
-				apel = " Insert into SESIUNI Values(?, ?, ?)";
+				apel = " Insert into SESIUNI Values(?, ?, ?,?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setTimestamp(2, intrare.getInceputSesiune());
 				statement.setTimestamp(3, intrare.getSfarsitSesiune());
+				statement.setInt(4, intrare.getActive());
 				statement.executeUpdate();
 				conexiune.commit();
 				

@@ -7,6 +7,7 @@ public class IntrareSesiuni {
 	int id;
 	Timestamp inceputSesiune;
 	Timestamp sfarsitSesiune;
+	int active;
 	
 	public int getId() {
 		return id;
@@ -26,5 +27,10 @@ public class IntrareSesiuni {
 	public void setSfarsitSesiune(Timestamp sfarsitSesiune) {
 		this.sfarsitSesiune = sfarsitSesiune;
 	}
-	
+	public int getActive(){
+		return active;
+	}
+	public void setActive(int active){
+		this.active=active;
+	}
 }

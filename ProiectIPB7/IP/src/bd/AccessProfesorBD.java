@@ -109,6 +109,7 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setId(result.getInt(1));
 				intrare.setInceputSesiune(result.getTimestamp(2));
 				intrare.setSfarsitSesiune(result.getTimestamp(3));
+				intrare.setActive(result.getInt(4));
 				rezultat.add(intrare);
 			}
 			return rezultat;
