@@ -1058,5 +1058,57 @@ public class AccessSecretarBD extends AccessBD{
 	}
 	
 	
+	
+	
+	public byte[] getFisierLucrare( int idStudent){
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try{
+			byte[] data;
+			Blob blob;
+			statement = conexiune.prepareStatement("SELECT FISIER FROM LICENTE WHERE ID_STUDENT = ?");
+			statement.setInt(1, idStudent);
+			result=statement.executeQuery();
+			result.next();
+			blob = result.getBlob(1);
+			
+			if(blob==null){
+				try {
+					if (statement != null)
+						statement.close();
+
+				}
+
+				catch (SQLException se) {
+					System.out.println("Oups .. " + se);
+
+				}
+				return null;
+			}
+			
+			data = blob.getBytes(1, (int) blob.length());
+			return data;
+		}
+		catch ( Exception e ){
+			System.out.println("Exceptie citire fisier lucrare:" +e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+		
+		finally {
+			try {
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+
+		}
+	}
+	
 
 }
