@@ -155,7 +155,8 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setNume(result.getString(3));
 				intrare.setPrenume(result.getString(4));
 				intrare.setGradDidactic(result.getString(5));
-				intrare.setFunctieComisie(result.getString(6));
+				intrare.setIdComisie(result.getInt(6));
+				intrare.setFunctieComisie(result.getString(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;

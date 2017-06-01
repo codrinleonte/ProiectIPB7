@@ -17,7 +17,6 @@ public class BD {
 	@SuppressWarnings("unused")
 	private String     domeniu="";
 	private AccessBD   access;
-	private boolean    loged  = false;
 
 	private void createAccess( String username ){
 
@@ -84,7 +83,7 @@ public class BD {
 				utilizator.setId(result.getInt(1));
 				utilizator.setTip("Secretar");
 				utilizator.setUsername(username);
-				this.access = new AccessStudentBD(conexiune,utilizator);
+				this.access = new AccessSecretarBD(conexiune,utilizator);
 				this.access.setIdCont(idCont);
 			}
 
@@ -120,23 +119,12 @@ public class BD {
 		}
 	}
 
-	public boolean isLoged(){
-		return loged;
-	}
-
 	public boolean isConnected(){
 		return connected;
 	}
 
 	public void setDomeniu( String domeniu ){
 		this.domeniu=domeniu;
-	}
-
-	public AccessBD getAccess(){
-		if (loged == false || connected ==false)
-			return null;
-		else
-		return access;
 	}
 
 	public IntrareConturi getContByToken( String token )
@@ -193,7 +181,7 @@ public class BD {
 		}
 	}
 
-	public int login ( String username, String hashparola )
+	public AccessBD login ( String username, String hashparola )
 	{
 		String apel = "{ ? = call login( ?, ? ) }";
 		int    rezultat;
@@ -209,16 +197,15 @@ public class BD {
 			 if( rezultat == 0 )
 			 {
 				 createAccess( username );
-				 loged = true;
+				 return this.access;
 			 }
 			 else
-				 loged = false;
-
-			 return rezultat;
+				 return null;
+			 
 		}
 		catch(Exception e){
 			System.out.println("Exceptie la login: "+e.getMessage());
-			return -7;
+			return null;
 		}
 
 	}
@@ -322,4 +309,5 @@ public class BD {
 		}
 	}
 
+	
 }

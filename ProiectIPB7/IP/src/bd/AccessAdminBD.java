@@ -1,4 +1,5 @@
 package bd;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,6 +7,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AccessAdminBD extends AccessBD {
 
@@ -105,6 +107,48 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
+	public int setFisierLucrare( int idStudent , byte[] data ){
+		PreparedStatement statement = null;
+		try{
+			statement = conexiune.prepareStatement("UPDATE LICENTE SET FISIER = ? WHERE id_student = ? ");
+			statement.setInt(2, idStudent);
+			statement.setBytes(1, data);
+			statement.executeUpdate();
+			statement.close();
+			return 0;
+		}
+		catch( Exception e){
+			try{
+				statement.close();
+			}
+			catch( Exception exceptie ){}
+			System.out.println("Exceptie scriere fisier lucrare:" +e.getMessage());
+			e.printStackTrace();
+			return -7;
+		}
+	}
+	
+	public byte[] getFisierLucrare( int idStudent){
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try{
+			byte[] data;
+			Blob blob;
+			statement = conexiune.prepareStatement("SELECT FISIER FROM LICENTE WHERE ID_STUDENT = ?");
+			statement.setInt(1, idStudent);
+			result=statement.executeQuery();
+			result.next();
+			blob = result.getBlob(1);
+			data = blob.getBytes(1, (int) blob.length());
+			return data;
+		}
+		catch ( Exception e ){
+			System.out.println("Exceptie citire fisier lucrare:" +e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public List<IntrareMesaje> selectMesaje(){
 		List<IntrareMesaje> rezultat = new ArrayList<IntrareMesaje>();
 		try{
@@ -188,7 +232,8 @@ public class AccessAdminBD extends AccessBD {
 				intrare.setNume(result.getString(3));
 				intrare.setPrenume(result.getString(4));
 				intrare.setGradDidactic(result.getString(5));
-				intrare.setFunctieComisie(result.getString(6));
+				intrare.setIdComisie(result.getInt(6));
+				intrare.setFunctieComisie(result.getString(7));
 				rezultat.add(intrare);
 			}
 			return rezultat;
@@ -224,7 +269,6 @@ public class AccessAdminBD extends AccessBD {
 			return null;
 		}
 	}
-
 	
 	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
 		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
@@ -822,7 +866,6 @@ public class AccessAdminBD extends AccessBD {
 		}		
 		
 	}
-
   
 	public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		String apel = new String();	

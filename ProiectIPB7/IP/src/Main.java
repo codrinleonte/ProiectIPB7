@@ -20,26 +20,22 @@ public class Main {
 		//System.out.println(bd.inregistrare_prof("lenuta.alboaie", "parola"));
 		//System.out.println(bd.login("lenuta.alboaie","parola"));
 		
-		System.out.println("Logare: "+bd.login("Admin", "Root"));
 		
 		
-		if(bd.isLoged() && bd.isConnected())
+		if(bd.isConnected())
 		{
-			AccessBD access = bd.getAccess();
-			System.out.println("Username: "+access.getUser().getUsername());
-			System.out.println("IdCont: "+ access.getIdCont());
-			
-			AccessAdminBD  accessAdmin = ((AccessAdminBD) access);
-			System.out.println("Setare token: "+bd.setTokenByIdCont(accessAdmin.getIdCont(), "Token Ciudat"));
-			System.out.println("getContByToken: "+bd.getContByToken("Token Ciudat"));
-			
-			System.out.println("setDataSustinere:" + accessAdmin.setDataSustinere(1, new Timestamp(System.currentTimeMillis()) ));
-			System.out.println("getDataSustinere:" + accessAdmin.getDataSustinere(1));
-			System.out.println("setComisieProfesor:" + accessAdmin.setComisieProfesor(1,1));
-			System.out.println("getSala:"+ accessAdmin.getSala(1));
-			System.out.println("setComisieProfesori:"+ accessAdmin.setComisieProfesor(1, 2));
+			AccessBD access = bd.login("Admin", "Root");
+			System.out.println(access.getTip());
+			if( access.getTip().equals("Access_Admin") )
+			{
+				AccessAdminBD accessAdmin = ( (AccessAdminBD) access );
+				System.out.println(accessAdmin.selectProfesori());
+				String ceva = "A";
+				byte[] b = ceva.getBytes();
+				accessAdmin.setFisierLucrare(1, b);
+				System.out.println(accessAdmin.getFisierLucrare(1)[0]);
+			}
 		}
-		else System.out.println("Logare | Conectare esuata");
 		
 	}
 }
