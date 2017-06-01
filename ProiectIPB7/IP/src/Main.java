@@ -37,6 +37,13 @@ public class Main {
 				System.out.println("Update Sesiune Active:"+accessAdmin.updateSesiuneActive(99));
 				System.out.println("Get Sesiune Active:"+accessAdmin.selectSesiuni().get(0).getActive());
 				System.out.println("Coordonatori fara comisie:"+accessAdmin.profesoriCoordonatoriFaraComisie());
+				System.out.println("Set Comisie prof:"+accessAdmin.setComisieProfesor(1, 5));
+				System.out.println("Creare Comisie:"+ accessAdmin.creareComisie(0));
+				System.out.println("Set Membru Comisie:"+ accessAdmin.setMembruComisie(1,6,1));
+				System.out.println("Set Membru Comisie:"+ accessAdmin.setMembruComisie(2,6,2));
+				System.out.println("Set Membru Comisie:"+ accessAdmin.setMembruComisie(3,6,3));
+				System.out.println("Set Membru Comisie:"+ accessAdmin.setMembruComisie(4,6,4));
+				System.out.println("Set Sala   Comisie:"+ accessAdmin.setSalaComisie(1,"Sala"));
 			}
 		}
 		

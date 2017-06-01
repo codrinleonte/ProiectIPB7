@@ -107,6 +107,79 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
+	public int setMembruComisie( int pozitie , int idComisie, int idProfesor ){
+		if(pozitie<1 || pozitie>4 ) return -2; // pozitie invalida
+		Statement statement = null;
+		ResultSet result = null;
+		try{
+			String tipComisie = "";
+			//int idComisieProfesor;
+			statement = conexiune.createStatement();
+			result = statement.executeQuery("SELECT TIP_COMISIE FROM COMISII WHERE ID="+idComisie);
+			result.next();
+			try{
+				tipComisie = result.getString(1);
+			}
+			catch( Exception exceptie ){
+				statement.close();
+				result.close();
+				return -1; // Comisie Inexistenta
+			}
+			statement.close();
+			result.close();
+			if(pozitie > 3 && tipComisie.toUpperCase().equals("LICENTA")) return -2; //pozitie invalida
+			
+			/*
+			statement = conexiune.createStatement();
+			result = statement.executeQuery("SELECT ID_COMISIE FROM PROFESORI WHERE ID="+idProfesor);
+			result.next();
+			if(result.getInt(1)!=0) return -3; //profesorul este deja un membru al unei comisii
+			statement.close();
+			result.close();
+			*/
+			
+			statement = conexiune.createStatement();
+			if(pozitie<4)
+			{
+				statement.executeUpdate("UPDATE COMISII SET ID_PROF"+pozitie+"="+idProfesor+" WHERE ID="+idComisie);
+				if(pozitie==1)
+					statement.executeUpdate("UPDATE PROFESORI SET FUNCTIE_COMISIE='Presedinte' WHERE ID="+idProfesor);
+				else if(pozitie==2)
+				{
+					statement.executeQuery("UPDATE PROFESORI SET FUNCTIE_COMISIE='Secretar' WHERE ID="+idProfesor);
+					statement.executeUpdate("UPDATE COMISII SET ID_SECRETAR="+idProfesor+" WHERE ID="+idComisie);
+				}
+				else
+					statement.executeUpdate("UPDATE PROFESORI SET FUNCTIE_COMISIE='Evaluator' WHERE ID="+idProfesor);
+			    }
+			else{
+				statement.executeUpdate("UPDATE COMISII SET ID_PROF4_DIZERTATIE="+idProfesor+" WHERE ID="+idComisie);
+				statement.executeUpdate("UPDATE PROFESORI SET FUNCTIE_COMISIE='Evaluator' WHERE ID="+idProfesor);
+			}
+			return setComisieProfesor(idProfesor,idComisie);
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la setMembruComisie:"+e.getMessage());
+			return -7;
+		}
+	}
+	
+	public int setSalaComisie( int idComisie , String sala ){
+		PreparedStatement statement = null;
+		try{
+			statement=conexiune.prepareStatement("UPDATE COMISII SET SALA=? WHERE ID=?");
+			statement.setString(1, sala);
+			statement.setInt(2, idComisie);
+			statement.executeUpdate();
+			statement.close();
+			return 0;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la setSalaComisi:"+e.getMessage());
+			return -7;
+		}
+	}
+	
 	public int setFisierLucrare( int idStudent , byte[] data ){
 		PreparedStatement statement = null;
 		try{
@@ -194,6 +267,14 @@ public class AccessAdminBD extends AccessBD {
 			}
 		}
 		return rezultat;
+	}
+	
+	public int creareComisie( int tip )
+	{
+		IntrareComisii comisie = new IntrareComisii();
+		if(tip==0) comisie.setTipComisie("Licenta");
+		else	   comisie.setTipComisie("Dizertatie");
+		return insertComisie(comisie);
 	}
 	
 	public List<IntrareMesaje> selectMesaje(){
@@ -866,7 +947,7 @@ public class AccessAdminBD extends AccessBD {
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into Comisii (ID, ID_Prof1, ID_Prof2, ID_Prof3, ID_Prof4_Dizertatie, ID_Secretar, Tip_Comisie, ID_Evaluare) Values(to_number(COMISII_SEQ.NEXTVAL), ?, ? ,?, ?, ?, ?, ?)";
+				apel = " Insert into Comisii (ID, ID_Prof1, ID_Prof2, ID_Prof3, ID_Prof4_Dizertatie, ID_Secretar, Tip_Comisie, Sala) Values(to_number(COMISII_SEQ.NEXTVAL), ?, ? ,?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getIdProfSef());
 				statement.setInt(2,intrare.getIdProf2());
