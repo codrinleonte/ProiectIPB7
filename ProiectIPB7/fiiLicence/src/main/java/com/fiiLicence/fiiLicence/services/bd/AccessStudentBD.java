@@ -2,6 +2,7 @@ package com.fiiLicence.fiiLicence.services.bd;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,9 @@ public class AccessStudentBD extends  AccessBD{
 	
 	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
 		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
+		Statement statement=null;
 		try{
-			
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from detalii_licente"); 
 			while(result.next()){
 				IntrareDetaliiLicente intrare = new IntrareDetaliiLicente();
@@ -42,18 +43,33 @@ public class AccessStudentBD extends  AccessBD{
 			
 			return rezultat;
 		}
-		catch( Exception e ){
+		catch( SQLException e ){
 			System.out.println("Exceptie la selectDetaliiLicente: "+e.getMessage());
 			return null;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
+		
 	}
 	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
+		Statement statement=null;
 		try{
 			
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from licente"); 
 			while(result.next()){
 				IntrareLicente intrare = new IntrareLicente();
@@ -74,13 +90,29 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la selectLicente: "+e.getMessage());
 			return null;
 		}
+		
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
+		
 	}
 	
 	public List<IntrareSesiuni> selectSesiuni(){
 		List<IntrareSesiuni> rezultat = new ArrayList<IntrareSesiuni>();
+		Statement statement=null;
 		try{
 			
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from sesiuni"); 
 			while(result.next()){
 				IntrareSesiuni intrare = new IntrareSesiuni();
@@ -95,12 +127,27 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la selectSesiuni: "+e.getMessage());
 			return null;
 		}	
+		
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
 	
 	public List<IntrareMesaje> selectMesaje(){
 		List<IntrareMesaje> rezultat = new ArrayList<IntrareMesaje>();
+		Statement statement=null;
 		try{
-			Statement statement=conexiune.createStatement();
+		    statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from mesaje"); 
 			while(result.next()){
 				IntrareMesaje intrare = new IntrareMesaje();
@@ -116,13 +163,28 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la selectMesaje: "+e.getMessage());
 			return null;
 		}
+
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 		
 	}
 
 	public List<IntrareStudenti> selectStudenti(){
 		List<IntrareStudenti> rezultat = new ArrayList<IntrareStudenti>();
+		Statement statement=null;
 		try{
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from studenti"); 
 			while(result.next()){
 				IntrareStudenti intrare = new IntrareStudenti();
@@ -140,13 +202,29 @@ public class AccessStudentBD extends  AccessBD{
 		catch( Exception e ){
 			System.out.println("Exceptie la selectStudenti:"+e.getMessage());
 			return null;
-		}		
+		}	
+
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
+		
 	}
 
 	public List<IntrareProfesori> selectProfesori(){
 		List<IntrareProfesori> rezultat = new ArrayList<IntrareProfesori>();
+		Statement statement=null;
 		try{
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from profesori"); 
 			while(result.next()){
 				IntrareProfesori intrare = new IntrareProfesori();
@@ -163,14 +241,28 @@ public class AccessStudentBD extends  AccessBD{
 		catch( Exception e ){
 			System.out.println("Exceptie la selectProfesori :"+e.getMessage());
 			return null;
-		}		
+		}	
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
 	
 	public List<IntrareEvaluari> selectEvaluari(){
-		List<IntrareEvaluari> rezultat = new ArrayList<IntrareEvaluari>();
+		List<IntrareEvaluari> rezultat = new ArrayList<IntrareEvaluari>();		
+		Statement statement = null;
 		try{
 			
-			Statement statement=conexiune.createStatement();
+			statement=conexiune.createStatement();
 			ResultSet result   =statement.executeQuery("Select * from evaluari"); 
 			while(result.next()){
 				IntrareEvaluari intrare = new IntrareEvaluari();
@@ -188,14 +280,29 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la selectEvaluari: "+e.getMessage());
 			return null;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
 
 	public int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
+		PreparedStatement statement =null;
+		Statement  stmt = null;
 		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
 			
-			Statement  stmt = conexiune.createStatement();
+			stmt = conexiune.createStatement();
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
@@ -203,7 +310,7 @@ public class AccessStudentBD extends  AccessBD{
 				return -1;
 			}
 			
-			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement = conexiune.prepareStatement(apel);
 			statement.setInt(1, intrare.getIdCont());
 			statement.setString(2, intrare.getNrMatricol());
 			statement.setString(3, intrare.getNume());
@@ -218,13 +325,32 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la updateStudent" + e.getMessage());
 			return -7;
 		}	
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+				
+				if (stmt != null)
+					stmt.close();
+				
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
 	
 	public int updateLicenta( IntrareLicente intrare){
 		if(intrare.getId()==0) return -1;
+		PreparedStatement statement =null;
+		Statement  stmt = null;
 		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
 		try{			
-			Statement  stmt = conexiune.createStatement();
+			stmt = conexiune.createStatement();
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
@@ -232,7 +358,7 @@ public class AccessStudentBD extends  AccessBD{
 				return -1;
 			}
 			
-			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement = conexiune.prepareStatement(apel);
 			statement.setString(1, intrare.getTitlu());
 			statement.setInt(2, intrare.getIdProfesor());
 			statement.setInt(3, intrare.getIdStudent());
@@ -249,16 +375,35 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la updateLicenta" + e.getMessage());
 			return -7;
 		}	
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+				
+				if (stmt != null)
+					stmt.close();
+				
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 		
 	}
 
 	public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		String apel = new String();	
+		PreparedStatement statement =null;
+		Statement  stmt = null;
 		try{
 			
 			if(intrare.getId()==0){
 				apel = " Insert into Detalii_licente Values(Detalii_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getIdComisie());
 				statement.setInt(2, intrare.getNota1Oral());
 				statement.setInt(3, intrare.getNota1Proiect());
@@ -274,7 +419,7 @@ public class AccessStudentBD extends  AccessBD{
 				statement.executeUpdate();
 				conexiune.commit();
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select Detalii_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
@@ -283,7 +428,7 @@ public class AccessStudentBD extends  AccessBD{
 			}
 			else{
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id = "+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
@@ -292,7 +437,7 @@ public class AccessStudentBD extends  AccessBD{
 				}
 				
 				apel = " Insert into detalii_licente Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getId());
 				statement.setInt(2, intrare.getIdComisie());
 				statement.setInt(3, intrare.getNota1Oral());
@@ -316,14 +461,33 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la insertDetaliiLicente: "+e.getMessage());
 			return -7;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+				
+				if (stmt != null)
+					stmt.close();
+				
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
     
 	public int insertLicenta( IntrareLicente intrare ){
 		String apel;	
+		PreparedStatement statement =null;
+		Statement  stmt = null;
 		try{
 			if(intrare.getId()==0){
 				apel = " Insert into Licente Values(Licente_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setString(1, intrare.getTitlu());
 				statement.setInt(2, intrare.getIdProfesor());
 				statement.setInt(3, intrare.getIdStudent());
@@ -333,7 +497,7 @@ public class AccessStudentBD extends  AccessBD{
 				statement.executeUpdate();
 				conexiune.commit();
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select LICENTE_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
@@ -342,7 +506,7 @@ public class AccessStudentBD extends  AccessBD{
 			}
 			else{
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from LICENTE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
@@ -351,7 +515,7 @@ public class AccessStudentBD extends  AccessBD{
 				}
 				
 				apel = " Insert into LICENTE Values(?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setString(2, intrare.getTitlu());
 				statement.setInt(3, intrare.getIdProfesor());
@@ -369,21 +533,40 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la insertLicenta: "+e.getMessage());
 			return -7;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+				
+				if (stmt != null)
+					stmt.close();
+				
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	}
 
 	public int insertMesaj( IntrareMesaje intrare ){
-		String apel;	
+		String apel;
+		PreparedStatement statement =null;
+		Statement  stmt = null;
 		try{
 			
 			if(intrare.getId()==0){
 				apel = " Insert into Mesaje Values(Mesaje_SEQ.NEXTVAL, ?, ? ,?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setInt(1, intrare.getIdEmitator());
 				statement.setInt(2, intrare.getIdDestinatar());
 				statement.setString(3, intrare.getMesaj());
 				statement.executeUpdate();
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select MESAJE_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
@@ -392,7 +575,7 @@ public class AccessStudentBD extends  AccessBD{
 			}
 			else{
 				
-				Statement  stmt = conexiune.createStatement();
+				stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from MESAJE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
@@ -401,7 +584,7 @@ public class AccessStudentBD extends  AccessBD{
 				}
 				
 				apel = " Insert into Mesaje Values(?, ?, ? ,?)";
-				PreparedStatement statement = conexiune.prepareStatement(apel);
+				statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setInt(2, intrare.getIdEmitator());
 				statement.setInt(3, intrare.getIdDestinatar());
@@ -415,6 +598,26 @@ public class AccessStudentBD extends  AccessBD{
 			System.out.println("Exceptie la insertMesaj: "+e.getMessage());
 			return -7;
 		}
+		
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+				
+				if (stmt != null)
+					stmt.close();
+				
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+		}
 	
 }
+	
+	
 }
