@@ -566,6 +566,39 @@ public class DatabaseServiceImpl implements DatabaseService {
     
     
 
+
+	/*functia 22 Input - ID student (Integer)
+	Output - true daca studentul are licenta uploadata, false daca nu
+	*/
+	@Override
+	public boolean hasUploadedLicense(int idStudent) {
+		AccessBD access = bd.login("andrei.arusoaie", "parola");
+		AccessSecretarBD accessSecretar = (AccessSecretarBD) access;
+		if(accessSecretar.getFisierLucrare(idStudent)!= null)
+				return true;
+		return false;
+	}
+
+	/*functia 23 Input - ID student (Integer)
+	Output - true daca s-a uploadat licenta cu succes, false daca nu
+	*/
+	@Override
+	public boolean insertUploadedLicense(int idStudent, byte[] data) {
+		AccessBD accessBD = new AccessBD();
+		if(accessBD.setFisierLucrare(idStudent, data)!=0)
+			return false;
+		
+		return true;
+	}
+
+	/*functia 24 I O metoda ce permite vizualizarea unei licente a unui student:
+		Input - ID student (Integer)
+		Output - toate datele licentei: Nume licenta, tip, profesor coordonator, BLOB-ul
+	*/
+	@Override
+	public LicenseDataResponse getLicenseInformations(int idStudent) {	
+		return bd.getAccess().getLicenseData(idStudent);
+	}
     @Override
     public void finalize() {
         try {
@@ -576,4 +609,5 @@ public class DatabaseServiceImpl implements DatabaseService {
             System.err.println("Error shutting down database!");
         }
     }
+	
 }
