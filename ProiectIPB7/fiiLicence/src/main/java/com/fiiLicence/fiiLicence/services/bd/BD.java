@@ -899,15 +899,15 @@ public class BD {
 		}
 	}
 
-
-	//18. functie: se poate edita data de examinare a unei comisii
+//18. functie: se poate edita data de examinare a unei comisii
 	
 	public boolean editExaminationDate(int idComisie,String beginDate,String endDate)
 	{
 		String apel = "update  evaluari e set e.INCEPUT_EVALUARE=to_date(?),e.sfarsit_evaluare=to_date(?)where e.id_comisie=?";
+		PreparedStatement statement=null;
 		try{
 
-			PreparedStatement statement = conexiune.prepareStatement(apel);
+		    statement = conexiune.prepareStatement(apel);
 			statement.setString(1, beginDate);
 			statement.setString(2, endDate);
 			statement.setInt(3, idComisie);
@@ -919,7 +919,21 @@ public class BD {
 			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
 			return false;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+
+		}
 	}
+	
 	
 	//19.functie: obtinem toti studentii cu notele lor finale
 	
@@ -927,10 +941,11 @@ public class BD {
 	List<StundetListPageResponse>studenti = new ArrayList<>();
 	
 	String apel = "select s.nume,s.prenume,d.NOTA_1_ORAL,d.NOTA_2_ORAL,d.NOTA_3_ORAL,d.NOTA_4_ORAL_DIZERTATIE,d.NOTA_5_ORAL_COORDONATOR,d.NOTA_1_proiect,d.NOTA_2_proiect,d.NOTA_3_proiect,d.NOTA_4_PROIECT_DIZERTATIE,d.NOTA_5_PROIECT_COORDONATOR from detalii_licente d join licente l on d.id=l.id join studenti s on s.ID=l.ID_STUDENT";
+	PreparedStatement statement=null;
 	try{
       
 		
-		PreparedStatement statement = conexiune.prepareStatement(apel);
+	   statement = conexiune.prepareStatement(apel);
 		ResultSet result  =statement.executeQuery();
 		
 		Vector<Integer>notePosibile = new Vector<>();
@@ -1010,19 +1025,34 @@ public class BD {
 		System.out.println("Exceptie la obtinerea notelor studentilor: "+e.getMessage());
 		return null;
 	}
-
 	
+	finally {
+		try {
+			
+			if (statement != null)
+				statement.close();
+		}
+
+		catch (SQLException se) {
+			System.out.println("Oups .. " + se);
+
+		}
+
 	}
 	
+}
+	
 	//20. functie: obtinem distributia pe sali a studentilor
+	
 	
 	public List<DistributionOnHallsResponse>getDistributionOnHalls(){
 		List<DistributionOnHallsResponse>distribution = new ArrayList<>();
 		String apel = "select distinct s.nume,s.prenume,e.sala,c.id,to_char(d.DATA_ORA_SUSTINERE, 'HH24:MI'),to_char(d.DATA_ORA_SUSTINERE + (.000694 * 21), 'HH24:MI')";
 		apel =apel+"from studenti s join comisii c on c.id=s.id_comisie join evaluari e on e.id_comisie=c.id join detalii_licente d on d.ID_COMISIE=c.id";
+		PreparedStatement statement=null;
 		try{
 
-			PreparedStatement statement = conexiune.prepareStatement(apel);
+			statement = conexiune.prepareStatement(apel);
 			ResultSet result  =statement.executeQuery();
 			while(result.next()){ 
 			
@@ -1041,9 +1071,21 @@ public class BD {
 			System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
 			return null;
 		}
+		finally {
+			try {
+				
+				if (statement != null)
+					statement.close();
+
+			}
+
+			catch (SQLException se) {
+				System.out.println("Oups .. " + se);
+
+			}
+
+		}
 	}
-	
-	
 	
 	
 	/*21. [-] O metoda noua, utilizata pentru crearea unei noi sesiuni:
@@ -1058,10 +1100,13 @@ public class BD {
 		  String apel2="select max(id) from sesiuni";
 		  int idComisie=0;
 		  int idSesiune=0;
-		  
+		  PreparedStatement statement4=null;
+		  PreparedStatement statement=null;
+		  PreparedStatement statement1=null;
+		  PreparedStatement statement3=null;
 			try{
 
-				PreparedStatement statement = conexiune.prepareStatement(apel1);
+			    statement = conexiune.prepareStatement(apel1);
 				ResultSet result  =statement.executeQuery();
 				if(result.next()){ 
 				
@@ -1069,7 +1114,7 @@ public class BD {
 			
 				}
 				
-				PreparedStatement statement1 = conexiune.prepareStatement(apel2);
+			    statement1 = conexiune.prepareStatement(apel2);
 				ResultSet result1  =statement1.executeQuery();
 				if(result1.next()){ 
 				
@@ -1079,7 +1124,7 @@ public class BD {
 				
 				String apel3="insert into sesiuni (id,inceput_sesiune,sfarsit_sesiune) values(?,TO_DATE(?,'dd-mm-yyyy'),TO_DATE( ?,'dd-mm-yyyy'))";
 				
-				PreparedStatement statement3 = conexiune.prepareStatement(apel3);
+			    statement3 = conexiune.prepareStatement(apel3);
 				statement3.setInt(1, idSesiune);
 				statement3.setString(2, dataInceput);
 				statement3.setString(3, dataSfarsit);
@@ -1090,7 +1135,7 @@ public class BD {
 				for (int i = 1; i <= nrDeComisii; i++) {
 					String apel4="insert into comisii(id,id_sesiune) values(?,?)";
 					
-					PreparedStatement statement4 = conexiune.prepareStatement(apel4);
+				    statement4 = conexiune.prepareStatement(apel4);
 					statement4.setInt(1, idComisie+i);
 					statement4.setInt(2, idSesiune);
 					statement4.executeUpdate();
@@ -1101,8 +1146,32 @@ public class BD {
 				System.out.println("Exceptie la obtinerea studentilor: "+e.getMessage());
 				return false;
 			}
-	  }
+			
+			finally {
+				try {
+					
+					if (statement != null)
+						statement.close();
+					
+					if (statement1 != null)
+						statement1.close();
 	
+					if (statement3 != null)
+						statement3 .close();
+	
+					if (statement4 != null)
+						statement4.close();
+	
+
+				}
+
+				catch (SQLException se) {
+					System.out.println("Oups .. " + se);
+
+				}
+
+			}
+	  }
 	
 	
 }
