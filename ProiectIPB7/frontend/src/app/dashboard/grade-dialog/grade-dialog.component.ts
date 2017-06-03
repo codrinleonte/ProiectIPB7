@@ -13,12 +13,18 @@ export class GradeDialogComponent implements OnInit {
     constructor(private backendService: BackendService) {}
 
     ngOnInit(){
-        this.backendService.getStudentGrade(Cookie.get('sessionId'), 4).subscribe(
+        this.backendService.getUserInfo(Cookie.get('sessionId')).subscribe(
             data => {
                 let jsonParsed = JSON.parse(JSON.stringify(data));
-                this.grade = jsonParsed.grade;
+                this.backendService.getStudentGrade(Cookie.get('sessionId'), jsonParsed.idUser).subscribe(
+                    data => {
+                        let jsonParsed = JSON.parse(JSON.stringify(data));
+                        this.grade = jsonParsed.grade;
+                    },
+                    error => console.log('ERROR: BackendService - getStudentGrade()')
+                );
             },
-            error => console.log('ERROR: BackendService - getStudentGrade()')
+            error => console.log('ERROR: BackendService - getUserInfo()')
         );
     }
 }

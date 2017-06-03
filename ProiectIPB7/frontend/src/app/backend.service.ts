@@ -143,4 +143,13 @@ export class BackendService {
         let json = JSON.stringify({ idProf: idProf, idStudent: idStudent });
         return this.http.post('http://localhost:4500/deleteStudentToListProf', json, { headers: header }).map(res => res.json());
     }
+
+    hasLicense(token: string, idStudent: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: idStudent });
+        return this.http.post('http://localhost:4500/hasLicense', json, { headers: header }).map(res => res.json());
+    }
 }

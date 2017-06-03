@@ -22,6 +22,7 @@ export class SubmitComponent implements OnInit {
     constructor(private backendService: BackendService, private snackBar: MdSnackBar) {}
 
     ngOnInit() {
+
         this.backendService.getProfs(Cookie.get('sessionId')).subscribe(
             data => {
                 this.profs = data;
