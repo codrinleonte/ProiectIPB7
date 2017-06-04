@@ -170,4 +170,13 @@ export class BackendService {
         let json = JSON.stringify({ id: idStudent });
         return this.http.post('http://localhost:4500/getLicense', json, { headers: header }).map(res => res.json());
     }
+
+    setGrade(token: string, idStudent: number, idProf: number, gradeOral: number, gradeProiect: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ idProf: idProf, idStudent: idStudent, gradeOral: gradeOral, gradeProiect: gradeProiect });
+        return this.http.post('http://localhost:4500/profNote', json, { headers: header }).map(res => res.json());
+    }
 }

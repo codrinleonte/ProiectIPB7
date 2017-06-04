@@ -8,12 +8,14 @@
                 <p class="name">{{student.numeStudent}} {{student.prenumeStudent}}</p>
                 <p class="date_label">26/05/2017 - 12:00</p>
                 <md-input-container class="entry_input_oral">
-                    <input type="text" mdInput placeholder="Nota oral">
+                    <input type="text" mdInput placeholder="Nota oral" [(ngModel)]="oralValues[student.idStudent]"
+                        [value]="oralValues[student.idStudent]">
                 </md-input-container>
                 <md-input-container class="entry_input_project">
-                    <input type="text" mdInput placeholder="Nota proiect">
+                    <input type="text" mdInput placeholder="Nota proiect" [(ngModel)]="proiectValues[student.idStudent]"
+                    [value]="proiectValues[student.idStudent]">
                 </md-input-container>
-                <button md-raised-button class="save_btn">Salveaza Nota</button>
+                <button md-raised-button class="save_btn" (click)="onSaveGradeBtnClick(student.idStudent)">Salveaza Nota</button>
             </div>
         </div>
     </md-card-content>

@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit{
             return;
         }
 
-        if(this.emailTextBox.indexOf('@info.uaic.ro') == -1) {
+        /*if(this.emailTextBox.indexOf('@info.uaic.ro') == -1) {
             this.snackBar.open('Email-ul trebuie sa fie cel furnizat de facultate! (ex: prenume.nume@info.uaic.ro)', '', {duration: 2000});
             return;
-        }
+        }*/
 
         this.backendService.login(this.emailTextBox, this.passwordTextBox).subscribe(
             data => {
