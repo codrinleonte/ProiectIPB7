@@ -1,0 +1,14 @@
+1. Crash /login pe conturi ce nu sunt sub forma: nume.prenume@info.uaic.ro, lucru ce blocheaza accesul la
+   conturi speciale, ca de exemplu, contul de Admin.
+2. Lipsa conturilor pentru profesori si secretari.
+3. Conturile create au numele si prenumele incepand cu litera mica. Ex: "marcel ionescu" ar trebui sa fie: "Marcel Ionescu"
+4. /moveProfToCommitte nu are comportamentul dorit (mutarea unui profesor, de oriunde s-ar afla (profesori neasignati sau o comisie)
+   in comisia specificata.
+5. Problema la setarea notelor folosind /profNote: nota de pe /clientListPage este modificata corect, insa pentru un alt student 
+   fata de cel specificat. Nota de pe /getStudentGrade este afisata corespunzator.
+6. /insertStudentToListProf nu mai merge (pe ultima versiune mergea)
+7. Crash random: Exceptie la conectare: Listener refused the connection with the following error:
+   ORA-12518, TNS:listener could not hand off client connection
+8. /createSesion intoarce false + exceptie
+9. /getALLHalls no content
+10. /activeSesion da mereu true indiferent daca sesiune este activa sau nu
