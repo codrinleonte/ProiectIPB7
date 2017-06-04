@@ -1279,4 +1279,31 @@ public class AccessAdminBD extends AccessBD {
         }
 
     }
+	
+	    public IntrareComisii getCommitteByProf(int idProf) {
+        IntrareComisii intrare = new IntrareComisii();
+        try {
+
+            PreparedStatement pStatement = conexiune.prepareStatement("select * from comisii c join profesori p on c.id = p.id_comisie where p.id = ?");
+            pStatement.setInt(1, idProf);
+            ResultSet result = pStatement.executeQuery();
+            if (result.next()) {
+
+                intrare.setId(result.getInt(1));
+                intrare.setIdProfSef(result.getInt(2));
+                intrare.setIdProf2(result.getInt(3));
+                intrare.setIdProf3(result.getInt(4));
+                intrare.setIdProf4(result.getInt(5));
+                intrare.setIdSecretar(result.getInt(6));
+                intrare.setTipComisie(result.getString(7));
+                intrare.setSala(result.getString(8));
+
+            }
+            return intrare;
+
+        } catch (SQLException e) {
+            System.out.println("Exceptie la selectComisii: " + e.getMessage());
+            return null;
+        }
+    }
 }
