@@ -66,5 +66,18 @@ public interface DatabaseService {
     List<DistributionOnHallsResponse> getDistributionOfStudentsOnHalls();
     //21
     boolean addSession(String dataInceput,String dataSfarsit,int nrDeComisii);
+    
+    
+    boolean profsRepartisation(List<IntrareProfesori> profsList,List<IntrareComisii> committeList);  // 21
+    
+    
+    boolean hasUploadedLicense(int idStudent); // 22 functie care verifica existenta licentei in baza de date
+    
+    boolean insertUploadedLicense(int idStudent,byte[] data); // 23 functie care uploadeaza lucrarea
+    
+    
+    LicenseDataResponse getLicenseInformations(int idStudent); // 24 functie care returneaza datele despre o licenta
+    																//Nume licenta, tip, profesor coordonator, BLOB-ul,note
+    
 
 }
