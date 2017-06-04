@@ -293,32 +293,16 @@ public class DatabaseServiceImpl implements DatabaseService {
     Output: - Lista de profesori din acea comisie
     (o lista cu id-urile acestora este destul, se poate folosi metoda nr. 5 pentru alte informatii).*/
 
-    @Override
+       @Override
     public List<IdResponse> getProfsFromCommitte(int idCommitte) {
-        IntrareComisii comisie = bd.getAccess().getCommitteeById(idCommitte);
-        List<Integer> idProfiComisie = new ArrayList<Integer>();
-
-        idProfiComisie.add(comisie.getIdProfSef()); // la indexul 0 se va afla
-        // id-ul Sefului de comisie
-        idProfiComisie.add(comisie.getIdProf2());// la indexul 1 se va afla
-        // id-ul profului2
-        idProfiComisie.add(comisie.getIdProf3());// la indexul 0 se va afla
-        // id-ul profului3
-
-        if (comisie.getIdProf4() != 0) // daca exista al 4 lea
-            // profesor(dizertatie) => id_ul
-            // profului 4 la indexul3
-            idProfiComisie.add(comisie.getIdProf4());
-
-        List<IdResponse> result = new ArrayList<IdResponse>();
-        for (Integer i : idProfiComisie) {
-            IdResponse idRes = new IdResponse();
-            idRes.setId(idProfiComisie.get(i - 1));
-            result.add(idRes);
-        }
-        return result;
+        AccessBD access = bd.login("Admin", "Root");
+        AccessAdminBD accessAdmin = ((AccessAdminBD) access);
+    
+        List<IdResponse> idProfiComisie=accessAdmin.getProfsListId(idCommitte);
+        
+        return idProfiComisie;
     }
-
+	
     /*11.
     Descriere: Metoda ce returneaza profesorii neasignati unei comisii.
     Input:  - None
@@ -473,9 +457,23 @@ public class DatabaseServiceImpl implements DatabaseService {
             - id_stud (Integer)
             - valoare_nota (Integer)
     Output: - result (true - daca nota a fost trecuta, false - din orice alt motiv)*/
-    @Override
+@Override
     public boolean profNote(int idProf, int idStudent, int gradeOral, int gradeProiect) {
-        return false;
+
+        AccessBD access = bd.login("Admin", "Root");
+        AccessAdminBD accessAdmin = ((AccessAdminBD) access);
+        IntrareComisii comisieProfesor = accessAdmin.getCommitteByProf(idProf);
+        IntrareComisii comisieStudent = accessAdmin.getCommitteByStudent(idStudent);
+
+        if (comisieProfesor == null || comisieStudent == null || comisieProfesor.getId() != comisieStudent.getId()) {
+            return false;
+        }
+
+
+        int profIndex = accessAdmin.getProfIndex(idProf, comisieProfesor.getId());
+    
+        return (accessAdmin.updateNotaStudent(profIndex, idStudent, 1, gradeOral, gradeProiect));
+
     }
 
     /*15.
