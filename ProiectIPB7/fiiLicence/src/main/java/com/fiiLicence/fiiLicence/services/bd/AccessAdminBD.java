@@ -1162,8 +1162,7 @@ public class AccessAdminBD extends AccessBD {
                 rezultat.setIdProf4(result.getInt(5));
                 rezultat.setIdSecretar(result.getInt(6));
                 rezultat.setTipComisie(result.getString(7));
-                //rezultat.setIdEvaluare(result.getInt(8));
-
+          
             }
 
         } catch (Exception e) {
@@ -1213,5 +1212,37 @@ public class AccessAdminBD extends AccessBD {
                 
         }
 		
+    }
+	public IntrareComisii getCommitteByStudent(int idStudent) {
+        IntrareComisii intrare = new IntrareComisii();
+        try {
+            PreparedStatement pStatement =
+            		conexiune.prepareStatement("select COMISII.ID,COMISII.Id_PROF1,COMISII.Id_PROF2," 
+            								 +" COMISII.Id_PROF3,COMISII.Id_PROF4_DIZERTATIE,COMISII.ID_SECRETAR,"
+            								 +"	COMISII.TIP_COMISIE ,comisii.sala from detalii_licente "
+            								 +" join licente   on detalii_licente.id =  licente.id join comisii " 
+            								 +" on comisii.id = detalii_licente.id_comisie where id_student =  ?");
+            pStatement.setInt(1, idStudent);
+            ResultSet result = pStatement.executeQuery();
+            if (result.next() && result != null) {
+
+                intrare.setId(result.getInt(1));
+                intrare.setIdProfSef(result.getInt(2));
+                intrare.setIdProf2(result.getInt(3));
+                intrare.setIdProf3(result.getInt(4));
+                intrare.setIdProf4(result.getInt(5));
+                intrare.setIdSecretar(result.getInt(6));
+                intrare.setTipComisie(result.getString(7));
+                intrare.setSala(result.getString(8));
+              
+
+            }
+            return intrare;
+
+        } catch (Exception e) {
+            System.out.println("Exceptie la selectComisii: " + e.getMessage());
+            return null;
+        }
+
     }
 }
