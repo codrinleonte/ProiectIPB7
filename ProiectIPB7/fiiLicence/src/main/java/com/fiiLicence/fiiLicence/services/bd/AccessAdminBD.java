@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.fiiLicence.fiiLicence.models.response.IdResponse;
+
 
 public class AccessAdminBD extends AccessBD {
 
@@ -1242,6 +1244,38 @@ public class AccessAdminBD extends AccessBD {
         } catch (Exception e) {
             System.out.println("Exceptie la selectComisii: " + e.getMessage());
             return null;
+        }
+
+    }
+	
+	    
+    public List<IdResponse> getProfsListId(int idCommittee) {
+    	List<IdResponse> rezultat = new ArrayList<IdResponse>();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+
+            statement = conexiune.prepareStatement("select id from profesori where id_comisie = ?");
+            statement.setInt(1, idCommittee);
+            result = statement.executeQuery();
+           while (result.next()) {
+            	IdResponse idProf = new IdResponse();
+            	idProf.setId(result.getInt(1));
+                rezultat.add(idProf);
+            }
+            return rezultat;
+        } catch (SQLException e) {
+            System.out.println("Exceptie la selectComisii: " + e.getMessage());
+            return null;
+        } finally {
+            try {
+                if (statement != null)
+                    statement.close();
+                if (result != null)
+                    result.close();
+            } catch (SQLException se) {
+                System.out.println("Oups .. " + se);
+            }
         }
 
     }
