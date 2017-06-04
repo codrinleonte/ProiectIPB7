@@ -277,6 +277,261 @@ public class AccessAdminBD extends AccessBD {
 		return insertComisie(comisie);
 	}
 	
+	public int schimbaComisie(int idProf, int idComisieVeche, int idComisieNoua) //returneaza 1 daca profesorul a fost mutat de la comisia veche la comisia noua, -1 altfel
+	{
+		
+		try {
+			int IDProf = -2;
+			PreparedStatement pstmt = conexiune.prepareStatement("Select count(*) from comisii where id = ?");
+			pstmt.setInt(1, idComisieNoua);
+			ResultSet nr = pstmt.executeQuery();
+			nr.next();
+			if(nr.getInt(1)==0)
+				return -1;
+			pstmt.close();
+			
+			pstmt = conexiune.prepareStatement("select count(*) from comisii where id = ?");
+			pstmt.setInt(1, idComisieVeche);
+			nr = pstmt.executeQuery();
+			nr.next();
+			if(nr.getInt(1) == 0)
+				return -1;
+			pstmt.close();
+			
+			pstmt = conexiune.prepareStatement("select count(*) from profesori where id = ? ");
+			pstmt.setInt(1, idProf);
+			nr = pstmt.executeQuery();
+			nr.next();
+			if(nr.getInt(1) == 0)
+				return -1;
+			pstmt.close();
+			
+			pstmt = conexiune.prepareStatement("select * from comisii where id = ? and ( id_prof1 = ? or id_prof2 = ? or id_prof3 = ? or id_prof4_dizertatie = ?)");
+			pstmt.setInt(1, idComisieVeche);
+			pstmt.setInt(2, idProf);
+			pstmt.setInt(3, idProf);
+			pstmt.setInt(4, idProf);
+			pstmt.setInt(5, idProf);
+			
+			ResultSet result = pstmt.executeQuery();
+			pstmt.close();
+			
+			if(result == null) 
+				return -1;
+			else 
+				{
+				
+				ResultSet prof;
+				pstmt = conexiune.prepareStatement("select id_prof1 from comisii where id = ?");
+				pstmt.setInt(1, idComisieVeche);
+				prof = pstmt.executeQuery();
+
+				if (prof != null)
+				{
+					 prof.next();
+					 IDProf = prof.getInt(1);
+				     if (IDProf == idProf)
+				    	{
+				    	 pstmt = conexiune.prepareStatement("select id_prof1 from comisii where id = ?");
+				     	 pstmt.setInt(1, idComisieNoua);
+				     	 prof = pstmt.executeQuery();
+				     	
+				     	 prof.next();
+				     	 IDProf = prof.getInt(1);
+				   
+				     	 pstmt = conexiune.prepareStatement("update comisii set id_prof1 = ? where id = ?");
+				     	 pstmt.setInt(1, idProf);
+				     	 pstmt.setInt(2, idComisieNoua);
+				     	 pstmt.executeUpdate();
+				     	 pstmt.close();
+				     	 
+				     	 pstmt = conexiune.prepareStatement("update comisii set id_prof1 = ? where id = ?");
+				     	 pstmt.setInt(1, IDProf);
+				     	 pstmt.setInt(2, idComisieVeche);
+				     	 pstmt.executeUpdate();
+				     	 pstmt.close();
+				     	 conexiune.commit();
+				     	 
+				     	 return 1;
+				     	}
+				     else
+					   {
+				    	 pstmt.close();
+				    	 prof.close();
+						 pstmt = conexiune.prepareStatement("select id_prof2 from comisii where id = ?");
+						 pstmt.setInt(1, idComisieVeche);
+						 prof = pstmt.executeQuery();
+						 
+						 if (prof != null)
+						   {  prof.next();
+						      IDProf = prof.getInt(1);
+					          if (IDProf == idProf)
+					    	  {
+					        	  pstmt = conexiune.prepareStatement("select id_prof2 from comisii where id = ?");
+					        	  pstmt.setInt(1, idComisieNoua);
+					        	  prof = pstmt.executeQuery();
+					        	  
+					        	  prof.next();
+					        	  IDProf = prof.getInt(1);
+					        	  pstmt = conexiune.prepareStatement("update comisii set id_prof2 = ? where id = ?");
+					        	  pstmt.setInt(1, idProf);
+					        	  pstmt.setInt(2, idComisieNoua);
+					        	  pstmt.executeUpdate();
+					        	  pstmt.close();
+					        	  
+					        	  pstmt = conexiune.prepareStatement("update comisii set id_prof2 = ? where id = ?");
+					        	  pstmt.setInt(1, IDProf);
+					        	  pstmt.setInt(2, idComisieVeche);
+					        	  pstmt.executeUpdate();
+					        	  pstmt.close();
+					        	  conexiune.commit();
+					        	  
+					        	  return 1;
+					    	  }
+					          else
+							     {
+					        	    pstmt.close();
+							    	prof.close();
+								 	pstmt = conexiune.prepareStatement("select id_prof3 from comisii where id = ?");
+								 	pstmt.setInt(1, idComisieVeche);
+								 	prof = pstmt.executeQuery();
+								 	
+								 	if (prof != null)
+								 		{  prof.next();
+								 		   IDProf = prof.getInt(1);
+							               if (IDProf == idProf)
+							               {
+							            	   pstmt = conexiune.prepareStatement("select id_prof3 from comisii where id = ?");
+							            	   pstmt.setInt(1, idComisieNoua);
+							            	   prof = pstmt.executeQuery();
+							            	   pstmt.close();
+							            	   prof.next();
+							            	   IDProf = prof.getInt(1);
+							            	   pstmt = conexiune.prepareStatement("update comisii set id_prof3 = ? where id = ?");
+							            	   pstmt.setInt(1, idProf);
+							            	   pstmt.setInt(2, idComisieNoua);
+							            	   pstmt.executeUpdate();
+							            	   pstmt.close();
+							     	 
+							            	   pstmt = conexiune.prepareStatement("update comisii set id_prof3 = ? where id = ?");
+							            	   pstmt.setInt(1, IDProf);
+							            	   pstmt.setInt(2, idComisieVeche);
+							            	   pstmt.executeUpdate();
+							            	   pstmt.close();
+							            	   conexiune.commit();
+							            	   
+							            	   return 1;
+							               }
+							               else 
+									 	    {
+							            	   pstmt.close();
+										       prof.close();
+									 		   pstmt = conexiune.prepareStatement("select id_prof4_dizertatie from comisii where id = ?");
+										 	   pstmt.setInt(1, idComisieVeche);
+										 	   prof = pstmt.executeQuery();
+										 	   
+										  	   if (prof != null)
+										  	   		{  prof.next();
+										  	   		   IDProf = prof.getInt(1);
+										  	   		   if (IDProf == idProf)
+										  	   		   {
+										  	   			   pstmt = conexiune.prepareStatement("select id_prof4_dizertatie from comisii where id = ?");
+										  	   			   pstmt.setInt(1, idComisieNoua);
+										  	   			   prof = pstmt.executeQuery();
+										  	   			   pstmt.close();
+										  	   			   prof.next();
+										  	   			   IDProf = prof.getInt(1);
+										  	   			   
+										  	   			   if(IDProf == 0)
+												     	   {
+												     		 pstmt = conexiune.prepareStatement("select tip_comisie from comisii where id = ?");
+													     	 pstmt.setInt(1, idComisieNoua);
+													     	 prof = pstmt.executeQuery();
+													     	 pstmt.close();
+													     	 prof.next();
+													     	 String tip = prof.getString(1);
+													     	 if (tip.equals("licenta"))
+													     		 return -1;
+												     	   }
+										  	   			   pstmt = conexiune.prepareStatement("update comisii set id_prof4_dizertatie = ? where id = ?");
+										  	   			   pstmt.setInt(1, idProf);
+										  	   			   pstmt.setInt(2, idComisieNoua);
+										  	   			   pstmt.executeUpdate();
+										  	   			   pstmt.close();
+									     	 
+										  	   			   pstmt = conexiune.prepareStatement("update comisii set id_prof4_dizertatie = ? where id = ?");
+										  	   			   pstmt.setInt(1, IDProf);
+										  	   			   pstmt.setInt(2, idComisieVeche);
+										  	   			   pstmt.executeUpdate();
+										  	   			   pstmt.close();
+										  	   			   conexiune.commit();
+										  	   			   
+										  	   			   return 1;
+										  	   		   }
+										  	   		   else return -1;
+										  	   		}
+										  	   else  return -1;
+									 	     }
+								 		}
+								 	else return -1;
+							     }
+						   }
+						 else return -1;
+					   }
+				     }
+				  else return -1;
+				}
+		   } catch (Exception e) {
+			System.out.println("Exceptie la schimbaComisie: "+e.getMessage());
+			e.printStackTrace();
+			return -1;
+		}
+	
+	}
+	
+	public int[] selectCoordonatori(int idComisie)
+	{
+		try 
+		   {
+			  int[] coordonatori;
+			  
+			  PreparedStatement pstmt = conexiune.prepareStatement("select count(*) from comisii where id = ?");
+			  pstmt.setInt(1, idComisie);
+			  ResultSet nr = pstmt.executeQuery();
+			  nr.next();
+			  if(nr.getInt(1)==0)
+				  return new int[5];
+			  nr.close();
+			  pstmt.close();
+			  
+			  pstmt = conexiune.prepareStatement("select unique l.id_profesor from comisii c join licente l on (c.id_prof1 = l.id_profesor or c.id_prof2 = l.id_profesor or c.id_prof3 = l.id_profesor or c.id_prof4_dizertatie = l.id_profesor) where c.id = ? order by 1");
+			  pstmt.setInt(1, idComisie);
+			  ResultSet result = pstmt.executeQuery();
+			  
+			  pstmt = conexiune.prepareStatement("select count(*) from (select unique l.id_profesor from comisii c join licente l on (c.id_prof1 = l.id_profesor or c.id_prof2 = l.id_profesor or c.id_prof3 = l.id_profesor or c.id_prof4_dizertatie = l.id_profesor) where c.id = ?)");
+			  pstmt.setInt(1, idComisie);
+			  nr  = pstmt.executeQuery();
+			  nr.next();
+			  int NR = nr.getInt(1);
+			  nr.close();
+			  coordonatori = new int [NR];
+			  int i = 0;
+			  while(result.next())
+			  {
+				  coordonatori[i] = result.getInt(1);
+				  i++;
+			  }
+			  pstmt.close();
+			  result.close();
+			  return coordonatori;
+		   }
+		catch (Exception e)
+		{
+			System.out.println("Exceptie la selectCoordonatori :"+e.getMessage());
+			return new int[5];
+		}
+	}
+	
 	public List<IntrareMesaje> selectMesaje(){
 		List<IntrareMesaje> rezultat = new ArrayList<IntrareMesaje>();
 		try{
@@ -1342,10 +1597,4 @@ public class AccessAdminBD extends AccessBD {
 			return -7;
 		}
 	}
-
-
-
-
-
-
 }
