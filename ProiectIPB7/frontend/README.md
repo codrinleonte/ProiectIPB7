@@ -11,6 +11,7 @@ Alte dependente:
 - Dragula - "npm install ng2-dragula"
 - Cookies - "npm install ng2-cookies"
 - JSPDF - "npm install jspdf"
+- file-saver - "npm install file-saver"
 
 # Rularea proiectului
 

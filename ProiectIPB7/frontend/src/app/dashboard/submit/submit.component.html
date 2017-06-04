@@ -1,4 +1,4 @@
-<md-card class="submit_card">
+<md-card class="submit_card" *ngIf="hasLicense==1">
     <md-toolbar class="card_header"><h4>Formular inscriere examen</h4></md-toolbar>
     <md-card-content class="content">
         <p class="form_info">Pentru a va putea inscrie in seisunea de examinare a lucrarii, va rugam
@@ -12,8 +12,24 @@
         <md-select  class="submit_input" placeholder="Tip" name="profs" [(ngModel)]="selectedType">
             <md-option *ngFor="let type of types" [value]="type.name">{{type.name}}</md-option>
         </md-select><br>
-        <input type="file" class="submit_input"><br>
+        <div class="display_flex">
+            <input type="file" class="file_input" (change)="onFilesChanged($event)"><br>
+            <p id="upload_info">Se accepta doar un fisier cu extensia .zip pentru a fi incarcat!</p>
+        </div>
 
         <button md-raised-button class="submit_btn" (click)="onSubmitClick()">Inscriere</button>
+    </md-card-content>
+</md-card>
+<md-card class="submit_card" *ngIf="hasLicense==2">
+    <md-toolbar class="card_header"><h4>Informatie</h4></md-toolbar>
+    <md-card-content class="content">
+        <div class="display_flex">
+        <img id="uploaded_img" src="assets/ok.svg">
+            <div>
+                <p class="form_info" id="upload_msg">Licenta dumneavoastra a fost inregistrata cu succes si urmeaza a fi evaluata in urmatoarea
+                sesiune de examinare!</p>
+                <button md-raised-button class="download_btn" (click)="onDownloadClick()">Descarcare lucrare licenta</button>
+            </div>
+        </div>
     </md-card-content>
 </md-card>

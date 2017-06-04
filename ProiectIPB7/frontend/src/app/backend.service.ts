@@ -152,4 +152,22 @@ export class BackendService {
         let json = JSON.stringify({ id: idStudent });
         return this.http.post('http://localhost:4500/hasLicense', json, { headers: header }).map(res => res.json());
     }
+
+    uploadLicense(token: string, idStudent: number, data: string){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ idStudent: idStudent, data: data });
+        return this.http.post('http://localhost:4500/updateLicense', json, { headers: header }).map(res => res.json());
+    }
+
+    getLicenseInfo(token: string, idStudent: number){
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', token);
+
+        let json = JSON.stringify({ id: idStudent });
+        return this.http.post('http://localhost:4500/getLicense', json, { headers: header }).map(res => res.json());
+    }
 }
