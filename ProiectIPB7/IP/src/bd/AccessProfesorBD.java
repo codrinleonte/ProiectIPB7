@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class AccessProfesorBD extends AccessBD{
 	
 	AccessProfesorBD( Connection conexiune , UserBD user )
@@ -73,8 +74,7 @@ public class AccessProfesorBD extends AccessBD{
 			return null;
 		}
 	}
-	
-	
+
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
 		try{
@@ -218,8 +218,7 @@ public class AccessProfesorBD extends AccessBD{
 		}		
 	}
 	
-	
-	public int updateLicenta( IntrareLicente intrare){
+	private int updateLicenta( IntrareLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
 		try{			
@@ -256,7 +255,7 @@ public class AccessProfesorBD extends AccessBD{
 		
 	}
 
-	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
+	private int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{

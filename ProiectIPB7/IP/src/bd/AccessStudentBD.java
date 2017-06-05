@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class AccessStudentBD extends  AccessBD{
 	
 	AccessStudentBD( Connection conexiune, UserBD user )
@@ -49,7 +50,6 @@ public class AccessStudentBD extends  AccessBD{
 			return null;
 		}
 	}
-	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
@@ -184,7 +184,7 @@ public class AccessStudentBD extends  AccessBD{
 		}		
 	}
 	
-	public int updateStudent( IntrareStudenti intrare ){
+	private int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
@@ -221,7 +221,7 @@ public class AccessStudentBD extends  AccessBD{
 		}	
 	}
 	
-	public int updateLicenta( IntrareLicente intrare){
+	private int updateLicenta( IntrareLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
 		try{			
@@ -258,7 +258,7 @@ public class AccessStudentBD extends  AccessBD{
 		
 	}
 
-	public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
+	private int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		String apel = new String();	
 		try{
 			
@@ -332,7 +332,7 @@ public class AccessStudentBD extends  AccessBD{
 		}
 	}
     
-	public int insertLicenta( IntrareLicente intrare ){
+	private int insertLicenta( IntrareLicente intrare ){
 		String apel;	
 		try{
 			if(intrare.getId()==0){
@@ -400,7 +400,7 @@ public class AccessStudentBD extends  AccessBD{
 		}
 	}
 
-	public int insertMesaj( IntrareMesaje intrare ){
+	private int insertMesaj( IntrareMesaje intrare ){
 		String apel;	
 		try{
 			

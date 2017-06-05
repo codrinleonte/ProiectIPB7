@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class AccessSecretarBD extends AccessBD{
 
 	AccessSecretarBD( Connection conexiune, UserBD user )
@@ -160,8 +161,6 @@ public class AccessSecretarBD extends AccessBD{
 		}
 	}
 
-
-	
 	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
 		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
 		try{
@@ -196,7 +195,6 @@ public class AccessSecretarBD extends AccessBD{
 			return null;
 		}
 	}
-	
 	
 	public List<IntrareLicente> selectLicente(){
 		List<IntrareLicente> rezultat = new ArrayList<IntrareLicente>();
@@ -252,7 +250,7 @@ public class AccessSecretarBD extends AccessBD{
 		}	
 	}
 	
-	public int updateProfesor( IntrareProfesori intrare){
+	private int updateProfesor( IntrareProfesori intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update profesori set ID_CONT = ? ,NUME = ? ,  PRENUME=? ,GRAD_DIDACTIC=?,ID_COMISIE=?,FUNCTIE_COMISIE=? where id = ? ";
 		try{
@@ -290,7 +288,7 @@ public class AccessSecretarBD extends AccessBD{
 		
 	}
 
-	public int updateComisie( IntrareComisii intrare ){
+	private int updateComisie( IntrareComisii intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update comisii set ID_Prof1 = ? , ID_Prof2 = ? , ID_Prof3 =?, ID_Prof4_Dizertatie = ?, ID_Secretar = ?, Tip_Comisie = ?, Sala = ? where id = ? ";
 		try{
@@ -329,7 +327,7 @@ public class AccessSecretarBD extends AccessBD{
 		
 	}
 	
-	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
+	private int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{
@@ -373,7 +371,7 @@ public class AccessSecretarBD extends AccessBD{
 		
 	}
 	
-	public int updateLicenta( IntrareLicente intrare){
+	private int updateLicenta( IntrareLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
 		try{			
@@ -410,7 +408,7 @@ public class AccessSecretarBD extends AccessBD{
 		
 	}
 	
-	public int insertMesaj( IntrareMesaje intrare ){
+	private int insertMesaj( IntrareMesaje intrare ){
 		String apel;	
 		try{
 			
@@ -465,7 +463,7 @@ public class AccessSecretarBD extends AccessBD{
 		}
 	}
 
-public int insertComisie( IntrareComisii intrare){
+	private int insertComisie( IntrareComisii intrare){
 		
 		String apel = new String();	
 		try{

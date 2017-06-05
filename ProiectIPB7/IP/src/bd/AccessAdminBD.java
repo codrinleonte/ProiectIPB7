@@ -8,9 +8,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class AccessAdminBD extends AccessBD {
-
+	
 	AccessAdminBD( Connection conexiune , UserBD user )
 	{
 		this.conexiune = conexiune;
@@ -745,6 +745,41 @@ public class AccessAdminBD extends AccessBD {
 		}	
 	}
 	
+	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
+		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
+		try{
+			
+			Statement statement=conexiune.createStatement();
+			ResultSet result   =statement.executeQuery("Select * from detalii_licente"); 
+			while(result.next()){
+				IntrareDetaliiLicente intrare = new IntrareDetaliiLicente();
+				intrare.setId(result.getInt(1));
+				intrare.setIdComisie(result.getInt(2));
+				intrare.setNota1Oral(result.getInt(3));
+				intrare.setNota1Proiect(result.getInt(4));
+				intrare.setNota2Oral(result.getInt(5));
+				intrare.setNota2Proiect(result.getInt(6));
+				intrare.setNota3Oral(result.getInt(7));
+				intrare.setNota3Proiect(result.getInt(8));
+				intrare.setNota4Oral(result.getInt(9));
+				intrare.setNota4Proiect(result.getInt(10));
+				intrare.setNota5Oral(result.getInt(11));
+				intrare.setNota5Proiect(result.getInt(12));
+				intrare.setDataOraSustinerii(result.getTimestamp(13));
+				
+				rezultat.add(intrare);
+			}
+			
+			statement.close();
+			result.close();
+			return rezultat;
+		}
+		catch( Exception e ){
+			System.out.println("Exceptie la selectDetaliiLicente: "+e.getMessage());
+			return null;
+		}
+	}
+	
 	private int updateMesaj( IntrareMesaje intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update Mesaje set iD_Emitator = ? , ID_Destinatar = ? , Mesaj = ? where id = ? ";
@@ -777,7 +812,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 
-	public int updateCont( IntrareConturi intrare ){
+	private int updateCont( IntrareConturi intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update Conturi set USERNAME = ? , PAROLA = ? , EMAIL = ? ,  TIP_UTILIZATOR=? , STATUS=? ,COD_ACTIVARE=?,Token=? where id = ? ";
 		try{
@@ -813,43 +848,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 		
 	}
-
-	public List<IntrareDetaliiLicente> selectDetaliiLicente(){
-		List<IntrareDetaliiLicente> rezultat = new ArrayList<IntrareDetaliiLicente>();
-		try{
-			
-			Statement statement=conexiune.createStatement();
-			ResultSet result   =statement.executeQuery("Select * from detalii_licente"); 
-			while(result.next()){
-				IntrareDetaliiLicente intrare = new IntrareDetaliiLicente();
-				intrare.setId(result.getInt(1));
-				intrare.setIdComisie(result.getInt(2));
-				intrare.setNota1Oral(result.getInt(3));
-				intrare.setNota1Proiect(result.getInt(4));
-				intrare.setNota2Oral(result.getInt(5));
-				intrare.setNota2Proiect(result.getInt(6));
-				intrare.setNota3Oral(result.getInt(7));
-				intrare.setNota3Proiect(result.getInt(8));
-				intrare.setNota4Oral(result.getInt(9));
-				intrare.setNota4Proiect(result.getInt(10));
-				intrare.setNota5Oral(result.getInt(11));
-				intrare.setNota5Proiect(result.getInt(12));
-				intrare.setDataOraSustinerii(result.getTimestamp(13));
-				
-				rezultat.add(intrare);
-			}
-			
-			statement.close();
-			result.close();
-			return rezultat;
-		}
-		catch( Exception e ){
-			System.out.println("Exceptie la selectDetaliiLicente: "+e.getMessage());
-			return null;
-		}
-	}
-
-	public int updateStudent( IntrareStudenti intrare ){
+	
+	private int updateStudent( IntrareStudenti intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update studenti set ID_CONT = ? , NR_MATRICOL = ? , NUME = ? ,  PRENUME=? , ID_COMISIE = ? , ID_SESIUNE=? where id = ? ";
 		try{
@@ -884,7 +884,7 @@ public class AccessAdminBD extends AccessBD {
 		}	
 	}
 	
-	public int updateProfesor( IntrareProfesori intrare){
+	private int updateProfesor( IntrareProfesori intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update profesori set ID_CONT = ? ,NUME = ? ,  PRENUME=? ,GRAD_DIDACTIC=?,ID_COMISIE=?,FUNCTIE_COMISIE=? where id = ? ";
 		try{
@@ -920,7 +920,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 
-	public int updateComisie( IntrareComisii intrare ){
+	private int updateComisie( IntrareComisii intrare ){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update comisii set ID_Prof1 = ? , ID_Prof2 = ? , ID_Prof3 =?, ID_Prof4_Dizertatie = ?, ID_Secretar = ?, Tip_Comisie = ?, Sala = ? where id = ? ";
 		try{
@@ -959,7 +959,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
+	private int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update detalii_licente set id_comisie = ?, nota_1_oral = ?, nota_1_proiect = ?, nota_2_oral = ?, nota_2_proiect = ?, nota_3_oral = ?, nota_3_proiect = ?, nota_4_oral_dizertatie = ?, nota_4_proiect_dizertatie = ?, nota_5_oral_coordonator=?, nota_5_proiect_coordonator=?, data_ora_sustinere = ? where id = ? ";
 		try{
@@ -1001,7 +1001,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-	public int updateLicenta( IntrareLicente intrare){
+	private int updateLicenta( IntrareLicente intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update licente set titlu = ?, id_profesor = ?, id_student = ?, materiale_licenta = ?, id_sesiune = ?, tip = ? where id = ? ";
 		try{			
@@ -1038,7 +1038,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-	public int updateSesiune( IntrareSesiuni intrare){
+	private int updateSesiune( IntrareSesiuni intrare){
 		if(intrare.getId()==0) return -1;
 		String apel=" Update sesiuni set inceput_sesiune = ?, sfarsit_sesiune = ? , active= ? where id = ? ";
 		try{
@@ -1127,7 +1127,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 
-	public int insertCont( IntrareConturi intrare){
+	private int insertCont( IntrareConturi intrare){
 		String apel;	
 		try{
 			
@@ -1190,7 +1190,7 @@ public class AccessAdminBD extends AccessBD {
 		}		
 	}
 	
-	public int insertStudent( IntrareStudenti intrare){
+	private int insertStudent( IntrareStudenti intrare){
 		
 		String apel;	
 		try{
@@ -1251,7 +1251,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-	public int insertProfesor( IntrareProfesori intrare){
+	private int insertProfesor( IntrareProfesori intrare){
 		
 		String apel;	
 		try{
@@ -1313,7 +1313,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
 	
-	public int insertComisie( IntrareComisii intrare){
+	private int insertComisie( IntrareComisii intrare){
 		
 		String apel = new String();	
 		try{
@@ -1379,7 +1379,7 @@ public class AccessAdminBD extends AccessBD {
 		
 	}
   
-	public int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
+	private int insertDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		String apel = new String();	
 		try{
 			
@@ -1453,7 +1453,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-	public int insertLicenta( IntrareLicente intrare ){
+	private int insertLicenta( IntrareLicente intrare ){
 		String apel;	
 		try{
 			if(intrare.getId()==0){
@@ -1521,7 +1521,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
   
-	public int insertSesiune( IntrareSesiuni intrare ){
+	private int insertSesiune( IntrareSesiuni intrare ){
 		String apel;	
 		try{
 			if(intrare.getId()==0){
@@ -1605,7 +1605,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 
-	public int dropCont( IntrareConturi intrare ){
+	private int dropCont( IntrareConturi intrare ){
 		try{
 			if(intrare.getId()==0) return -1;
 			Statement  stmt = conexiune.createStatement();
@@ -1633,7 +1633,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 	
-	public int dropStudent( IntrareStudenti intrare ){
+	private int dropStudent( IntrareStudenti intrare ){
 		try{
 			if(intrare.getId()==0) return -1;
 			Statement  stmt = conexiune.createStatement();
@@ -1661,7 +1661,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
 
-	public int dropProfesor( IntrareProfesori intrare ){
+	private int dropProfesor( IntrareProfesori intrare ){
 		try{
 			if(intrare.getId()==0) return -1;
 			Statement  stmt = conexiune.createStatement();
@@ -1689,7 +1689,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-    public int dropComisie( IntrareComisii intrare ){
+    private int dropComisie( IntrareComisii intrare ){
 		try{
 			
 			if(intrare.getId()==0) return -1;
@@ -1718,7 +1718,8 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-    public int dropDetaliiLicenta( IntrareDetaliiLicente intrare ){
+
+	private int dropDetaliiLicenta( IntrareDetaliiLicente intrare ){
 		try{
 			
 			if(intrare.getId()==0) return -1;
@@ -1747,7 +1748,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-    public int dropLicenta( IntrareLicente intrare ){
+    private int dropLicenta( IntrareLicente intrare ){
 		try{
 			
 			if(intrare.getId()==0) return -1;
@@ -1776,7 +1777,7 @@ public class AccessAdminBD extends AccessBD {
 		}
 	}
     
-    public int dropSesiune( IntrareSesiuni intrare ){
+    private int dropSesiune( IntrareSesiuni intrare ){
 		try{
 			
 			if(intrare.getId()==0) return -1;
