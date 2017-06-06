@@ -41,7 +41,7 @@ public interface DatabaseService {
     List<IdResponse> getProfsWithoutCommitte(String token);
 
     //12
-    boolean moveProfToCommitte(String token, int idProf, int idCommitte);
+    boolean moveProfToCommitte(int idProf, int idCommitte, String token);
 
     //13
     List<StudentResponse> getEvaluateStudentsByCommitte(int idCommitte);
@@ -53,31 +53,33 @@ public interface DatabaseService {
     List<StudentGuidedListResponse> getStudentGuided(int idProf);
 
     //16
-    boolean insertStudentToListProf(int idProf, String numeStudent, String prenumeStudent);
+    boolean insertStudentToListProf(int idProf, String email);
 
     //17
     boolean deleteStudentToListProf(int idProf, int idStudent);
 
     //18
     boolean modifyDate(int idCommitte, String beginDate, String endDate);
-     //19
+
+    //19
     List<StundetListPageResponse> getFinalMarksOfStudents();
+
     //20
     List<DistributionOnHallsResponse> getDistributionOfStudentsOnHalls();
+
     //21
-    boolean addSession(String dataInceput,String dataSfarsit,int nrDeComisii);
-    
-    
-    boolean profsRepartisation(List<IntrareProfesori> profsList,List<IntrareComisii> committeList);  // 21
-    
-    
-    boolean hasUploadedLicense(int idStudent); // 22 functie care verifica existenta licentei in baza de date
-    
-    boolean insertUploadedLicense(int idStudent,byte[] data); // 23 functie care uploadeaza lucrarea
-    
-    
-    LicenseDataResponse getLicenseInformations(int idStudent); // 24 functie care returneaza datele despre o licenta
-    																//Nume licenta, tip, profesor coordonator, BLOB-ul,note
-    
+    boolean addSession(String dataInceput, String dataSfarsit, int nrDeComisii);
+
+    //22
+    boolean hasUploadedLicense(int idStudent);
+
+    //23
+    boolean insertUploadedLicense(int idStudent, byte[] data);
+
+    //24
+    LicenseDataResponse getLicenseInformations(int idStudent);
+
+    //25
+    boolean isSesionActive();
 
 }

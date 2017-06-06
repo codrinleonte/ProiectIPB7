@@ -46,8 +46,4 @@ public class ProfListResponse {
         this.idComisie = idComisie;
     }
 
-    @Override
-    public String toString() {
-        return "ana are mere";
-    }
 }

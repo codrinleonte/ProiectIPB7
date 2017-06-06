@@ -5,6 +5,15 @@ public class UserinfoResponse {
     private String prenume;
     private String email;
     private String tip;
+    private int idUser;
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 
     public String getNume() {
         return nume;

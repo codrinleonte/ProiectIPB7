@@ -4,6 +4,15 @@ public class LicenceRequest {
     private String nameOfLicence;
     private int idProfesor;
     private String descriptionOfLicence;
+    private byte[] data;
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 
     public String getNameOfLicence() {
         return nameOfLicence;

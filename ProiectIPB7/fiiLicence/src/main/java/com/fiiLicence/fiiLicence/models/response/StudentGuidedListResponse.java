@@ -1,7 +1,6 @@
 package com.fiiLicence.fiiLicence.models.response;
 
 public class StudentGuidedListResponse {
-<<<<<<< HEAD
     private int idStudent;
     private String numeStudent;
     private String prenumStudent;
@@ -14,6 +13,8 @@ public class StudentGuidedListResponse {
     private int nota2project;
     private int nota3project;
     private int nota4project;
+    private int nota5oral;
+    private int nota5project;
 
     public int getIdStudent() {
         return idStudent;
@@ -110,19 +111,38 @@ public class StudentGuidedListResponse {
     public void setNota4project(int nota4project) {
         this.nota4project = nota4project;
     }
-=======
-    public int id_stud;
-    public String nume_stud;
-    public String prenume_stud;
-    public double nota_finala;
-    public int nota1oral;
-    public int nota2oral;
-    public int nota3oral;
-    public int nota4oral;
-    public int nota1project;
-    public int nota2project;
-    public int nota3project;
-    public int nota4project;
->>>>>>> e3fa2c8d910ad16efb1f802180ab7f245a3ec91a
-}
 
+    public int getNota5oral() {
+        return nota5oral;
+    }
+
+    public void setNota5oral(int nota5oral) {
+        this.nota5oral = nota5oral;
+    }
+
+    public int getNota5project() {
+        return nota5project;
+    }
+
+    public void setNota5project(int nota5project) {
+        this.nota5project = nota5project;
+    }
+
+    @Override
+    public String toString() {
+        return idStudent + " " +
+                numeStudent +" " +
+                prenumStudent +" " +
+                nota1oral +" " +
+                nota2oral +" " +
+                nota3oral +" " +
+                nota4oral +" " +
+                nota5oral +" " +
+                nota1project +" " +
+                nota1project +" " +
+                nota1project +" " +
+                nota1project +" " +
+                nota1project +" " +
+                notaFinala;
+    }
+}
