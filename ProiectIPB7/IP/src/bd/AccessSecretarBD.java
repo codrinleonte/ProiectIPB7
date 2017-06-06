@@ -28,6 +28,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setMesaj(result.getString(4));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -53,6 +56,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -70,6 +76,8 @@ public class AccessSecretarBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -83,6 +91,11 @@ public class AccessSecretarBD extends AccessBD{
 			statement.setInt(6, intrare.getId_comisie());
 			statement.setInt(7, intrare.getId());
 			statement.executeUpdate();	
+			conexiune.commit();
+			
+			stmt.close();
+			rs.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -107,6 +120,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setFunctieComisie(result.getString(7));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -133,6 +149,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setSala(result.getString(8));
 				rezultat.add(intrare);
 			}
+			
+			pStatement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -168,6 +187,8 @@ public class AccessSecretarBD extends AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -196,6 +217,8 @@ public class AccessSecretarBD extends AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -218,6 +241,9 @@ public class AccessSecretarBD extends AccessBD{
 				intrare.setActive(result.getInt(4));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -235,6 +261,8 @@ public class AccessSecretarBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from profesori where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -247,7 +275,12 @@ public class AccessSecretarBD extends AccessBD{
 			statement.setInt(5, intrare.getIdComisie());
 			statement.setString(6, intrare.getFunctieComisie());
 			statement.setInt(7, intrare.getId());
-			statement.executeUpdate();	
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			statement.close();
+			stmt.close();
+			rs.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -259,13 +292,15 @@ public class AccessSecretarBD extends AccessBD{
 
 	public int updateComisie( IntrareComisii intrare ){
 		if(intrare.getId()==0) return -1;
-		String apel=" Update comisii set ID_Prof1 = ? , ID_Prof2 = ? , ID_Prof3 =?, ID_Prof4_Dizertatie = ?, ID_Secretar = ?, Tip_Comisie = ?, ID_Evaluare = ? where id = ? ";
+		String apel=" Update comisii set ID_Prof1 = ? , ID_Prof2 = ? , ID_Prof3 =?, ID_Prof4_Dizertatie = ?, ID_Secretar = ?, Tip_Comisie = ?, Sala = ? where id = ? ";
 		try{
 	
 			Statement  stmt = conexiune.createStatement();
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from comisii where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -281,6 +316,10 @@ public class AccessSecretarBD extends AccessBD{
 			statement.setInt(8, intrare.getId());
 			statement.executeUpdate();	
 			conexiune.commit();
+			
+			statement.close();
+			stmt.close();
+			rs.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -289,7 +328,6 @@ public class AccessSecretarBD extends AccessBD{
 		}
 		
 	}
-	
 	
 	public int updateDetaliiLicenta( IntrareDetaliiLicente intrare){
 		if(intrare.getId()==0) return -1;
@@ -300,6 +338,8 @@ public class AccessSecretarBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -321,6 +361,9 @@ public class AccessSecretarBD extends AccessBD{
 			statement.executeUpdate();
 			conexiune.commit();
 			
+			stmt.close();
+			rs.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -338,6 +381,8 @@ public class AccessSecretarBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -353,6 +398,9 @@ public class AccessSecretarBD extends AccessBD{
 			statement.executeUpdate();
 			conexiune.commit();
 			
+			stmt.close();
+			rs.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -373,12 +421,16 @@ public class AccessSecretarBD extends AccessBD{
 				statement.setInt(2, intrare.getIdDestinatar());
 				statement.setString(3, intrare.getMesaj());
 				statement.executeUpdate();
+				conexiune.commit();
 				
 				Statement  stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select MESAJE_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 			else{
@@ -387,6 +439,8 @@ public class AccessSecretarBD extends AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from MESAJE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
@@ -399,6 +453,9 @@ public class AccessSecretarBD extends AccessBD{
 				statement.setString(4, intrare.getMesaj());
 				statement.executeUpdate();
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 		}
@@ -408,13 +465,13 @@ public class AccessSecretarBD extends AccessBD{
 		}
 	}
 
-	public int insertComisie( IntrareComisii intrare){
+public int insertComisie( IntrareComisii intrare){
 		
 		String apel = new String();	
 		try{
 			
 			if(intrare.getId()==0){
-				apel = " Insert into Comisii (ID, ID_Prof1, ID_Prof2, ID_Prof3, ID_Prof4_Dizertatie, ID_Secretar, Tip_Comisie, ID_Evaluare) Values(to_number(COMISII_SEQ.NEXTVAL), ?, ? ,?, ?, ?, ?, ?)";
+				apel = " Insert into Comisii (ID, ID_Prof1, ID_Prof2, ID_Prof3, ID_Prof4_Dizertatie, ID_Secretar, Tip_Comisie, Sala) Values(to_number(COMISII_SEQ.NEXTVAL), ?, ? ,?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getIdProfSef());
 				statement.setInt(2,intrare.getIdProf2());
@@ -430,6 +487,10 @@ public class AccessSecretarBD extends AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select COMISII_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
+				
+				statement.close();
+				stmt.close();
+				rs.close();
 				return 0;
 			}
 			else{
@@ -438,6 +499,8 @@ public class AccessSecretarBD extends AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from COMISII where id = "+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
@@ -454,6 +517,10 @@ public class AccessSecretarBD extends AccessBD{
 				statement.setString(8, intrare.getSala());
 				statement.executeUpdate();
 				conexiune.commit();
+				
+				statement.close();
+				stmt.close();
+				rs.close();
 				return 0;
 			}
 		}
@@ -463,6 +530,5 @@ public class AccessSecretarBD extends AccessBD{
 		}		
 		
 	}
-
 	  
 }
