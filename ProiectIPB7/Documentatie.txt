@@ -71,3 +71,9 @@ Clasa BD contine urmatoarele metode:
 						->  drop    returneaza 0 daca  intrarea a fost stearsa din tabel
 									returneaza -1 daca intrarea nu exista in tabel
 									returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola
+					       -> schimbaComisie permite mutarea unui profesor de la o comisie la alta
+					       		returneaza 1 daca profesorul a fost mutat de la comisia veche la comisia noua
+							returneaza -1 in caz de exceptie sau daca profesorul nu a fost mutat la comisia noua din alte motive
+					 	-> selectCoordonatori 
+							returneaza lista cu id-urile profesorilor (memorata sub forma de vector) care sunt coordonatori din comisia reprezentata prin id-ul primit ca parametru
+					 	        returneaza un vector ce are valoare 0 pe toate pozitiile in cazul in care in comisie nu exista niciun profesor coordonator
