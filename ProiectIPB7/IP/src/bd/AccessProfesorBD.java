@@ -28,6 +28,8 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setMesaj(result.getString(4));
 				rezultat.add(intrare);
 			}
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -62,6 +64,8 @@ public class AccessProfesorBD extends AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			result.close();
+			statement.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -90,6 +94,8 @@ public class AccessProfesorBD extends AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			result.close();
+			statement.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -112,6 +118,9 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setActive(result.getInt(4));
 				rezultat.add(intrare);
 			}
+			
+			result.close();
+			statement.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -129,6 +138,8 @@ public class AccessProfesorBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				rs.close();
+				stmt.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -141,7 +152,12 @@ public class AccessProfesorBD extends AccessBD{
 			statement.setInt(5, intrare.getIdSesiune());
 			statement.setInt(6, intrare.getId_comisie());
 			statement.setInt(7, intrare.getId());
-			statement.executeUpdate();	
+			statement.executeUpdate();
+			conexiune.commit();
+			
+			rs.close();
+			stmt.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -166,6 +182,8 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
+			result.close();
+			statement.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -190,6 +208,8 @@ public class AccessProfesorBD extends AccessBD{
 				intrare.setFunctieComisie(result.getString(7));
 				rezultat.add(intrare);
 			}
+			result.close();
+			statement.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -207,6 +227,8 @@ public class AccessProfesorBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				rs.close();
+				stmt.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -222,6 +244,9 @@ public class AccessProfesorBD extends AccessBD{
 			statement.executeUpdate();
 			conexiune.commit();
 			
+			rs.close();
+			stmt.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -240,6 +265,8 @@ public class AccessProfesorBD extends AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				rs.close();
+				stmt.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -261,6 +288,9 @@ public class AccessProfesorBD extends AccessBD{
 			statement.executeUpdate();
 			conexiune.commit();
 			
+			rs.close();
+			stmt.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -270,7 +300,7 @@ public class AccessProfesorBD extends AccessBD{
 		
 	}
 
-	public int insertMesaj( IntrareMesaje intrare ){
+	private int insertMesaj( IntrareMesaje intrare ){
 		String apel;	
 		try{
 			
@@ -286,7 +316,11 @@ public class AccessProfesorBD extends AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select MESAJE_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
+				conexiune.commit();
 				
+				rs.close();
+				statement.close();
+				stmt.close();
 				return 0;
 			}
 			else{
@@ -295,6 +329,8 @@ public class AccessProfesorBD extends AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from MESAJE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
@@ -306,7 +342,11 @@ public class AccessProfesorBD extends AccessBD{
 				statement.setInt(3, intrare.getIdDestinatar());
 				statement.setString(4, intrare.getMesaj());
 				statement.executeUpdate();
+				conexiune.commit();
 				
+				rs.close();
+				stmt.close();
+				statement.close();
 				return 0;
 			}
 		}
