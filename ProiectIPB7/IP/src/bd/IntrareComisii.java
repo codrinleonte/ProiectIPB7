@@ -9,6 +9,7 @@ public class IntrareComisii {
 	int idSecretar;
 	String tipComisie;
 	String sala;
+	int idSesiune;
 
 	public int getId(){
 		return id;
@@ -58,5 +59,12 @@ public class IntrareComisii {
     public void setSala( String sala){
         this.sala = sala;
     }
+    public void setIdSesiune( int idSesiune ){
+    	this.idSesiune = idSesiune;
+    }
+    public int getIdSesiune(){
+    	return idSesiune;
+    }
 
 }
+
