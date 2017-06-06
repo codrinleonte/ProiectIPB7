@@ -40,6 +40,8 @@ public class AccessStudentBD extends  AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -68,6 +70,8 @@ public class AccessStudentBD extends  AccessBD{
 				rezultat.add(intrare);
 			}
 			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -90,6 +94,9 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setActive(result.getInt(4));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -111,6 +118,9 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setMesaj(result.getString(4));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -136,6 +146,9 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setIdSesiune(result.getInt(7));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -160,6 +173,9 @@ public class AccessStudentBD extends  AccessBD{
 				intrare.setFunctieComisie(result.getString(7));
 				rezultat.add(intrare);
 			}
+			
+			statement.close();
+			result.close();
 			return rezultat;
 		}
 		catch( Exception e ){
@@ -177,6 +193,8 @@ public class AccessStudentBD extends  AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from studenti where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -190,6 +208,11 @@ public class AccessStudentBD extends  AccessBD{
 			statement.setInt(6, intrare.getId_comisie());
 			statement.setInt(7, intrare.getId());
 			statement.executeUpdate();	
+			conexiune.commit();
+			
+			stmt.close();
+			rs.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -206,6 +229,8 @@ public class AccessStudentBD extends  AccessBD{
 			ResultSet  rs   = stmt.executeQuery("Select Count(*) from licente where id ="+intrare.getId());
 			rs.next();
 			if( rs.getInt(1) == 0 ) {
+				stmt.close();
+				rs.close();
 				System.out.println("Intrare Inexistenta");
 				return -1;
 			}
@@ -221,6 +246,9 @@ public class AccessStudentBD extends  AccessBD{
 			statement.executeUpdate();
 			conexiune.commit();
 			
+			stmt.close();
+			rs.close();
+			statement.close();
 			return 0;
 		}
 		catch( Exception e ){
@@ -257,6 +285,9 @@ public class AccessStudentBD extends  AccessBD{
 				rs.next();
 				intrare.setId(rs.getInt(1));
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 			else{
@@ -265,6 +296,8 @@ public class AccessStudentBD extends  AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from detalii_licente where id = "+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
@@ -287,6 +320,9 @@ public class AccessStudentBD extends  AccessBD{
 				statement.executeUpdate();
 				conexiune.commit();
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 		}
@@ -300,7 +336,7 @@ public class AccessStudentBD extends  AccessBD{
 		String apel;	
 		try{
 			if(intrare.getId()==0){
-				apel = " Insert into Licente Values(Licente_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?)";
+				apel = " Insert into Licente Values(Licente_SEQ.NEXTVAL, ?, ? ,?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setString(1, intrare.getTitlu());
 				statement.setInt(2, intrare.getIdProfesor());
@@ -316,6 +352,9 @@ public class AccessStudentBD extends  AccessBD{
 				rs.next();
 				intrare.setId(rs.getInt(1));
 				
+				statement.close();
+				stmt.close();
+				rs.close();
 				return 0;
 			}
 			else{
@@ -324,11 +363,13 @@ public class AccessStudentBD extends  AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from LICENTE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
 				
-				apel = " Insert into LICENTE Values(?, ?, ?, ?, ?, ?, ?)";
+				apel = " Insert into LICENTE Values(to_number(Licente_SEQ.NEXTVAL), ?, ?, ?, ?, ?, ?,?)";
 				PreparedStatement statement = conexiune.prepareStatement(apel);
 				statement.setInt(1,intrare.getId());
 				statement.setString(2, intrare.getTitlu());
@@ -339,6 +380,16 @@ public class AccessStudentBD extends  AccessBD{
 				statement.setString(7, intrare.getTipLucrare());
 				statement.executeUpdate();
 				conexiune.commit();
+				statement.close();
+				
+				stmt.close();
+				rs.close();
+				stmt = conexiune.createStatement();
+				rs   = stmt.executeQuery("Select LICENTE_SEQ.CURRVAL from dual");
+				rs.next();
+				intrare.setId(rs.getInt(1));
+				rs.close();
+				stmt.close();
 				
 				return 0;
 			}
@@ -360,12 +411,16 @@ public class AccessStudentBD extends  AccessBD{
 				statement.setInt(2, intrare.getIdDestinatar());
 				statement.setString(3, intrare.getMesaj());
 				statement.executeUpdate();
+				conexiune.commit();
 				
 				Statement  stmt = conexiune.createStatement();
 				ResultSet  rs   = stmt.executeQuery("Select MESAJE_SEQ.CURRVAL from dual");
 				rs.next();
 				intrare.setId(rs.getInt(1));
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 			else{
@@ -374,6 +429,8 @@ public class AccessStudentBD extends  AccessBD{
 				ResultSet  rs   = stmt.executeQuery("Select Count(*) from MESAJE where id ="+intrare.getId());
 				rs.next();
 				if( rs.getInt(1) > 0 ) {
+					stmt.close();
+					rs.close();
 					System.out.println("Intrare Existenta. Update?");
 					return -1;
 				}
@@ -386,6 +443,9 @@ public class AccessStudentBD extends  AccessBD{
 				statement.setString(4, intrare.getMesaj());
 				statement.executeUpdate();
 				
+				stmt.close();
+				rs.close();
+				statement.close();
 				return 0;
 			}
 		}
