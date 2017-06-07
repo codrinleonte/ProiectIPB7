@@ -1,5 +1,6 @@
 package com.fiiLicence.fiiLicence.services.bd;
 
+import com.fiiLicence.fiiLicence.models.response.IdResponse;
 import com.fiiLicence.fiiLicence.models.response.LicenseDataResponse;
 
 import java.sql.*;
@@ -1640,6 +1641,38 @@ public class AccessAdminBD extends AccessBD {
             return 4;
         } else
             return 0;
+
+    }
+	
+	
+    public List<IdResponse> getProfsListId(int idCommittee) {
+    	List<IdResponse> rezultat = new ArrayList<IdResponse>();
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+
+            statement = conexiune.prepareStatement("select id from profesori where id_comisie = ?");
+            statement.setInt(1, idCommittee);
+            result = statement.executeQuery();
+           while (result.next()) {
+            	IdResponse idProf = new IdResponse();
+            	idProf.setId(result.getInt(1));
+                rezultat.add(idProf);
+            }
+            return rezultat;
+        } catch (SQLException e) {
+            System.out.println("Exceptie la selectComisii: " + e.getMessage());
+            return null;
+        } finally {
+            try {
+                if (statement != null)
+                    statement.close();
+                if (result != null)
+                    result.close();
+            } catch (SQLException se) {
+                System.out.println("Oups .. " + se);
+            }
+        }
 
     }
 
