@@ -1,0 +1,73 @@
+***BD si Securitate**********
+*      Documentatie         *
+*****************************
+
+->	BD din pachetul bd este clasa mare care contine toate metodele pentru accesul la Baza de date.
+->	Trebuie adaugat in path-ul proiectului o versiune a driverului de la Oracle( ojdbc.jar ).
+->	Pentru evitarea conflictelor de concurenta este recomandat ca fiecare client sa aiba propriul obiect BD instantat.
+
+Clasa BD contine urmatoarele metode:
+	-> BD() Constructorul face conexiunea obiectului la baza de date.
+
+        -> isConnected() returneaza true  daca s-a facut cu succes conexiunea la baza de date in constructor;
+				     false altfel.
+
+	-> setDomeniu() seteaza domeniul pentru crearea linkului de activare. Exemplu <domeniu>/activate/<cod_activare> 
+
+	-> getContByToken( String token ) returneaza Intrarea din Conturi avand acel token;
+					  in caz de eroare sau in cazul in care nu avem o astfel de intrare returneaza null;
+					  
+	-> setTokenByIdCont( int id, String token ) returneaza 0 daca reuseste;
+						    returneaza -1 daca nu exista un cont cu acel id;
+						    returneaza -7 in caz de exceptie si returneaza codul de eroare
+
+	-> login( String username, String hashparola ) returneaza 0  daca logarea a reusit: contul este existent si activat, parola este corecta;
+					returneaza -1 daca contul nu este existent;
+					returneaza -2 daca contul este existent iar parola este gresita;
+					returneaza -3 daca contul este existent, parola este corecta iar contul nu este activat;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+
+	-> verificare( String hashcod )  returneaza -1 daca nu este nici un cont cu acest cod de activare asociat;
+					returneaza  0 daca contul a fost activat cu succes;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+
+    -> inregistrare_stud ( String email, String parola ) 
+					returneaza -1 daca emailul nu este corect sau nu apartine domeniului info.uaic.ro;
+					returneaza -2 daca emailul este deja folosit pentru inregistrarea unui cont;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+    -> inregistrare_prof ( String username, String parola ) // username-ul sa fie de forma prenume.nume deoarece se face legatura cu un profesor din lista
+					returneaza -1 daca profesorul nu este in lista de profesori;
+					returneaza -2 daca exista deja un cont cu acest username;
+					returneaza -7 in cazul unor erori aparute in timpul executiei metodei si afiseaza in consola mesajul de eroare.
+	
+	-> getAccessBD() returneaza un obiect de tip Access care va fi extins in obiecte AccessBDStud, AccessBDProf, AccessBDAdmin ... fiecare cu metode specifice
+				AccessBD contine un membru idCont, membru tip si membru conexiune;
+				AccessBDAdmin contine toate metodele pentru lucrul cu baza de date;
+			
+			Metodele din AccessBD lucreaza cu obiecte de tip Intrare<NumeTabel> care contin campurile din tabele ca membri;
+			
+			cele trei metode sunt select<NumeTabel> ()
+									Ex: Vector<IntrareMesaje> mesaje = accessAdmin.selectMesaje();
+								  update<NumeIntrareTabel> ( Intrare<NumeTabel> )
+									Ex: accessAdmin.updateMesaj( new IntrareMesaje() );
+								  insert<NumeIntrareTabel> ( Intrare<NumeTabel> )
+									Ex: accessAdmin.insertMesaj( new IntrareMesaje() );
+								  drop<NumeIntrareTabel> (Intrare<NumeTabeL> )
+									Ex: acecssAdmin.dropMesaj( new IntrareMesaje() );
+								  
+							Identificarea intrarilor se face dupa membrul id;
+							
+						->	in caz de exceptie select returneaza un vector null si afiseaza in consola codul de eroare
+							
+							
+						->	update returneaza 0  daca update-ul s-a facut cu succes;
+								   returneaza -1 daca id-ul este null/0 sau intrarea nu exista in baza de date
+								   returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola
+						->  insert returneaza 0 daca insert-ul s-a facut cu succes;
+								   returneaza -1 daca intrarea exista
+								   returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola
+								   in cazul in care se insereaza un obiect cu id null, insertul ii atribui acestuia un id corespunzator in baza de date 
+										folosindu-se o secventa oracle si actualizeaza id-ul in interiorul obiectului in cazul in care reuseste
+						->  drop    returneaza 0 daca  intrarea a fost stearsa din tabel
+									returneaza -1 daca intrarea nu exista in tabel
+									returneaza -7 in cazul unei exceptii si afiseaza codul de eroare in consola

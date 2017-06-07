@@ -2,8 +2,7 @@ package com.fiiLicence.fiiLicence.models.requests;
 
 public class InsertStudentRequest {
     private int idProf;
-    private String numeStudent;
-    private String prenumeStudent;
+    private String email;
 
     public int getIdProf() {
         return idProf;
@@ -13,19 +12,11 @@ public class InsertStudentRequest {
         this.idProf = idProf;
     }
 
-    public String getNumeStudent() {
-        return numeStudent;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNumeStudent(String numeStudent) {
-        this.numeStudent = numeStudent;
-    }
-
-    public String getPrenumeStudent() {
-        return prenumeStudent;
-    }
-
-    public void setPrenumeStudent(String prenumeStudent) {
-        this.prenumeStudent = prenumeStudent;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

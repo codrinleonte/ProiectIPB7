@@ -12,5 +12,8 @@ public class GradeResponse {
 
     private double grade;
 
-
+    @Override
+    public String toString() {
+        return " "+grade;
+    }
 }

@@ -28,5 +28,10 @@ public class StudentResponse {
     public void setPrenumeStudent(String prenumeStudent) {
         this.prenumeStudent = prenumeStudent;
     }
+
+    @Override
+    public String toString() {
+        return idStudent + " " + numeStudent + " " + prenumeStudent;
+    }
 }
 
