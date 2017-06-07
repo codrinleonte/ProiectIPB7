@@ -127,8 +127,11 @@ public class BD {
 		this.domeniu=domeniu;
 	}
 
+
 	public IntrareConturi getContByToken( String token )
 	{
+		Statement statement;
+		ResultSet result;
 		IntrareConturi cont = new IntrareConturi();
 		try{
 			Statement  stmt = conexiune.createStatement();
@@ -139,17 +142,27 @@ public class BD {
 				return null;
 			}
 
-			Statement statement=conexiune.createStatement();
-			ResultSet result   =statement.executeQuery("Select * from conturi where token='"+token+"'");
+			statement=conexiune.createStatement();
+			result   =statement.executeQuery("Select * from conturi where token='"+token+"'");
 			result.next();
 			cont.setId(result.getInt(1));
 			cont.setUsername(result.getString(2));
 			cont.setHashparola(result.getString(3));
 			cont.setEmail(result.getString(4));
-			cont.setTipUtilizator(result.getString(5));
 			cont.setStatus(result.getInt(6));
 			cont.setCodActivare(result.getString(7));
 			cont.setToken(result.getString(8));
+			String apel = " { ? = call get_type( ? ) }";
+			CallableStatement apelant = conexiune.prepareCall(apel);
+			apelant.registerOutParameter(1, Types.INTEGER);
+			apelant.setString(2, cont.getUsername());
+			apelant.execute();
+			int rezultatApelant = apelant.getInt(1);
+			if(rezultatApelant==0) cont.setTipUtilizator("Admin");
+			if(rezultatApelant==1) cont.setTipUtilizator("Student");
+			if(rezultatApelant==2) cont.setTipUtilizator("Profesor");
+			if(rezultatApelant==3) cont.setTipUtilizator("Secretar");
+			
 			return cont;
 
 		}
@@ -159,6 +172,8 @@ public class BD {
 		}
 
 	}
+
+	
 
 	public int setTokenByIdCont( int id , String token )
 	{
