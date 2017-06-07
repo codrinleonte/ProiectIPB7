@@ -450,7 +450,7 @@ public class BD {
     //16.functie: un profesor poate sa adauge un student
 
     public int getIdStudentByName(String numeStudent, String prenumeStudent) {
-        String apelSelect = "Select id from studenti where nume = ? and prenume = ?";
+        String apelSelect = "Select id from studenti where lower(nume) = ? and lower(prenume) = ?";
         int idStudent = 0;
         try {
             PreparedStatement statementSelect = conexiune.prepareStatement(apelSelect);
@@ -469,7 +469,8 @@ public class BD {
 
     public boolean addStudent(int idTeacher, String numeStudent, String prenumeStudent) {
         String apel = " Update licente set ID_PROFESOR = ? where  ID_STUDENT = ? ";
-        int idStudent = getIdStudentByName(numeStudent, prenumeStudent);
+        int idStudent = getIdStudentByName(numeStudent.toLowerCase(), prenumeStudent.toLowerCase());
+       
         PreparedStatement statement = null;
         try {
             statement = conexiune.prepareStatement(apel);
