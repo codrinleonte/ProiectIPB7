@@ -6,9 +6,9 @@
         <div class="evaluation_container">
             <div class="evaluation_entry" *ngFor="let student of students">
                 <p class="name">{{student.numeStudent}} {{student.prenumeStudent}}</p>
-                <p class="date_label" *ngIf="student.hasLicense==false">Licenta indisponibila</p>
+                <p class="date_label" *ngIf="student.hasLicense==false">Lucrare indisponibila</p>
                 <button md-raised-button class="dwnld_btn" *ngIf="student.hasLicense==true"
-                    (click)="onDownloadLicenseClick(student.idStudent)">Descarca licenta</button>
+                    (click)="onDownloadLicenseClick(student.idStudent)">Descarca lucrare</button>
                 <md-input-container class="entry_input_oral">
                     <input type="text" mdInput placeholder="Nota oral" [(ngModel)]="oralValues[student.idStudent]"
                         [value]="oralValues[student.idStudent]">
