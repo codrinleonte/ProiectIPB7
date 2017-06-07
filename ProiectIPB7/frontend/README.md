@@ -12,7 +12,7 @@ Alte dependente:
 - Cookies - "npm install ng2-cookies"
 - JSPDF - "npm install jspdf"
 - file-saver - "npm install file-saver"
-
+- JSPDF-Autotable - "npm install jspdf-autotable"
 # Rularea proiectului
 
 Server-ul de frontend poate fi executat utilizand comanda "ng serve" din Command Prompt.

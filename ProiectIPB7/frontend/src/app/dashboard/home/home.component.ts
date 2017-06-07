@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { GradeDialogComponent } from "../grade-dialog/grade-dialog.component";
 import { MdDialog } from '@angular/material';
-import jsPDF from 'jspdf';
+import { BackendService } from "app/backend.service";
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+
+declare var jsPDF: any;
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,7 @@ export class HomeComponent {
 
     userClass = 1;
 
-    constructor(public dialog: MdDialog) {}
+    constructor(public dialog: MdDialog, private backendService: BackendService) {}
 
     onStudentCPClick(){
         this.userClass = 1;
@@ -35,14 +38,39 @@ export class HomeComponent {
     }
 
     generateGradesPdf(){
-        let doc = new jsPDF();
-        doc.text(20, 20, 'Exporting pdf information test');
-        doc.save('grades.pdf');
+        let doc = new jsPDF('p', 'pt');
+        let columns = ['Nume', 'Prenume', 'Nota Finala'];
+        let rows = [];
+
+        this.backendService.getStudentGradeList(Cookie.get('sessionId'), 1, 1000).subscribe(
+            data => {
+                for(let i = 0; i < data.length; i++){
+                    let nota;
+                    if(data[i].notaFinala == -1 || data[i].notaFinala == 0){
+                        nota = 'Fara nota';
+                    }
+                    else {
+                        nota = data[i].notaFinala;
+                    }
+
+                    rows.push([data[i].numeStudent, data[i].prenumeStudent, nota]);
+                }
+
+                doc.autoTable(columns, rows);
+                doc.save('grades.pdf');
+            },
+            error => console.log('ERROR: BackendService - getStudentGradeList()')
+        );
     }
 
     generateRepartitionPdf(){
-        let doc = new jsPDF();
-        doc.text(20, 20, 'Exporting pdf information test');
+        let doc = new jsPDF('p', 'pt');
+        let columns = ['Nume', 'Prenume', 'Ora', 'Data', 'Sala'];
+        let rows = [['No Data', 'No Data', 'No Data', 'No Data', 'No Data'],
+            ['No Data', 'No Data', 'No Data', 'No Data', 'No Data'],
+            ['No Data', 'No Data', 'No Data', 'No Data', 'No Data']];
+
+        doc.autoTable(columns, rows);
         doc.save('repartition.pdf');
     }
 }
