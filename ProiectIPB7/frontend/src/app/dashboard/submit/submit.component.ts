@@ -138,7 +138,7 @@ export class SubmitComponent implements OnInit {
                     }
                 }
                 else {
-                    this.snackBar.open("Nu s-a uploadat (lucrare deja uploadata?)" + this.selectedType, '', {duration: 2000});
+                    this.snackBar.open("Nu s-a uploadat (lucrare deja uploadata?)", '', {duration: 2000});
                 }
             },
             error => console.error('ERROR: BackendService - recordLicence()')

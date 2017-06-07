@@ -37,6 +37,12 @@
     margin-left: 250px;
 }
 
+.dwnld_btn{
+    position: absolute;
+    margin: 10px;
+    margin-left: 250px;
+}
+
 .entry_input_oral{
     position: absolute;
     margin: 8px;

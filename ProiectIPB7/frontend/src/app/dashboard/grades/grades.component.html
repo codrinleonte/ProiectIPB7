@@ -13,10 +13,10 @@
                 <td class="info">{{grade.numeStudent}}</td>
                 <td class="info">{{grade.prenumeStudent}}</td>
                 <td class="grade">
-                    <div *ngIf="grade.notaFinala!=-1">
+                    <div *ngIf="grade.notaFinala!=-1 && grade.notaFinala!=0">
                         {{grade.notaFinala}}
                     </div>
-                    <div *ngIf="grade.notaFinala==-1">
+                    <div *ngIf="grade.notaFinala==-1 || grade.notaFinala==0">
                         Fara nota
                     </div>
                 </td>
