@@ -1,20 +1,22 @@
 <md-card class="manage_studs_card">
     <md-toolbar class="card_header"><h4>Management studenti indrumati</h4></md-toolbar>
     <md-card-content class="content">
+        <!--
         <div class="add_student">
             <md-input-container id="stud_address_input">
                 <input type="text" mdInput placeholder="Adresa email student" [(ngModel)]="addStudentEmail" [value]="addStudentEmail">
             </md-input-container>
             <button md-raised-button class="register_btn" (click)="onAddStudentClick()">Adauga student</button>
         </div>
+        -->
         <div class="student_entry" *ngFor="let student of students">
-            <p class="student_entry_name" mdTooltip="Note oral: [{{student.nota1oral}},
-                              {{student.nota2oral}}, {{student.nota3oral}}, {{student.nota4oral}}] Note proiect: [
-                              {{student.nota1project}}, {{student.nota2project}}, {{student.nota3project}},
-                              {{student.nota4project}}] Nota finala: {{student.notaFinala}}" [mdTooltipPosition]="'after'">
+            <p class="student_entry_name" >
                 {{student.numeStudent}} {{student.prenumStudent}}
             </p>
-            <p class="delete_btn" id="{{student.idStudent}}" (click)="onRemoveStudentClick($event)">X</p>
+            <p class="delete_btn" id="{{student.idStudent}}" mdTooltip="Note oral: [{{student.nota1oral}},
+                              {{student.nota2oral}}, {{student.nota3oral}}, {{student.nota4oral}}] Note proiect: [
+                              {{student.nota1project}}, {{student.nota2project}}, {{student.nota3project}},
+                              {{student.nota4project}}] Nota finala: {{student.notaFinala}}" [mdTooltipPosition]="'below'">i</p>
         </div>
     </md-card-content>
 </md-card>
