@@ -83,36 +83,41 @@ public class AccessAdminBD extends AccessBD {
 	}
 	
 	public int setComisieProfesor(int idProfesor, int idComisie) {
-		try{
-			if (idProfesor < 0 || idComisie <0)
-				return -7;
-			
-			Statement statement = conexiune.createStatement();
-			statement.executeUpdate("UPDATE profesori set id_comisie="+idComisie+" where id="+idProfesor);
-			statement.close();
-			
-			statement = conexiune.createStatement();
-			ResultSet result = statement.executeQuery("Select id,id_student from licente where id_profesor="+idProfesor);
-			while(result.next())
-			{
-				Statement statementLoop = conexiune.createStatement();
-				statementLoop.executeUpdate("UPDATE studenti set id_comisie="+idComisie+" where id="+result.getInt(2));
-				statementLoop.close();
-				
-				statementLoop = conexiune.createStatement();
-				statementLoop.executeUpdate("UPDATE detalii_licente set id_comisie="+idComisie+" where id="+result.getInt(1));
-				statementLoop.close();
-				
-			}
-			
-			return 0;
-		
-		}
-		catch( Exception e ){
-			System.out.println("Exceptie la setComisieProfesor: "+e.getMessage());
-			return -7;
-		}
-	}
+        try {
+            Statement statement = conexiune.createStatement();
+            String sql = new String();
+            if(idComisie == 0){
+                sql = "UPDATE profesori set id_comisie = null where id = " + idProfesor;
+                }
+             else
+                sql = "UPDATE profesori set id_comisie=" + idComisie + " where id=" + idProfesor;
+            
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            
+            statement.close();
+
+
+            statement = conexiune.createStatement();
+            ResultSet result = statement.executeQuery("Select id,id_student from licente where id_profesor=" + idProfesor);
+            while (result.next()) {
+                Statement statementLoop = conexiune.createStatement();
+                statementLoop.executeUpdate("UPDATE studenti set id_comisie=" + idComisie + " where id=" + result.getInt(2));
+                statementLoop.close();
+
+                statementLoop = conexiune.createStatement();
+                statementLoop.executeUpdate("UPDATE detalii_licente set id_comisie=" + idComisie + " where id=" + result.getInt(1));
+                statementLoop.close();
+            }
+
+
+            return 0;
+
+       	   } catch (Exception e) {
+        	    System.out.println("Exceptie la setComisieProfesor: " + e.getMessage());
+            	    return -7;
+        }
+       }
 	
 	public int setMembruComisie( int pozitie , int idComisie, int idProfesor ){
 		if(pozitie<1 || pozitie>4 ) return -2; // pozitie invalida
