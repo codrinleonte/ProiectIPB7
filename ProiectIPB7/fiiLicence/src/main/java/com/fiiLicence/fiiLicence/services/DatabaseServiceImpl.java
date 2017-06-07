@@ -327,33 +327,14 @@ public class DatabaseServiceImpl implements DatabaseService {
     Input:  - id_comisie (Integer)
     Output: - Lista de profesori din acea comisie
     (o lista cu id-urile acestora este destul, se poate folosi metoda nr. 5 pentru alte informatii).*/
-
-    @Override
+  @Override
     public List<IdResponse> getProfsFromCommitte(int idCommitte) {
         AccessBD access = bd.login("Admin", "Root");
         AccessAdminBD accessAdmin = ((AccessAdminBD) access);
-        IntrareComisii comisie = accessAdmin.getCommitteeById(idCommitte);
-        List<Integer> idProfiComisie = new ArrayList<Integer>();
-
-        idProfiComisie.add(comisie.getIdProfSef()); // la indexul 0 se va afla
-        // id-ul Sefului de comisie
-        idProfiComisie.add(comisie.getIdProf2());// la indexul 1 se va afla
-        // id-ul profului2
-        idProfiComisie.add(comisie.getIdProf3());// la indexul 0 se va afla
-        // id-ul profului3
-
-        if (comisie.getIdProf4() != 0) // daca exista al 4 lea
-            // profesor(dizertatie) => id_ul
-            // profului 4 la indexul3
-            idProfiComisie.add(comisie.getIdProf4());
-
-        List<IdResponse> result = new ArrayList<IdResponse>();
-        for (int index = 0, size = idProfiComisie.size(); index < size; index++) {
-            IdResponse idRes = new IdResponse();
-            idRes.setId(idProfiComisie.get(index));
-            result.add(idRes);
-        }
-        return result;
+    
+        List<IdResponse> idProfiComisie=accessAdmin.getProfsListId(idCommitte);
+        
+        return idProfiComisie;
     }
 
     /*
